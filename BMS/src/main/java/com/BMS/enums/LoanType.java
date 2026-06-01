@@ -1,8 +1,8 @@
 package com.BMS.enums;
 
 public enum LoanType {
-    HOME_LONE,
-    CAR_LONE,
+    HOME_LOAN,
+    CAR_LOAN,
     GOLD_LONE,
-    PERSONAL_LONE
+    PERSONAL_LOAN
 }

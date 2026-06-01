@@ -20,7 +20,7 @@ public class CustomerMappper {
         return customer;}
 
     public CustomerDto mapCustomerDto(Customer customer) {
-        return new CustomerDto(customer.getId(),customer.getName(),customer.getEmail(),customer.getGender(),customer.getDob(),customer.getPhonenumber(),customer.getAadharno(),customer.getPanno());
+        return new CustomerDto(customer.getId(),customer.getName(),customer.getEmail(),customer.getGender(),customer.getDob(),customer.getPhonenumber(),customer.getAadharno(),customer.getPanno(),customer.getLocation());
     }
     public LoanApplication mapToLoanApp(loanDto loanDto){
         LoanApplication loanApplication=new LoanApplication();

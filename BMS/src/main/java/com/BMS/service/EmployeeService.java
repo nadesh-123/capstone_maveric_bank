@@ -1,7 +1,13 @@
 package com.BMS.service;
 
+import com.BMS.DTO.AccountDTO;
+import com.BMS.DTO.BranchDto;
+import com.BMS.DTO.CustomerDto;
 import com.BMS.Exception.ResourceNotFoundException;
+import com.BMS.enums.Status;
 import com.BMS.model.Account;
+import com.BMS.model.Branch;
+import com.BMS.model.Customer;
 import com.BMS.model.Employee;
 import com.BMS.repository.AccountRepository;
 import com.BMS.repository.EmployeeRepository;
@@ -15,6 +21,9 @@ import java.util.List;
 public class EmployeeService {
 EmployeeRepository employeeRepository;
 AccountRepository accountRepository;
+AccountService accountService;
+CustomerService customerService;
+BranchService branchService;
     public Employee getEmployeeId(int empid) {
         return  employeeRepository.findById(empid).orElseThrow(()->new ResourceNotFoundException("Invalid employee id"));
     }
@@ -40,5 +49,22 @@ AccountRepository accountRepository;
         Employee employee=getEmployeeId(empId);
             employeeRepository.delete(employee);
 
+    }
+
+    public List<AccountDTO> getByStatus(Status status) {
+       return accountService.getByStatus(status);
+    }
+    public void addEmployeeToAccount(int empid, int accountid) {
+        Account account= accountService.getAccountById(accountid);
+        Customer customer=account.getCustomer();
+        Branch branch=branchService.getBranchByLocation(customer.getLocation());
+        account.setBranch(branch);
+        account.setEmployee(getEmployeeId(empid));
+        account.setStatus(Status.ACTIVE);
+        accountRepository.save(account);
+    }
+
+    public CustomerDto getCustomerById(int customerId) {
+      return   customerService.getCustomerById(customerId);
     }
 }

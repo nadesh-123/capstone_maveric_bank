@@ -1,6 +1,7 @@
 package com.BMS.model;
 
 import com.BMS.enums.Gender;
+import com.BMS.enums.Location;
 import com.BMS.enums.Status;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -33,6 +34,8 @@ public class Customer {
     private String phonenumber;
     private String aadharno;
     private String panno;
+    @Enumerated(EnumType.STRING)
+    private Location location;
     @CreationTimestamp
     private Instant createdDate;
     @UpdateTimestamp

@@ -38,18 +38,22 @@ JwtFilter jwtFilter;
                         .sessionCreationPolicy(org.springframework.security.config.http.SessionCreationPolicy.STATELESS)
                 )
                 .authorizeHttpRequests(authorize -> authorize
-                               .requestMatchers(HttpMethod.GET, "/api/loginv2").authenticated()
-                        .requestMatchers(HttpMethod.GET, "/api/emp/loginv2").authenticated()
+                               .requestMatchers(HttpMethod.GET, "/api/loan/calculate-emi/{applicationId}").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/user/loginv2").authenticated()
+                        .requestMatchers(HttpMethod.POST, "/api/loan-application/apply").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/user/emp/loginv2").authenticated()
                                 .requestMatchers(HttpMethod.GET, "/api/account/get/account/unapproved").authenticated()
                                 .requestMatchers(HttpMethod.GET, "/api/account/getAccounts/{customerId}").authenticated()
                         .requestMatchers(HttpMethod.GET, "/api/getCustomer/user-id/{userId}").hasAuthority("EMPLOYEE")
                         .requestMatchers(HttpMethod.PUT, "/api/account/approve/{accNo}/{empId}").hasAuthority("EMPLOYEE")
                                 .requestMatchers(HttpMethod.POST, "/api/account/add/customer").authenticated()
+
                                 .requestMatchers(HttpMethod.POST, "/api/createUser").permitAll()
                                 .requestMatchers(HttpMethod.POST, "/api/customer/addCustomer").permitAll()
                                 .requestMatchers(HttpMethod.POST, "/admin/add-employee").hasAuthority("ADMIN")
                                 .requestMatchers(HttpMethod.POST, "/admin/add-admin").permitAll()
                                 .requestMatchers(HttpMethod.GET,"/api/account/getAccounts/{customerId}").authenticated()
+
                         .anyRequest().authenticated()
                 );
 

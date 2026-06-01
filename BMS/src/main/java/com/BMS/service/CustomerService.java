@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
 @Service
 @AllArgsConstructor
 public class CustomerService {
-    LoanApplicationService loanApplicationService;
+
     CustomerRepository customerRepository;
     CustomerMappper customerMappper;
     UserService userService;
@@ -28,7 +28,7 @@ public class CustomerService {
 
     public void createCustomer(CustomerDto customerDto) {
         Customer customer=customerMappper.mapCustomer(customerDto);
-        System.out.println(customerDto.userid());
+
         customer.setUser(userService.findById(customerDto.userid()));
         customer.setStatus(Status.ACTIVE);
         customerRepository.save(customer);
@@ -44,11 +44,7 @@ public class CustomerService {
         return  customerRepository.findById(customerId).orElseThrow(()->new ResourceNotFoundException("invalid cus id"));
     }
 
-    public void addLoanApplication(loanDto loanDto, int accno, int cusId) {
-       LoanApplication loanApplication =customerMappper.mapToLoanApp(loanDto);
-       loanApplication.setLoanStatus(LoanStatus.PENDING);
-      loanApplicationService.addApplication(loanApplication);
-    }
+
 
     public void addBenficiary(int accno, BenficiaryDto benficiaryDto) {
         Beneficiary beneficiary=new Beneficiary();
@@ -68,11 +64,11 @@ public class CustomerService {
       return   benficiaryService.getBenficiaryById(benId);
     }
 
-    public void deleteLoanApplication(int loanAppId) {
-        loanApplicationService.deleteLoanApplication(loanAppId);
-    }
-
-    public LoanAppDto applicationById(int loanAppId) {
-       return loanApplicationService.getLoanApplication(loanAppId);
-    }
+//    public void deleteLoanApplication(int loanAppId) {
+//        loanApplicationService.deleteLoanApplication(loanAppId);
+//    }
+//
+//    public LoanAppDto applicationById(int loanAppId) {
+//       return loanApplicationService.getLoanApplication(loanAppId);
+//    }
 }

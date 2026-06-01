@@ -13,17 +13,14 @@ public class CustomerController {
     CustomerService customerService;
     @PostMapping("/api/customer/addCustomer")
     public void createCustomer(@RequestBody CustomerDto customerDto){
-        System.out.println(customerDto);
+            System.out.println(customerDto);
         customerService.createCustomer(customerDto);
     }
-    @GetMapping("/api/getCustomer/user-id/{customerId}")
-    public CustomerDto getCustomerId(@PathVariable int customerId){
-        return customerService.getCustomerById(customerId);
-    }
-    @PostMapping("/api/customer/loan")
-    public void addLoanApplication(@RequestBody loanDto loanDto,@PathVariable int accno,@PathVariable int cusId){
-        customerService.addLoanApplication(loanDto,accno,cusId);
-    }
+
+//    @PostMapping("/api/customer/loan")
+//    public void addLoanApplication(@RequestBody loanDto loanDto,@PathVariable int accno,@PathVariable int cusId){
+//        customerService.addLoanApplication(loanDto,accno,cusId);
+//    }
     @PostMapping("/api/customer/benficiary")
     public void addBenficiary(@PathVariable int accno,@RequestBody BenficiaryDto benficiaryDto){
         customerService.addBenficiary(accno,benficiaryDto);
@@ -36,12 +33,12 @@ public class CustomerController {
     public Beneficiary getBenficiaryById(@PathVariable int benId){
         return customerService.getBenficiaryById(benId);
     }
-    @DeleteMapping("/api/customer/closeLoanApplication")
-    public void closeLoanApplication(@PathVariable int loanAppId){
-        customerService.deleteLoanApplication(loanAppId);
-    }
-    @GetMapping("/api/customer/get-loan-application/{loanAppId}")
-    public LoanAppDto getApplicationById(@PathVariable int loanAppId){
-      return   customerService.applicationById(loanAppId);
-    }
+//    @DeleteMapping("/api/customer/closeLoanApplication")
+//    public void closeLoanApplication(@PathVariable int loanAppId){
+//        customerService.deleteLoanApplication(loanAppId);
+//    }
+//    @GetMapping("/api/customer/get-loan-application/{loanAppId}")
+//    public LoanAppDto getApplicationById(@PathVariable int loanAppId){
+//      return   customerService.applicationById(loanAppId);
+//    }
 }

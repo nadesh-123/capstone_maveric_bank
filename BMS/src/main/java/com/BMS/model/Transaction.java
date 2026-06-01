@@ -3,48 +3,27 @@ package com.BMS.model;
 import com.enums.TransactionStatus;
 import com.enums.TransactionType;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
+@Getter
+@Setter
+
 public class Transaction {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @ManyToOne
-    private Account account;
+
     @Enumerated(EnumType.STRING)
     private TransactionType transactionType;
+    @ManyToOne
+    private Account sourceAccount;
+    @ManyToOne
+    private Account targetAccount;
     private double amount;
     @Enumerated(EnumType.STRING)
     private TransactionStatus transactionStatus;
 
-    public int getId() {
-        return id;
-    }
 
-    public Account getAccount() {
-        return account;
-    }
-
-    public TransactionType getTransactionType() {
-        return transactionType;
-    }
-
-    public double getAmount() {
-        return amount;
-    }
-
-    public TransactionStatus getTransactionStatus() {
-        return transactionStatus;
-    }
-
-    @Override
-    public String toString() {
-        return "Transaction{" +
-                "id=" + id +
-                ", account=" + account +
-                ", transactionType=" + transactionType +
-                ", amount=" + amount +
-                ", transactionStatus=" + transactionStatus +
-                '}';
-    }
 }

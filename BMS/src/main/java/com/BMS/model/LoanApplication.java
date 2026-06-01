@@ -17,19 +17,18 @@ public class LoanApplication {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-
     @ManyToOne
-    @JoinColumn(name = "account_id", nullable = false)
-    private Account account;
-
+    private Account disbursementAccount;
     @Enumerated(EnumType.STRING)
-
     private LoanType loneType;
-
+    private double requestedAmount;
+    private int tenureYears;
+    private String purpose;
+    private double monthlyIncome;
     @Enumerated(EnumType.STRING)
-
     private LoanStatus loanStatus;
-
     @CreationTimestamp
     private Instant application_date;
+    @ManyToOne
+    private Employee employee;
 }

@@ -38,7 +38,7 @@ console.log(formData);
     const encodedCredentials = btoa(credentials);
 
     // 3. Send the GET or POST request depending on your backend configuration
-    const response = await fetch('http://localhost:8080/api/emp/loginv2', {
+    const response = await fetch('http://localhost:8080/api/user/emp/loginv2', {
       method: 'GET', // Keep as POST if your backend expects a POST to verify login
       headers: {
         'Content-Type': 'application/json',

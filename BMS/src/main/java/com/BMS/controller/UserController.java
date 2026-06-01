@@ -24,7 +24,7 @@ public class UserController {
     UserService userService;
     CustomerService customerService;
     UserMapper userMapper;
-    @PostMapping("/api/createUser")
+    @PostMapping("/api/user/createUser")
     public UserDtoNoPassword addUser(@RequestBody UserDto userDto){
         return userService.addUser(userDto);
 
@@ -42,11 +42,11 @@ public class UserController {
         String username=principal.getName();
         User user=  userService.findByUsername(username).orElseThrow(()->new ResourceNotFoundException("Invalid user name"));
         String token = jwtUtility.generateToken(username);
-        //need to be added importand
+
      Customer customer= customerService.getCustomerIdByUserId(user.getId());
      return userMapper.maptoCustUserDto(user,customer,token);
      }
-    @GetMapping("/api/emp/loginv2")
+    @GetMapping("/api/user/emp/loginv2")
     public UserEmployeeDto Employeelogin(Principal principal){
         String username=principal.getName();
         User user=  userService.findByUsername(username).orElseThrow(()->new ResourceNotFoundException("Invalid user name"));

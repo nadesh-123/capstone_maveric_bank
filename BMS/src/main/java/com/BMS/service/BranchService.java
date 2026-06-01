@@ -2,6 +2,7 @@ package com.BMS.service;
 
 import com.BMS.DTO.BranchDto;
 import com.BMS.Exception.ResourceNotFoundException;
+import com.BMS.enums.Location;
 import com.BMS.mapper.BranchMapper;
 import com.BMS.model.Branch;
 import com.BMS.repository.BranchRepository;
@@ -25,5 +26,10 @@ BranchMapper branchMapper;
 
     public void removeBranch(int branchId) {
         branchRepository.delete(branchRepository.findById(branchId).orElseThrow(()->new ResourceNotFoundException("invalid branch id")));
+    }
+
+    public Branch getBranchByLocation(Location location) {
+     Branch branch=   branchRepository.findByLocation(location);
+        return branch;
     }
 }

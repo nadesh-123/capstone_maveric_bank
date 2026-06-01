@@ -1,6 +1,7 @@
 package com.BMS.DTO;
 
 import com.BMS.enums.Gender;
+import com.BMS.enums.Location;
 
 import java.time.LocalDate;
 
@@ -11,7 +12,8 @@ public record CustomerDto(int userid,
                           LocalDate dob,
                           String phonenumber,
                           String aadharno,
-                          String panno) {
+                          String panno,
+                          Location location) {
 }
 /*
 * private User user;
