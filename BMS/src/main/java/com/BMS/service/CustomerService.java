@@ -1,0 +1,77 @@
+package com.BMS.service;
+
+import com.BMS.DTO.*;
+import com.BMS.Exception.ResourceNotFoundException;
+import com.BMS.enums.LoanStatus;
+import com.BMS.enums.Status;
+import com.BMS.mapper.CustomerMappper;
+import com.BMS.model.Customer;
+import com.BMS.model.LoanApplication;
+import com.BMS.model.User;
+import com.BMS.repository.CustomerRepository;
+import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Service;
+
+@Service
+@AllArgsConstructor
+public class CustomerService {
+    LoanApplicationService loanApplicationService;
+    CustomerRepository customerRepository;
+    CustomerMappper customerMappper;
+    UserService userService;
+
+    BenficiaryService benficiaryService;
+    public CustomerDto getCustomerById(int customerId) {
+       Customer customer= customerRepository.findById(customerId).orElseThrow(()->new RuntimeException("invalid customer id"));
+      return customerMappper.mapCustomerDto(customer);
+    }
+
+    public void createCustomer(CustomerDto customerDto) {
+        Customer customer=customerMappper.mapCustomer(customerDto);
+        customer.setUser(userService.findById(customerDto.userId()));
+        customer.setStatus(Status.ACTIVE);
+        customerRepository.save(customer);
+    }
+
+    public Customer getCustomerIdByUserId(int userId) {
+        User user=userService.findById(userId);
+       Customer customer=customerRepository.findByUserId(userId).orElseThrow(()->new ResourceNotFoundException("customer is not added"));
+       return customer;
+    }
+
+    public Customer getCustomerByIdCustomer(int customerId) {
+        return  customerRepository.findById(customerId).orElseThrow(()->new ResourceNotFoundException("invalid cus id"));
+    }
+
+    public void addLoanApplication(loanDto loanDto, int accno, int cusId) {
+       LoanApplication loanApplication =customerMappper.mapToLoanApp(loanDto);
+       loanApplication.setLoanStatus(LoanStatus.PENDING);
+      loanApplicationService.addApplication(loanApplication);
+    }
+
+    public void addBenficiary(int accno, BenficiaryDto benficiaryDto) {
+        Beneficiary beneficiary=new Beneficiary();
+
+
+        beneficiary.setIfsccode(benficiaryDto.ifsccode());
+        benficiaryService.addBenficiary(beneficiary,accno);
+    }
+
+    public void deleteBenficiary(int benId) {
+        benficiaryService.deleteBenficiary(benId);
+
+
+    }
+
+    public Beneficiary getBenficiaryById(int benId) {
+      return   benficiaryService.getBenficiaryById(benId);
+    }
+
+    public void deleteLoanApplication(int loanAppId) {
+        loanApplicationService.deleteLoanApplication(loanAppId);
+    }
+
+    public LoanAppDto applicationById(int loanAppId) {
+       return loanApplicationService.getLoanApplication(loanAppId);
+    }
+}
