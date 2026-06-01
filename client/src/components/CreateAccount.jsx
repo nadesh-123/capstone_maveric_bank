@@ -23,7 +23,7 @@ const navigate=useNavigate();
     console.log("hit")
     const payload = { accountType: formData.accountType };
     console.log(formData)
-   try { const response = await fetch( `http://localhost:8080/api/account/add/customer?branchName=Mumbai Main Branch&customerId=33`, 
+   try { const response = await fetch( `http://localhost:8080/api/account/add/customer?branchName=${formData.branch}&customerId=${user.cusid}`, 
     { method: "POST",
        headers: { "Authorization": `Bearer ${user.token}`,
          "Content-Type": "application/json" },

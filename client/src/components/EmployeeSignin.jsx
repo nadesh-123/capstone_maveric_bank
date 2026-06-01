@@ -5,7 +5,7 @@ import { useDispatch } from "react-redux";
 import { setUser } from "../redux/userSlice";
 import { useSelector } from 'react-redux';
 
-export default function SigninForm() {
+export default function EmployeeSignin() {
   const [formData, setFormData] = useState({
     username: '',
     password: ''
@@ -14,7 +14,7 @@ export default function SigninForm() {
   useEffect(() => {
   console.log(user.id);
   console.log(user.username);
-  console.log(user.cusid);
+  
 }, [user]);
 
   const navigate=useNavigate();
@@ -38,7 +38,7 @@ console.log(formData);
     const encodedCredentials = btoa(credentials);
 
     // 3. Send the GET or POST request depending on your backend configuration
-    const response = await fetch('http://localhost:8080/api/loginv2', {
+    const response = await fetch('http://localhost:8080/api/emp/loginv2', {
       method: 'GET', // Keep as POST if your backend expects a POST to verify login
       headers: {
         'Content-Type': 'application/json',
@@ -50,8 +50,7 @@ console.log(formData);
     if (response.ok) {
       const data = await response.json();
       console.log("Login successful:");
-      if(data.role==="CUSTOMER"){
-        navigate("/Home"); }
+     
         if(data.role==="EMPLOYEE"){
           navigate("/employee-dashboard");
         }
@@ -60,7 +59,7 @@ console.log(formData);
         setUser({
           id: data.userId,
           username: data.username,
-          cusid: data.cusId,
+          
           token:data.token
         })
       );
@@ -92,7 +91,7 @@ console.log(formData);
         {/* Header */}
         <div className="mb-8 text-center">
           <h2 className="text-3xl font-bold tracking-tight text-slate-800">
-            Welcome Back
+            Employee SignIn
           </h2>
           <p className="mt-2 text-sm text-slate-500">
             Sign in to access your account.

@@ -4,7 +4,7 @@ import com.BMS.enums.Gender;
 
 import java.time.LocalDate;
 
-public record CustomerDto(int userId,
+public record CustomerDto(int userid,
                           String fullname,
                           String email,
                           Gender gender,

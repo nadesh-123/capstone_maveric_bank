@@ -17,7 +17,7 @@ const [isCustomerModalOpen, setIsCustomerModalOpen] = useState(false);
 const handleShowCustomerDetails = async (customerId) => {
   try {
     // Dynamically appends the row's customer ID to your absolute link route
-    const response = await fetch(`http://localhost:8080/api/getCustomer/user-id/${customerId}/${user.id}`, {
+    const response = await fetch(`http://localhost:8080/api/getCustomer/user-id/${customerId}`, {
       method: "GET",
       headers: {"Authorization": `Bearer ${user.token}`,
         "Content-Type": "application/json"

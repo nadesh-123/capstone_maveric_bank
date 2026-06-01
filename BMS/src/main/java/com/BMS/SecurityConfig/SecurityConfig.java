@@ -39,7 +39,8 @@ JwtFilter jwtFilter;
                 )
                 .authorizeHttpRequests(authorize -> authorize
                                .requestMatchers(HttpMethod.GET, "/api/loginv2").authenticated()
-                                .requestMatchers(HttpMethod.GET, "/api/account/get/account/unapproved").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/emp/loginv2").authenticated()
+                                .requestMatchers(HttpMethod.GET, "/api/account/get/account/unapproved").authenticated()
                                 .requestMatchers(HttpMethod.GET, "/api/account/getAccounts/{customerId}").authenticated()
                         .requestMatchers(HttpMethod.GET, "/api/getCustomer/user-id/{userId}").hasAuthority("EMPLOYEE")
                         .requestMatchers(HttpMethod.PUT, "/api/account/approve/{accNo}/{empId}").hasAuthority("EMPLOYEE")

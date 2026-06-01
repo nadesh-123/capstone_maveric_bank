@@ -28,7 +28,8 @@ public class CustomerService {
 
     public void createCustomer(CustomerDto customerDto) {
         Customer customer=customerMappper.mapCustomer(customerDto);
-        customer.setUser(userService.findById(customerDto.userId()));
+        System.out.println(customerDto.userid());
+        customer.setUser(userService.findById(customerDto.userid()));
         customer.setStatus(Status.ACTIVE);
         customerRepository.save(customer);
     }

@@ -13,9 +13,10 @@ public class CustomerController {
     CustomerService customerService;
     @PostMapping("/api/customer/addCustomer")
     public void createCustomer(@RequestBody CustomerDto customerDto){
+        System.out.println(customerDto);
         customerService.createCustomer(customerDto);
     }
-    @GetMapping("/api/getCustomer/user-id/{userId}")
+    @GetMapping("/api/getCustomer/user-id/{customerId}")
     public CustomerDto getCustomerId(@PathVariable int customerId){
         return customerService.getCustomerById(customerId);
     }

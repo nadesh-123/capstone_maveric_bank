@@ -3,6 +3,7 @@ package com.BMS.controller;
 import com.BMS.DTO.CustUserDto;
 import com.BMS.DTO.UserDto;
 import com.BMS.DTO.UserDtoNoPassword;
+import com.BMS.DTO.UserEmployeeDto;
 import com.BMS.Exception.ResourceNotFoundException;
 import com.BMS.mapper.UserMapper;
 import com.BMS.model.Customer;
@@ -42,7 +43,16 @@ public class UserController {
         User user=  userService.findByUsername(username).orElseThrow(()->new ResourceNotFoundException("Invalid user name"));
         String token = jwtUtility.generateToken(username);
         //need to be added importand
-     //   Customer customer= customerService.getCustomerIdByUserId(user.getId());
-     return userMapper.maptoCustUserDto(user,null,token);
+     Customer customer= customerService.getCustomerIdByUserId(user.getId());
+     return userMapper.maptoCustUserDto(user,customer,token);
      }
+    @GetMapping("/api/emp/loginv2")
+    public UserEmployeeDto Employeelogin(Principal principal){
+        String username=principal.getName();
+        User user=  userService.findByUsername(username).orElseThrow(()->new ResourceNotFoundException("Invalid user name"));
+        String token = jwtUtility.generateToken(username);
+        //need to be added importand
+        //Customer customer= customerService.getCustomerIdByUserId(user.getId());
+        return userMapper.mapToUserEmployeeDto(user,token);
+    }
 }

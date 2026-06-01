@@ -3,6 +3,7 @@ package com.BMS.mapper;
 import com.BMS.DTO.CustUserDto;
 import com.BMS.DTO.UserDto;
 import com.BMS.DTO.UserDtoNoPassword;
+import com.BMS.DTO.UserEmployeeDto;
 import com.BMS.model.Customer;
 import com.BMS.model.User;
 import lombok.AllArgsConstructor;
@@ -24,6 +25,9 @@ public class UserMapper {
         return  new UserDtoNoPassword(user.getId(),user.getUsername());
     }
     public CustUserDto maptoCustUserDto(User user, Customer customer,String token){
-        return new CustUserDto(user.getId(),user.getUsername(),24,token);
+        return new CustUserDto(user.getId(),user.getRole(),user.getUsername(), customer.getId(), token);
+    }
+    public UserEmployeeDto mapToUserEmployeeDto(User user,String token){
+        return new UserEmployeeDto(user.getId(),user.getRole(),user.getUsername(),token);
     }
 }

@@ -104,7 +104,7 @@ console.log(payload);
      
       
     } else {
-      alert("Failed to Add Customer");
+      console.log("Failed to Add Customer",response);
     }
 
   } catch (error) {

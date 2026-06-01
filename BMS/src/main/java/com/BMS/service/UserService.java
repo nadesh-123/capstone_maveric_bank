@@ -37,7 +37,14 @@ public UserDtoNoPassword userByName(String username){
 //    }
 
     public User findById(int userid) {
-       return userRepository.findById(userid).orElseThrow(()-> new ResourceNotFoundException("Invalid userId"));
+        try{
+         User user1=   userRepository.findById(userid).orElseThrow(()->new ResourceNotFoundException("invalid id from findById"));
+         return  user1;
+        }
+      catch (Exception e){
+          System.out.println(e.getMessage());
+      }
+        return null;
     }
 
 

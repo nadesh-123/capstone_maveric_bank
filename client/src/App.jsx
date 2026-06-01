@@ -11,6 +11,7 @@ import CustomerDetails from './components/CustomerDetails.jsx'
 import MavericBankHome from './pages/MavericBankHome.jsx'
 import CreateAccount from './components/CreateAccount.jsx'
 import AccountList from './components/AccountList.jsx'
+import EmployeeSignin from './components/EmployeeSignin.jsx'
 import EmployeeDashboard from './pages/EmployeeDashboard.jsx'
 function App() {
  
@@ -24,6 +25,7 @@ function App() {
     <Route path="/land" element={<BankHomePage />} />
      <Route path="/customerDetails" element={<CustomerDetails />} />
       <Route path="/signin" element={<SigninForm />} />
+      <Route path="/emp-signin" element={<EmployeeSignin />} />
       <Route path="/signup" element={<UserCustomer />} />
        <Route path="/accountList" element={<AccountList />} />
     </Routes>
