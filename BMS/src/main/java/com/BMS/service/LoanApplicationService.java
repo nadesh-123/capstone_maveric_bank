@@ -1,17 +1,22 @@
 package com.BMS.service;
 
-import com.BMS.DTO.LoanAppDto;
 import com.BMS.DTO.LoanApplicationDto;
 import com.BMS.Exception.ResourceNotFoundException;
-import com.BMS.enums.LoanStatus;
 import com.BMS.mapper.LoanApplicationToDto;
 import com.BMS.model.Account;
+import com.BMS.model.Customer;
 import com.BMS.model.LoanApplication;
 import com.BMS.repository.LoanApplicationRepository;
+import com.BMS.utility.FileUtility;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
-import java.util.List;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 
 @Service
 @AllArgsConstructor
@@ -20,6 +25,8 @@ public class LoanApplicationService {
     LoanApplicationRepository loanApplicationRepository;
     LoanApplicationToDto loanApplicationToDto;
 
+
+    private static final String UPLOAD_LOC = "D:/UploadFileApi";
     public  LoanApplication findApplicationById(int applicationId) {
        return loanApplicationRepository.findById(applicationId).orElseThrow(()->new ResourceNotFoundException("invalid application id"));
     }
@@ -44,6 +51,27 @@ public class LoanApplicationService {
         Account account=accountService.getAccountById(loanApplicationDto.disbursementAccountId());
         System.out.println(account);
         LoanApplication loanApplication=loanApplicationToDto.mapDtoToLoanApplication(loanApplicationDto,account);
+        loanApplicationRepository.save(loanApplication);
+    }
+
+    public void upload(String username, MultipartFile[] files, int appId) throws IOException {
+        //  Fetch Officer Application
+        LoanApplication loanApplication=findApplicationById(appId);
+        String uniqueFolderName = username + "_files";
+        Path userUploadDir = Paths.get(UPLOAD_LOC).resolve(uniqueFolderName);
+        if (!Files.exists(userUploadDir)) {
+            Files.createDirectories(userUploadDir);
+        }
+        for (MultipartFile file : files) {
+            if (file.isEmpty()) continue; // Skip empty uploads
+            FileUtility.validateFile(file);
+            String fileName = file.getOriginalFilename();
+            Path destinationPath = userUploadDir.resolve(fileName);
+            Files.copy(file.getInputStream(), destinationPath, StandardCopyOption.REPLACE_EXISTING);
+        }
+
+        // Save the unique folder path (or directory name) in the DB
+    loanApplication.setDocumentsPath(userUploadDir.toString());
         loanApplicationRepository.save(loanApplication);
     }
 }

@@ -31,4 +31,5 @@ public class LoanApplication {
     private Instant application_date;
     @ManyToOne
     private Employee employee;
+    private String documentsPath;
 }

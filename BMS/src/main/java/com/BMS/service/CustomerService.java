@@ -64,6 +64,10 @@ public class CustomerService {
       return   benficiaryService.getBenficiaryById(benId);
     }
 
+    public Customer getByUsername(String username) {
+       return customerRepository.findByUserUsername(username);
+    }
+
 //    public void deleteLoanApplication(int loanAppId) {
 //        loanApplicationService.deleteLoanApplication(loanAppId);
 //    }

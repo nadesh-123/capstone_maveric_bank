@@ -37,7 +37,7 @@ public class UserController {
     public UserDtoNoPassword getUserByName(@RequestParam String username){
         return userService.userByName(username);
     }
-    @GetMapping("/api/loginv2")
+    @GetMapping("/api/user/loginv2")
      public CustUserDto login(Principal principal){
         String username=principal.getName();
         User user=  userService.findByUsername(username).orElseThrow(()->new ResourceNotFoundException("Invalid user name"));

@@ -40,7 +40,9 @@ JwtFilter jwtFilter;
                 .authorizeHttpRequests(authorize -> authorize
                                .requestMatchers(HttpMethod.GET, "/api/loan/calculate-emi/{applicationId}").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/user/loginv2").authenticated()
-                        .requestMatchers(HttpMethod.POST, "/api/loan-application/apply").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/api/loan-application/apply").hasAuthority("CUSTOMER")
+                        .requestMatchers(HttpMethod.POST, "/api/documents/upload/{appId}").hasAuthority("CUSTOMER")
+                        .requestMatchers(HttpMethod.GET, "/api/loan/calculate-emi/{applicationId}").hasAuthority("EMPLOYEE")
                         .requestMatchers(HttpMethod.GET, "/api/user/emp/loginv2").authenticated()
                                 .requestMatchers(HttpMethod.GET, "/api/account/get/account/unapproved").authenticated()
                                 .requestMatchers(HttpMethod.GET, "/api/account/getAccounts/{customerId}").authenticated()
