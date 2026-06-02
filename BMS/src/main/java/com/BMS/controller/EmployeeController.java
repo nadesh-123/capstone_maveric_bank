@@ -12,6 +12,7 @@ import com.BMS.service.LoanApplicationService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
 
 @RestController
@@ -26,18 +27,15 @@ public class EmployeeController {
     Account account=accountService.getAccountById(accno);
     employeeService.closeAccount(account);
 }
-    @GetMapping("/api/emp/account/unapproved")
-    public List<AccountDTO> getInactiveAccounts(){
 
-        return employeeService.getByStatus(Status.INACTIVE);
-    }
     @GetMapping("/api/emp/getCustomer/{customerId}")
     public CustomerDto getCustomerId(@PathVariable int customerId){
         return employeeService.getCustomerById(customerId);
     }
-    @PutMapping("/api/emp/approve/{accountid}/empid")
-    public void addEmployeeToAccount(@RequestParam int empid,@PathVariable int accountid){
-        employeeService.addEmployeeToAccount(empid,accountid);
+    @PutMapping("/api/emp/approve/{accountid}")
+    public void addEmployeeToAccount(@PathVariable int accountid, Principal principal){
+    String username=principal.getName();
+        employeeService.addEmployeeToAccount(username,accountid);
     }
 //@GetMapping("/api/emp/pending-loan-app")
 //    public List<LoanAppDto> getAllPendingLoanApp(){

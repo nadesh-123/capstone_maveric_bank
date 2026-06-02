@@ -34,27 +34,37 @@ JwtFilter jwtFilter;
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .csrf(AbstractHttpConfigurer::disable) /// Spring needs this for POST,PUT & DELETE
                 //.csrf(ref->ref.disable())localhost:8080/api/account/add/customer
-                .sessionManagement(session -> session
-                        .sessionCreationPolicy(org.springframework.security.config.http.SessionCreationPolicy.STATELESS)
-                )
+
                 .authorizeHttpRequests(authorize -> authorize
-                               .requestMatchers(HttpMethod.GET, "/api/loan/calculate-emi/{applicationId}").permitAll()
+                        //Transaction API
+                        .requestMatchers(HttpMethod.POST, "/api/transaction-Withdraw-Deposit-Transfer").hasAuthority("CUSTOMER")
+                        .requestMatchers(HttpMethod.GET, "/api/transaction/get-transactions").authenticated()
+
                         .requestMatchers(HttpMethod.GET, "/api/user/loginv2").authenticated()
+                        .requestMatchers(HttpMethod.POST, "/api/customer/addCustomer").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/api/account/add/Account").authenticated()
+                        .requestMatchers(HttpMethod.GET,"/api/account/getAccounts").authenticated()
+                        ////LOAN APPLICATION
                         .requestMatchers(HttpMethod.POST, "/api/loan-application/apply").hasAuthority("CUSTOMER")
                         .requestMatchers(HttpMethod.POST, "/api/documents/upload/{appId}").hasAuthority("CUSTOMER")
-                        .requestMatchers(HttpMethod.GET, "/api/loan/calculate-emi/{applicationId}").hasAuthority("EMPLOYEE")
-                        .requestMatchers(HttpMethod.GET, "/api/user/emp/loginv2").authenticated()
-                                .requestMatchers(HttpMethod.GET, "/api/account/get/account/unapproved").authenticated()
-                                .requestMatchers(HttpMethod.GET, "/api/account/getAccounts/{customerId}").authenticated()
-                        .requestMatchers(HttpMethod.GET, "/api/getCustomer/user-id/{userId}").hasAuthority("EMPLOYEE")
-                        .requestMatchers(HttpMethod.PUT, "/api/account/approve/{accNo}/{empId}").hasAuthority("EMPLOYEE")
-                                .requestMatchers(HttpMethod.POST, "/api/account/add/customer").authenticated()
 
-                                .requestMatchers(HttpMethod.POST, "/api/createUser").permitAll()
-                                .requestMatchers(HttpMethod.POST, "/api/customer/addCustomer").permitAll()
-                                .requestMatchers(HttpMethod.POST, "/admin/add-employee").hasAuthority("ADMIN")
-                                .requestMatchers(HttpMethod.POST, "/admin/add-admin").permitAll()
-                                .requestMatchers(HttpMethod.GET,"/api/account/getAccounts/{customerId}").authenticated()
+                        //EMPLOYEE
+                        .requestMatchers(HttpMethod.GET, "/api/user/emp/loginv2").authenticated()
+                        .requestMatchers(HttpMethod.GET, "/api/getCustomer/user-id/{userId}").hasAuthority("EMPLOYEE")
+                        .requestMatchers(HttpMethod.PUT, "/api/account/approve/{accNo}").hasAuthority("EMPLOYEE")
+                        .requestMatchers(HttpMethod.GET, "/api/loan/calculate-emi/{applicationId}").hasAuthority("EMPLOYEE")
+                        .requestMatchers(HttpMethod.GET, "/api/account/unapproved").hasAuthority("EMPLOYEE")//paginated
+                        .requestMatchers(HttpMethod.GET, "/api/loanApplication-pending").hasAuthority("EMPLOYEE")//paginated
+                        .requestMatchers(HttpMethod.GET, "/api/loan/calculate-emi/{applicationId}").permitAll()
+                        .requestMatchers(HttpMethod.PUT, "/api/loan-application/action/{applicationId}").hasAuthority("EMPLOYEE")
+
+
+
+
+                        .requestMatchers(HttpMethod.POST, "/admin/add-employee").hasAuthority("ADMIN")
+                        .requestMatchers(HttpMethod.GET, " /api/admin/get-alL-emp").hasAuthority("ADMIN")//Paginated
+                        .requestMatchers(HttpMethod.POST, "/admin/add-admin").permitAll()
+
 
                         .anyRequest().authenticated()
                 );

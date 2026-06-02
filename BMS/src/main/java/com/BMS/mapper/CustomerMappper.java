@@ -1,23 +1,36 @@
 package com.BMS.mapper;
 
 import com.BMS.DTO.CustomerDto;
+import com.BMS.DTO.UserCutomerDto;
 import com.BMS.DTO.loanDto;
 import com.BMS.model.Customer;
 import com.BMS.model.LoanApplication;
+import com.BMS.model.User;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 @Component
 public class CustomerMappper {
-    public Customer mapCustomer(CustomerDto customerDto){
+    PasswordEncoder passwordEncoder;
+    public Customer mapCustomer(UserCutomerDto userCutomerDto){
         Customer customer=new Customer();
-        customer.setAadharno(customerDto.aadharno());
-        customer.setDob(customerDto.dob());
-        customer.setGender(customerDto.gender());
-        customer.setEmail(customerDto.email());
-        customer.setPhonenumber(customerDto.phonenumber());
-        customer.setPanno(customerDto.panno());
-        customer.setName(customerDto.fullname());
+        customer.setAadharno(userCutomerDto.aadharno());
+        customer.setDob(userCutomerDto.dob());
+        customer.setGender(userCutomerDto.gender());
+        customer.setEmail(userCutomerDto.email());
+        customer.setPhonenumber(userCutomerDto.phonenumber());
+        customer.setPanno(userCutomerDto.panno());
+        customer.setName(userCutomerDto.fullname());
         return customer;}
+
+
+    public User mapToUser(UserCutomerDto userCutomerDto){
+        User user=new User();
+        user.setUsername(userCutomerDto.username());
+        user.setRole(userCutomerDto.role());
+        user.setPassword(passwordEncoder.encode(userCutomerDto.password()));
+        return user;
+    }
 
     public CustomerDto mapCustomerDto(Customer customer) {
         return new CustomerDto(customer.getId(),customer.getName(),customer.getEmail(),customer.getGender(),customer.getDob(),customer.getPhonenumber(),customer.getAadharno(),customer.getPanno(),customer.getLocation());

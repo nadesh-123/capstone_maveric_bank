@@ -2,13 +2,19 @@ package com.BMS.service;
 
 import com.BMS.DTO.LoanApplicationDto;
 import com.BMS.Exception.ResourceNotFoundException;
+import com.BMS.enums.LoanStatus;
 import com.BMS.mapper.LoanApplicationToDto;
 import com.BMS.model.Account;
-import com.BMS.model.Customer;
+import com.BMS.model.Employee;
+import com.BMS.model.Loan;
 import com.BMS.model.LoanApplication;
+import com.BMS.repository.AccountRepository;
 import com.BMS.repository.LoanApplicationRepository;
+import com.BMS.repository.LoanRepository;
 import com.BMS.utility.FileUtility;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -17,6 +23,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.util.List;
 
 @Service
 @AllArgsConstructor
@@ -24,8 +31,8 @@ public class LoanApplicationService {
     AccountService accountService;
     LoanApplicationRepository loanApplicationRepository;
     LoanApplicationToDto loanApplicationToDto;
-
-
+EmployeeService employeeService;
+LoanRepository loanRepository;
     private static final String UPLOAD_LOC = "D:/UploadFileApi";
     public  LoanApplication findApplicationById(int applicationId) {
        return loanApplicationRepository.findById(applicationId).orElseThrow(()->new ResourceNotFoundException("invalid application id"));
@@ -73,5 +80,43 @@ public class LoanApplicationService {
         // Save the unique folder path (or directory name) in the DB
     loanApplication.setDocumentsPath(userUploadDir.toString());
         loanApplicationRepository.save(loanApplication);
+    }
+
+    public List<LoanApplicationDto> allPendingLoanApplications(int page, int size) {
+        Pageable pageable= PageRequest.of(page,size);
+       List<LoanApplication> list= loanApplicationRepository.findByLoanStatus(LoanStatus.PENDING,pageable).getContent();
+       return list.stream().map(k->loanApplicationToDto.mapLoanApplicationToDto(k)).toList();
+    }
+
+    public void actionOnLoanApplication(LoanStatus loanStatus, String username, int applicationId) {
+        LoanApplication loanApplication=findApplicationById(applicationId);
+        Employee employee=employeeService.getEmpByUserName(username);
+        loanApplication.setLoanStatus(LoanStatus.REJECTED);
+        switch (loanStatus.toString()){
+            case "REJECTED":
+
+                loanApplication.setEmployee(employee);
+                break;
+
+            case "APPROVED":
+                loanApplication.setLoanStatus(LoanStatus.APPROVED);
+                break;
+
+            case "DISBURSED":
+                loanApplication.setLoanStatus(LoanStatus.DISBURSED);
+              Account account= loanApplication.getDisbursementAccount();
+              account.setBalance(account.getBalance()+loanApplication.getRequestedAmount());
+              accountService.saveLoanAccount(account);
+              loanApplicationRepository.save(loanApplication);
+                Loan loan=new Loan();
+                loan.setLoanType(loanApplication.getLoneType());
+                loan.setAccount(loanApplication.getDisbursementAccount());
+                loan.setStatus(LoanStatus.DISBURSED);
+                loan.setTenureYears(loanApplication.getTenureYears());
+            loanRepository.save(loan);
+              break;
+        }
+
+
     }
 }

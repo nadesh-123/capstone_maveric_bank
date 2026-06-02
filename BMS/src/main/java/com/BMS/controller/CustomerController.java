@@ -12,9 +12,9 @@ import org.springframework.web.bind.annotation.*;
 public class CustomerController {
     CustomerService customerService;
     @PostMapping("/api/customer/addCustomer")
-    public void createCustomer(@RequestBody CustomerDto customerDto){
-            System.out.println(customerDto);
-        customerService.createCustomer(customerDto);
+    public void createCustomer(@RequestBody UserCutomerDto userCutomerDto){
+
+        customerService.createCustomer(userCutomerDto);
     }
 
 //    @PostMapping("/api/customer/loan")

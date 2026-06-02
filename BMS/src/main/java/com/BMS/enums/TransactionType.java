@@ -1,4 +1,4 @@
-package com.enums;
+package com.BMS.enums;
 
 public enum TransactionType {
     WITHDRAW,

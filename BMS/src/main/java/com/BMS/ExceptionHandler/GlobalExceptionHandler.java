@@ -1,10 +1,12 @@
 package com.BMS.ExceptionHandler;
 
+import com.BMS.Exception.InsufficiantBalanceException;
 import com.BMS.message.Message;
 import com.BMS.Exception.ResourceNotFoundException;
 import com.BMS.message.Message;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.orm.jpa.JpaSystemException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -30,5 +32,10 @@ public class GlobalExceptionHandler {
             map.put(fe.getField(),fe.getDefaultMessage());
         }
         return ResponseEntity.badRequest().body(map);
+    }
+    @ExceptionHandler(InsufficiantBalanceException.class)
+    public ResponseEntity<Object> handleInsufficientBalance(InsufficiantBalanceException e){
+        messageObject.setMessage(e.getMessage());
+return ResponseEntity.badRequest().body(messageObject);
     }
 }

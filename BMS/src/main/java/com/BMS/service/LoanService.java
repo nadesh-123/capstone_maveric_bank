@@ -1,7 +1,10 @@
 package com.BMS.service;
 
 import com.BMS.DTO.EmiDto;
+import com.BMS.enums.LoanStatus;
+import com.BMS.model.Loan;
 import com.BMS.model.LoanApplication;
+import com.BMS.repository.LoanRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -11,6 +14,7 @@ import java.math.RoundingMode;
 @Service
 @AllArgsConstructor
 public class LoanService {
+    LoanRepository loanRepository;
     LoanApplicationService loanApplicationService;
     public EmiDto calculateMonthlyEmi(int applicationId) {
         LoanApplication loanApplication = loanApplicationService.findApplicationById(applicationId);
@@ -18,7 +22,7 @@ public class LoanService {
         double loanAmount = loanApplication.getRequestedAmount();
         int years = loanApplication.getTenureYears();
 
-        // Prevent division by zero or invalid calculations
+
         if (years <= 0 || loanAmount <= 0) {
             return new EmiDto(BigDecimal.ZERO.setScale(2, RoundingMode.HALF_UP));
         }
@@ -32,4 +36,7 @@ public class LoanService {
 
         return new EmiDto(BigDecimal.valueOf(emiAmount).setScale(2, RoundingMode.HALF_UP));
     }
+
+
+
 }

@@ -12,6 +12,9 @@ import com.BMS.model.Employee;
 import com.BMS.repository.AccountRepository;
 import com.BMS.repository.EmployeeRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -41,8 +44,9 @@ BranchService branchService;
         accountRepository.delete(account);
     }
 
-    public List<Employee> getAllEmployees() {
-       return employeeRepository.findAll();
+    public List<Employee> getAllEmployees(int page,int size) {
+        Pageable pageable= PageRequest.of(page,size);
+        return employeeRepository.findAll(pageable).getContent();
     }
 
     public void removeEmp(int empId) {
@@ -51,15 +55,13 @@ BranchService branchService;
 
     }
 
-    public List<AccountDTO> getByStatus(Status status) {
-       return accountService.getByStatus(status);
-    }
-    public void addEmployeeToAccount(int empid, int accountid) {
+
+    public void addEmployeeToAccount(String username, int accountid) {
         Account account= accountService.getAccountById(accountid);
         Customer customer=account.getCustomer();
         Branch branch=branchService.getBranchByLocation(customer.getLocation());
         account.setBranch(branch);
-        account.setEmployee(getEmployeeId(empid));
+        account.setEmployee(getEmpByUserName(username));
         account.setStatus(Status.ACTIVE);
         accountRepository.save(account);
     }
@@ -67,4 +69,9 @@ BranchService branchService;
     public CustomerDto getCustomerById(int customerId) {
       return   customerService.getCustomerById(customerId);
     }
+
+    public Employee getEmpByUserName(String username) {
+        return employeeRepository.findByEmpUserName(username);
+    }
+
 }

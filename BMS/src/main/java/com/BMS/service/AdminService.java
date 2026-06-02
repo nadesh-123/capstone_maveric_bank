@@ -27,7 +27,7 @@ EmployeeMapper employeeMapper;
     }
 
     public void addAdmin(UserDto userDto) {
-        userService.addUser(userDto);
+        userService.addAdminUser(userDto);
     }
 
     public DtoEmployee getEmployeeById(int empid) {
@@ -44,8 +44,8 @@ EmployeeMapper employeeMapper;
 
     }
 
-    public List<DtoEmployee> getAllEmployees() {
-     List<Employee> list=   employeeService.getAllEmployees();
+    public List<DtoEmployee> getAllEmployees(int page,int size) {
+     List<Employee> list=   employeeService.getAllEmployees(page,size);
      return list.stream().map(employeeMapper::mapToDto).toList();
     }
 

@@ -3,17 +3,20 @@ package com.BMS.service;
 import com.BMS.DTO.AccountDTO;
 import com.BMS.DTO.AccountDtoShow;
 import com.BMS.DTO.DTOAccount;
+import com.BMS.DTO.UserDtoNoPassword;
 import com.BMS.Exception.ResourceNotFoundException;
 import com.BMS.enums.AccountType;
 import com.BMS.enums.Status;
 import com.BMS.mapper.MapAccountDto;
 import com.BMS.mapper.MapDtoAccount;
-import com.BMS.model.Account;
-import com.BMS.model.Branch;
-import com.BMS.model.Employee;
+import com.BMS.model.*;
 import com.BMS.repository.AccountRepository;
 import lombok.AllArgsConstructor;
+
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
 
 import java.util.List;
 
@@ -26,9 +29,12 @@ public class AccountService  {
 
     AccountRepository accountRepository;
     MapDtoAccount mapDtoAccount;
-   public void addAccount(DTOAccount Dtoaccount, int customerId){
+    UserService userService;
+   public void addAccount(DTOAccount Dtoaccount, String username){
        Account account=mapDtoAccount.mapDtoAccount(Dtoaccount);
-       account.setCustomer(customerService.getCustomerByIdCustomer(customerId));
+       User user=userService.findByUsername(username).orElseThrow(()->new ResourceNotFoundException("invalid user name"));
+      Customer customer= customerService.getCustomerIdByUserId(user.getId());
+       account.setCustomer(customerService.getCustomerByIdCustomer(customer.getId()));
        account.setBalance(0.0);
        account.setStatus(Status.INACTIVE);
        Account account1= accountRepository.save(account);
@@ -39,16 +45,17 @@ public class AccountService  {
        return accountRepository.findById(id).orElseThrow(()->new ResourceNotFoundException("invalid account id"));
     }
 
-    public List<AccountDTO> getByStatus(Status status) {
-
-       List<Account> list=accountRepository.findByStatus(status);
+    public List<AccountDTO> getByStatus(Status status,int page,int size) {
+        Pageable pageable= PageRequest.of(page,size);
+       List<Account> list=accountRepository.findByStatus(status,pageable).getContent();
        return  list.stream().map(mapAccountDto::mapToDto).toList();
     }
 
 
 
-    public List<AccountDtoShow> getAllAccountsByCustomerId(int customerId) {
-       List<Account> list=accountRepository.findByCustomerId(customerId);
+    public List<AccountDtoShow> getAllAccountsByUsername(String username) {
+     User user=  userService.findByUsername(username).orElseThrow(()->new ResourceNotFoundException("invalid user name"));
+       List<Account> list=accountRepository.findByCustomerUserId(user.getId());
 
           return list.stream().map(mapAccountDto::mapAccountToDto).toList();
 
@@ -66,4 +73,7 @@ public class AccountService  {
         return list.stream().map(mapAccountDto::mapAccountToDto).toList();
     }
 
+    public void saveLoanAccount(Account account) {
+       accountRepository.save(account);
+    }
 }

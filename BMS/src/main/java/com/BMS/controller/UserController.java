@@ -24,19 +24,19 @@ public class UserController {
     UserService userService;
     CustomerService customerService;
     UserMapper userMapper;
-    @PostMapping("/api/user/createUser")
-    public UserDtoNoPassword addUser(@RequestBody UserDto userDto){
-        return userService.addUser(userDto);
-
-    }
+//    @PostMapping("/api/user/createUser")
+//    public UserDtoNoPassword addUser(@RequestBody UserDto userDto){
+//        return userService.addUser(userDto);
+//
+//    }
 //    @PostMapping("/api/login")
 //    public CustUserDto login(@RequestBody UserDto userDto){
 //        return userService.verifyUser(userDto);
 //    }
-    @GetMapping("/api/getUserByName")
-    public UserDtoNoPassword getUserByName(@RequestParam String username){
-        return userService.userByName(username);
-    }
+//    @GetMapping("/api/getUserByName")
+//    public UserDtoNoPassword getUserByName(@RequestParam String username){
+//        return userService.userByName(username);
+//    }
     @GetMapping("/api/user/loginv2")
      public CustUserDto login(Principal principal){
         String username=principal.getName();

@@ -13,8 +13,8 @@ public record LoanApplicationDto(
         int tenureYears,
         String purpose,
         double monthlyIncome,
-        LoanStatus loanStatus,
-        Instant applicationDate,
-        int employeeId // reference to Employee entity
+       LoanStatus loanStatus,
+        Instant applicationDate
+
 ) {}
 

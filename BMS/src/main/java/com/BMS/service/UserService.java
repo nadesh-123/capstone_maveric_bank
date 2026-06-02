@@ -18,11 +18,11 @@ public class UserService  {
     UserRepository userRepository;
     UserMapper userMapper;
 
-    public UserDtoNoPassword addUser(UserDto userDto) {
-        User user=userMapper.userMapper(userDto);
+    public void addUser(User user) {
+
 
        user= userRepository.save(user);
-       return userMapper.mapDto(user);
+
     }
 public UserDtoNoPassword userByName(String username){
         User user=userRepository.findByUsername(username).orElseThrow(()->new ResourceNotFoundException("Invalid user name"));
@@ -55,5 +55,9 @@ public UserDtoNoPassword userByName(String username){
 
     public User addEmployeeUser(User user) {
        return userRepository.save(user);
+    }
+
+    public void addAdminUser(UserDto userDto) {
+        userMapper.userMapper(userDto);
     }
 }

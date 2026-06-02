@@ -10,6 +10,7 @@ import com.BMS.service.AccountService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
 
 @RestController
@@ -18,9 +19,10 @@ import java.util.List;
 
 public class AccountController {
     AccountService accountService;
-    @PostMapping("/add/customer")
-    public void createAccount(@RequestParam int customerId,@RequestBody DTOAccount dtoAccount){
-        accountService.addAccount(dtoAccount,customerId);
+    @PostMapping("/add/Account")
+    public void createAccount(@RequestBody DTOAccount dtoAccount, Principal principal){
+        String username=principal.getName();
+        accountService.addAccount(dtoAccount,username);
     }
     @GetMapping("/get/{id}")
     public Account getAccountById(@PathVariable int id){
@@ -29,9 +31,15 @@ public class AccountController {
 
 
 
-    @GetMapping("/getAccounts/{customerId}")
-    public List<AccountDtoShow> getAllAccountsByCustomerId(@PathVariable int customerId){
-        return accountService.getAllAccountsByCustomerId(customerId);
+    @GetMapping("/getAccounts")
+    public List<AccountDtoShow> getAllAccountsByCustomerId(Principal principal){
+        String username=principal.getName();
+        return accountService.getAllAccountsByUsername(username);
+    }
+    @GetMapping("/unapproved")
+    public List<AccountDTO> getInactiveAccounts(@RequestParam(defaultValue = "0",required = false) int page,@RequestParam(defaultValue = "10",required = false) int size ){
+
+        return accountService.getByStatus(Status.INACTIVE,page,size);
     }
 
     @GetMapping("/api/getAccount/type")

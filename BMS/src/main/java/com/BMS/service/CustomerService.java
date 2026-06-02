@@ -26,10 +26,11 @@ public class CustomerService {
       return customerMappper.mapCustomerDto(customer);
     }
 
-    public void createCustomer(CustomerDto customerDto) {
-        Customer customer=customerMappper.mapCustomer(customerDto);
-
-        customer.setUser(userService.findById(customerDto.userid()));
+    public void createCustomer(UserCutomerDto userCutomerDto) {
+        Customer customer=customerMappper.mapCustomer(userCutomerDto);
+       User user= customerMappper.mapToUser(userCutomerDto);
+       userService.addUser(user);
+        customer.setUser(user);
         customer.setStatus(Status.ACTIVE);
         customerRepository.save(customer);
     }

@@ -1,7 +1,7 @@
 package com.BMS.model;
 
-import com.enums.TransactionStatus;
-import com.enums.TransactionType;
+import com.BMS.enums.TransactionStatus;
+import com.BMS.enums.TransactionType;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -24,6 +24,7 @@ public class Transaction {
     private double amount;
     @Enumerated(EnumType.STRING)
     private TransactionStatus transactionStatus;
-
+    @ManyToOne
+User user;
 
 }

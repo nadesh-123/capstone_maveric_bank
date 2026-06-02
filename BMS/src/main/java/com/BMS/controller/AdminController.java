@@ -36,8 +36,8 @@ public class AdminController {
     }
 
     @GetMapping("/api/admin/get-alL-emp")
-    public List<DtoEmployee> getAllEmployees() {
-        return adminService.getAllEmployees();
+    public List<DtoEmployee> getAllEmployees(@RequestParam(defaultValue = "0",required = false) int page,@RequestParam(defaultValue = "0",required = false) int size) {
+        return adminService.getAllEmployees(page,size);
     }
     @DeleteMapping("/api/admin/remove-emp/{empId}")
     public void removeEmp(@PathVariable int empId){

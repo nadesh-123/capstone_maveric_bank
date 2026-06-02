@@ -2,6 +2,7 @@ package com.BMS.mapper;
 
 import com.BMS.DTO.LoanAppDto;
 import com.BMS.DTO.LoanApplicationDto;
+import com.BMS.enums.LoanStatus;
 import com.BMS.model.Account;
 import com.BMS.model.LoanApplication;
 import com.BMS.repository.AccountRepository;
@@ -15,15 +16,20 @@ public class LoanApplicationToDto {
 //
 //    }
 
-    public LoanApplication mapDtoToLoanApplication(LoanApplicationDto loanApplicationDto, Account account){
-        LoanApplication loanApplication= new LoanApplication();
-        loanApplication.setLoneType(loanApplication.getLoneType());
-        loanApplication.setLoanStatus(loanApplication.getLoanStatus());
-        loanApplication.setPurpose(loanApplication.getPurpose());
+    public LoanApplication mapDtoToLoanApplication(LoanApplicationDto loanApplicationDto, Account account) {
+        LoanApplication loanApplication = new LoanApplication();
+        loanApplication.setLoneType(loanApplicationDto.loanType());
+
+        loanApplication.setPurpose(loanApplicationDto.purpose());
         loanApplication.setDisbursementAccount(account);
+        loanApplication.setLoanStatus(LoanStatus.PENDING);
         loanApplication.setMonthlyIncome(loanApplicationDto.monthlyIncome());
         loanApplication.setRequestedAmount(loanApplicationDto.requestedAmount());
-        loanApplication.setTenureYears(5);
+        loanApplication.setTenureYears(loanApplicationDto.tenureYears());
         return loanApplication;
+
+    }
+    public LoanApplicationDto mapLoanApplicationToDto(LoanApplication loanApplication){
+        return  new LoanApplicationDto(loanApplication.getDisbursementAccount().getAccno(),loanApplication.getLoneType(),loanApplication.getRequestedAmount(),loanApplication.getTenureYears(),loanApplication.getPurpose(),loanApplication.getMonthlyIncome(),LoanStatus.PENDING,loanApplication.getApplication_date());
     }
 }
