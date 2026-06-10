@@ -28,34 +28,19 @@ import java.util.List;
 @Service
 @AllArgsConstructor
 public class LoanApplicationService {
-    AccountService accountService;
-    LoanApplicationRepository loanApplicationRepository;
+    private final AccountService accountService;
+    private final LoanApplicationRepository loanApplicationRepository;
     LoanApplicationToDto loanApplicationToDto;
-EmployeeService employeeService;
-LoanRepository loanRepository;
+    private final EmployeeService employeeService;
+    private final LoanRepository loanRepository;
     private static final String UPLOAD_LOC = "D:/UploadFileApi";
     public  LoanApplication findApplicationById(int applicationId) {
        return loanApplicationRepository.findById(applicationId).orElseThrow(()->new ResourceNotFoundException("invalid application id"));
     }
-//    public void addApplication(LoanApplication loanApplication) {
-//        loanApplicationRepository.save(loanApplication);
-//    }
-//public LoanAppDto getLoanApplication(int id){
-//     LoanApplication loanApplication=  loanApplicationRepository.findById(id).orElseThrow(()->new ResourceNotFoundException("invalid application id"));
-//   return   loanApplicationToDto.mapToLoanAppDto(loanApplication);
-//}
-//    public void deleteLoanApplication(int loanAppId) {
-//       LoanApplication loanApplication= loanApplicationRepository.findById(loanAppId).orElseThrow(()->new ResourceNotFoundException("invalid application id"));
-//        loanApplicationRepository.delete(loanApplication);
-//    }
-//
-//    public List<LoanAppDto> getPendingApp() {
-//       List<LoanApplication> list= loanApplicationRepository.findByLoanStatus(LoanStatus.PENDING);
-//       return list.stream().map(loanApplicationToDto::mapToLoanAppDto).toList();
-//    }
+
 
     public void createLoanApplication(LoanApplicationDto loanApplicationDto) {
-        Account account=accountService.getAccountById(loanApplicationDto.disbursementAccountId());
+        Account account=accountService.getAccountByAccountNumber(loanApplicationDto.disbursementAccount());
         System.out.println(account);
         LoanApplication loanApplication=loanApplicationToDto.mapDtoToLoanApplication(loanApplicationDto,account);
         loanApplicationRepository.save(loanApplication);

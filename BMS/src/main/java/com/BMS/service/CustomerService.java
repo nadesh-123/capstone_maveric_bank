@@ -16,9 +16,9 @@ import org.springframework.stereotype.Service;
 @AllArgsConstructor
 public class CustomerService {
 
-    CustomerRepository customerRepository;
-    CustomerMappper customerMappper;
-    UserService userService;
+    private final CustomerRepository customerRepository;
+    private final CustomerMappper customerMappper;
+    private final UserService userService;
 
     BenficiaryService benficiaryService;
     public CustomerDto getCustomerById(int customerId) {
@@ -47,7 +47,7 @@ public class CustomerService {
 
 
 
-    public void addBenficiary(int accno, BenficiaryDto benficiaryDto) {
+    public void addBenficiary(String accno, BenficiaryDto benficiaryDto) {
         Beneficiary beneficiary=new Beneficiary();
 
 
@@ -67,6 +67,10 @@ public class CustomerService {
 
     public Customer getByUsername(String username) {
        return customerRepository.findByUserUsername(username);
+    }
+
+    public void save(Customer customer) {
+        customerRepository.save(customer);
     }
 
 //    public void deleteLoanApplication(int loanAppId) {

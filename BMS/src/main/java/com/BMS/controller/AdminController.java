@@ -13,7 +13,7 @@ import java.util.List;
 @RestController
 @AllArgsConstructor
 public class AdminController {
-    AdminService adminService;
+    private final  AdminService adminService;
 
     @PostMapping("/admin/add-admin")
     public void addAdmin(@RequestBody UserDto userDto) {

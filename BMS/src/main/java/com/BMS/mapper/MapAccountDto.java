@@ -11,7 +11,7 @@ public class MapAccountDto {
 
     public AccountDTO mapToDto(Account account){
         Integer employeeid=account.getEmployee()==null?null:account.getEmployee().getId();
-        return new AccountDTO(account.getAccno(),
+        return new AccountDTO(account.getAccountNumber(),
                 account.getAccounttype(),
                 account.getCustomer().getId(),
                 employeeid,
@@ -19,6 +19,6 @@ public class MapAccountDto {
                 account.getUpdatedAt(),account.getStatus());
     }
     public AccountDtoShow mapAccountToDto(Account account){
-        return  new AccountDtoShow(account.getCustomer().getId(),account.getAccno(),account.getAccounttype(),account.getBranch().getBranchName(),account.getBalance(),account.getStatus())
+        return  new AccountDtoShow(account.getCustomer().getId(),account.getAccountNumber(),account.getAccounttype(),account.getBranch().getBranchName(),account.getBalance(),account.getStatus())
 ;    }
 }

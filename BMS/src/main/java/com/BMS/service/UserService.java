@@ -1,5 +1,6 @@
 package com.BMS.service;
 
+import com.BMS.DTO.UserDetailsDto;
 import com.BMS.DTO.UserDto;
 import com.BMS.DTO.UserDtoNoPassword;
 import com.BMS.Exception.ResourceNotFoundException;
@@ -15,7 +16,7 @@ import java.util.Optional;
 @AllArgsConstructor
 public class UserService  {
 
-    UserRepository userRepository;
+    private final UserRepository userRepository;
     UserMapper userMapper;
 
     public void addUser(User user) {
@@ -59,5 +60,10 @@ public UserDtoNoPassword userByName(String username){
 
     public void addAdminUser(UserDto userDto) {
         userMapper.userMapper(userDto);
+    }
+
+    public UserDetailsDto getUserDetails(String username) {
+        User user=findByUsername(username).orElseThrow(()->new ResourceNotFoundException("invalid user name"));
+        return userMapper.mapToUserDetails(user);
     }
 }

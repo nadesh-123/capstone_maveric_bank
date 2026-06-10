@@ -16,11 +16,13 @@ public interface AccountRepository extends JpaRepository<Account,Integer> {
 
     List<Account> findByCustomerId(int customerId);
 
-    Optional<Account> findByAccno(int accNo);
+
 
 
 
     List<Account> findByAccounttype(AccountType accountType);
 
     List<Account> findByCustomerUserId(int id);
+
+    Optional<Account> findByAccountNumber(String s);
 }

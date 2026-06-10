@@ -30,7 +30,7 @@ DetailsService detailsService;
 JwtFilter jwtFilter;
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http .cors(cors -> cors.configure(http))
+        http.cors(cors -> cors.configure(http))
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .csrf(AbstractHttpConfigurer::disable) /// Spring needs this for POST,PUT & DELETE
                 //.csrf(ref->ref.disable())localhost:8080/api/account/add/customer
@@ -39,7 +39,7 @@ JwtFilter jwtFilter;
                         //Transaction API
                         .requestMatchers(HttpMethod.POST, "/api/transaction-Withdraw-Deposit-Transfer").hasAuthority("CUSTOMER")
                         .requestMatchers(HttpMethod.GET, "/api/transaction/get-transactions").authenticated()
-
+                         //customer
                         .requestMatchers(HttpMethod.GET, "/api/user/loginv2").authenticated()
                         .requestMatchers(HttpMethod.POST, "/api/customer/addCustomer").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/account/add/Account").authenticated()
@@ -47,7 +47,7 @@ JwtFilter jwtFilter;
                         ////LOAN APPLICATION
                         .requestMatchers(HttpMethod.POST, "/api/loan-application/apply").hasAuthority("CUSTOMER")
                         .requestMatchers(HttpMethod.POST, "/api/documents/upload/{appId}").hasAuthority("CUSTOMER")
-
+                        .requestMatchers(HttpMethod.GET,"/api/loan/getAll").authenticated()
                         //EMPLOYEE
                         .requestMatchers(HttpMethod.GET, "/api/user/emp/loginv2").authenticated()
                         .requestMatchers(HttpMethod.GET, "/api/getCustomer/user-id/{userId}").hasAuthority("EMPLOYEE")
@@ -55,7 +55,7 @@ JwtFilter jwtFilter;
                         .requestMatchers(HttpMethod.GET, "/api/loan/calculate-emi/{applicationId}").hasAuthority("EMPLOYEE")
                         .requestMatchers(HttpMethod.GET, "/api/account/unapproved").hasAuthority("EMPLOYEE")//paginated
                         .requestMatchers(HttpMethod.GET, "/api/loanApplication-pending").hasAuthority("EMPLOYEE")//paginated
-                        .requestMatchers(HttpMethod.GET, "/api/loan/calculate-emi/{applicationId}").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/loan/calculate-emi/{applicationId}").hasAuthority("EMPLOYEE")
                         .requestMatchers(HttpMethod.PUT, "/api/loan-application/action/{applicationId}").hasAuthority("EMPLOYEE")
 
 
@@ -89,7 +89,7 @@ public DaoAuthenticationProvider authenticationProvider(){
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
 
-        // Match this exactly to your Vite React development server URL
+
         configuration.setAllowedOrigins(List.of("http://localhost:5173"));
 
         // Allowed HTTP Methods

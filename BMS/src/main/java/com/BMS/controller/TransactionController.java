@@ -13,7 +13,7 @@ import java.util.List;
 @AllArgsConstructor
 
 public class TransactionController {
-    TransactionService transactionService;
+    private final  TransactionService transactionService;
     @PostMapping("/api/transaction-Withdraw-Deposit-Transfer")
     public void withdrawDepositCombine(@RequestBody TransactionDtoSource transactionDtoSource,Principal principal){
         String username=principal.getName();

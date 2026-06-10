@@ -14,8 +14,8 @@ import java.util.List;
 @Service
 @AllArgsConstructor
 public class AdminService {
-    EmployeeService employeeService;
-    UserService userService;
+    private final  EmployeeService employeeService;
+    private final UserService userService;
 
 EmployeeMapper employeeMapper;
     public void addEmployee(EmployeeDto employeeDto) {

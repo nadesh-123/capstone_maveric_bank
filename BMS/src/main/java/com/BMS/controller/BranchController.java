@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @AllArgsConstructor
 public class BranchController {
-    BranchService branchService;
+    private final  BranchService branchService;
     @GetMapping("/api/branch/getById/{branchId}")
     public BranchDto addBranchById(@PathVariable int branchId){
         return branchService.getBranchById(branchId);

@@ -22,11 +22,11 @@ import java.util.List;
 @Service
 @AllArgsConstructor
 public class EmployeeService {
-EmployeeRepository employeeRepository;
-AccountRepository accountRepository;
-AccountService accountService;
-CustomerService customerService;
-BranchService branchService;
+    private final EmployeeRepository employeeRepository;
+    private final AccountRepository accountRepository;
+    private final AccountService accountService;
+    private final CustomerService customerService;
+    private final BranchService branchService;
     public Employee getEmployeeId(int empid) {
         return  employeeRepository.findById(empid).orElseThrow(()->new ResourceNotFoundException("Invalid employee id"));
     }
@@ -56,8 +56,8 @@ BranchService branchService;
     }
 
 
-    public void addEmployeeToAccount(String username, int accountid) {
-        Account account= accountService.getAccountById(accountid);
+    public void addEmployeeToAccount(String username, String accountid) {
+        Account account= accountService.getAccountByAccountNumber(accountid);
         Customer customer=account.getCustomer();
         Branch branch=branchService.getBranchByLocation(customer.getLocation());
         account.setBranch(branch);

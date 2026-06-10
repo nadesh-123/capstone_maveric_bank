@@ -30,6 +30,6 @@ public class LoanApplicationToDto {
 
     }
     public LoanApplicationDto mapLoanApplicationToDto(LoanApplication loanApplication){
-        return  new LoanApplicationDto(loanApplication.getDisbursementAccount().getAccno(),loanApplication.getLoneType(),loanApplication.getRequestedAmount(),loanApplication.getTenureYears(),loanApplication.getPurpose(),loanApplication.getMonthlyIncome(),LoanStatus.PENDING,loanApplication.getApplication_date());
+        return  new LoanApplicationDto(loanApplication.getDisbursementAccount().getAccountNumber(),loanApplication.getLoneType(),loanApplication.getRequestedAmount(),loanApplication.getTenureYears(),loanApplication.getPurpose(),loanApplication.getMonthlyIncome(),LoanStatus.PENDING,loanApplication.getApplication_date());
     }
 }

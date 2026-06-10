@@ -18,13 +18,13 @@ import java.util.List;
 @RestController
 @AllArgsConstructor
 public class EmployeeController {
-    EmployeeService employeeService;
-    AccountService accountService;
-    CustomerService customerService;
-    LoanApplicationService loanApplicationService;
+    private final EmployeeService employeeService;
+    private final AccountService accountService;
+    private final CustomerService customerService;
+    private final LoanApplicationService loanApplicationService;
 @DeleteMapping("/api/emp/close-account/{accno}")
-    public void closeAccount(@PathVariable int accno){
-    Account account=accountService.getAccountById(accno);
+    public void closeAccount(@PathVariable String accno){
+    Account account=accountService.getAccountByAccountNumber(accno);
     employeeService.closeAccount(account);
 }
 
@@ -33,7 +33,7 @@ public class EmployeeController {
         return employeeService.getCustomerById(customerId);
     }
     @PutMapping("/api/emp/approve/{accountid}")
-    public void addEmployeeToAccount(@PathVariable int accountid, Principal principal){
+    public void addEmployeeToAccount(@PathVariable String accountid, Principal principal){
     String username=principal.getName();
         employeeService.addEmployeeToAccount(username,accountid);
     }

@@ -2,6 +2,7 @@ package com.BMS.controller;
 
 import com.BMS.DTO.*;
 import com.BMS.service.CustomerService;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
@@ -10,27 +11,23 @@ import org.springframework.web.bind.annotation.*;
 @CrossOrigin(origins = "http://localhost:5173")
 @AllArgsConstructor
 public class CustomerController {
-    CustomerService customerService;
+    private final CustomerService customerService;
     @PostMapping("/api/customer/addCustomer")
-    public void createCustomer(@RequestBody UserCutomerDto userCutomerDto){
+    public void createCustomer(@Valid  @RequestBody UserCutomerDto userCutomerDto){
 
         customerService.createCustomer(userCutomerDto);
     }
 
-//    @PostMapping("/api/customer/loan")
-//    public void addLoanApplication(@RequestBody loanDto loanDto,@PathVariable int accno,@PathVariable int cusId){
-//        customerService.addLoanApplication(loanDto,accno,cusId);
-//    }
-    @PostMapping("/api/customer/benficiary")
-    public void addBenficiary(@PathVariable int accno,@RequestBody BenficiaryDto benficiaryDto){
+    @PostMapping("/api/customer/beneficiary{accno}")
+    public void addBeneficiary(@PathVariable String accno,@Valid @RequestBody BenficiaryDto benficiaryDto){
         customerService.addBenficiary(accno,benficiaryDto);
     }
-    @DeleteMapping("/api/customer/deleteBenficiary")
-    public void deleteBenficiary(@PathVariable int benId){
+    @DeleteMapping("/api/customer/deleteBeneficiary")
+    public void deleteBeneficiary(@PathVariable int benId){
         customerService.deleteBenficiary(benId);
     }
-    @GetMapping("api/customer/getBenficiary{benId}")
-    public Beneficiary getBenficiaryById(@PathVariable int benId){
+    @GetMapping("api/customer/getBeneficiary{benId}")
+    public Beneficiary getBeneficiaryById(@PathVariable int benId){
         return customerService.getBenficiaryById(benId);
     }
 //    @DeleteMapping("/api/customer/closeLoanApplication")

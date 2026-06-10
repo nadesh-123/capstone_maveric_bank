@@ -21,8 +21,8 @@ import java.util.List;
 @AllArgsConstructor
 public class TransactionService {
     TransactionMapper transactionMapper;
-    TransactionRepository transactionRepository;
-    UserService userService;
+    private final TransactionRepository transactionRepository;
+    private final UserService userService;
 
 
     public void withdrawDepositCombine(TransactionDtoSource transactionDtoSource, String username) {
@@ -42,7 +42,7 @@ public class TransactionService {
     public List<TransactionViewDto> getTransactions(String username, int page, int size) {
         Pageable pageable= PageRequest.of(page,size);
       User user=  userService.findByUsername(username).orElseThrow(()->new ResourceNotFoundException("invalid user"));
-       List<Transaction> list= transactionRepository.findByUserId(user.getId());
+       List<Transaction> list= transactionRepository.findByUserId(user.getId(),pageable);
       return list.stream().map(transaction ->transactionMapper.mapToDto(transaction) ).toList();
     }
 }

@@ -10,10 +10,10 @@ import org.springframework.stereotype.Service;
 @Service
 @AllArgsConstructor
 public class BenficiaryService {
-    AccountRepository accountRepository;
-BenficiaryRepository benficiaryRepository;
-    public void addBenficiary(Beneficiary beneficiary, int accno) {
-        beneficiary.setAccount(accountRepository.findByAccno(accno).orElseThrow(()->new ResourceNotFoundException("invalid accno")));
+    private final  AccountRepository accountRepository;
+    private final BenficiaryRepository benficiaryRepository;
+    public void addBenficiary(Beneficiary beneficiary, String accno) {
+        beneficiary.setAccount(accountRepository.findByAccountNumber(accno).orElseThrow(()->new ResourceNotFoundException("invalid accno")));
         benficiaryRepository.save(beneficiary);
     }
 public Beneficiary getBenficiaryById(int benid){

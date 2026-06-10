@@ -7,7 +7,7 @@ import com.BMS.model.Employee;
 
 import java.time.Instant;
 
-public record AccountDTO(int accno,
+public record AccountDTO(String accno,
                                AccountType accountType,
                                int cusId,
                          Integer employeeId,

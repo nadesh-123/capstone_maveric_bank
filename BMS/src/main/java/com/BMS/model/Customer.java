@@ -42,7 +42,7 @@ public class Customer {
     private Instant updatedDate;
     @Enumerated(EnumType.STRING)
     private Status status;
-
+    private String documentsPath;
 
 
     @Override

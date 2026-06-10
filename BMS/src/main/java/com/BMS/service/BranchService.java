@@ -14,10 +14,7 @@ import org.springframework.stereotype.Service;
 public class BranchService {
 BranchRepository branchRepository;
 BranchMapper branchMapper;
-    public Branch getBranchByName(String branchName) {
-      Branch branch= branchRepository.findByBranchName(branchName).orElseThrow(()->new ResourceNotFoundException("no branch is asigned to account"));
-       return branch;
-    }
+
 
     public BranchDto getBranchById(int branchId) {
       Branch branch=  branchRepository.findById(branchId).orElseThrow(()->new ResourceNotFoundException("invalid branch id"));

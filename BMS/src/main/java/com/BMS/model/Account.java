@@ -17,7 +17,9 @@ public class Account {
     @Getter
     @Setter
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int accno;
+    private int id;
+    @Column(name = "account_number", unique = true, nullable = false, length = 8)
+    private String accountNumber;
     @ManyToOne
     private Customer customer;
     @ManyToOne

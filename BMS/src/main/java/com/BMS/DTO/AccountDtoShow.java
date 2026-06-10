@@ -4,8 +4,9 @@ import com.BMS.enums.AccountType;
 import com.BMS.enums.Status;
 
 public record AccountDtoShow(int customerId,
-        int accno,
-         AccountType accountType,String branchName,
+            String accountNumber,
+         AccountType accountType,
+                             String branchName,
          double balance,
          Status status
                              ) {

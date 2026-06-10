@@ -19,16 +19,16 @@ public class TransactionMapper {
         transaction.setAmount(transactionDtoSource.amount());
         if(transactionDtoSource.transactionType().equals(TransactionType.valueOf("DEPOSIT"))){
         transaction.setSourceAccount(null);
-        transaction.setTargetAccount(accountService.getAccountById(transactionDtoSource.Target_accno()));
+        transaction.setTargetAccount(accountService.getAccountByAccountNumber(transactionDtoSource.Target_accno()));
         }
         else if(transactionDtoSource.transactionType().equals(TransactionType.valueOf("WITHDRAW"))){
             transaction.setTargetAccount(null);
 
-            transaction.setSourceAccount(accountService.getAccountById(transactionDtoSource.Source_accno()));
+            transaction.setSourceAccount(accountService.getAccountByAccountNumber(transactionDtoSource.Source_accno()));
         }
         else{
-            transaction.setTargetAccount(accountService.getAccountById(transactionDtoSource.Target_accno()));
-            transaction.setSourceAccount(accountService.getAccountById(transactionDtoSource.Source_accno()));
+            transaction.setTargetAccount(accountService.getAccountByAccountNumber(transactionDtoSource.Target_accno()));
+            transaction.setSourceAccount(accountService.getAccountByAccountNumber(transactionDtoSource.Source_accno()));
         }
         return transaction;
     }

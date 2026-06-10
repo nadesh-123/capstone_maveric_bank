@@ -3,18 +3,23 @@ package com.BMS.mapper;
 import com.BMS.DTO.CustomerDto;
 import com.BMS.DTO.UserCutomerDto;
 import com.BMS.DTO.loanDto;
+import com.BMS.enums.Gender;
+import com.BMS.enums.Role;
 import com.BMS.model.Customer;
 import com.BMS.model.LoanApplication;
 import com.BMS.model.User;
+import lombok.AllArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 @Component
+@AllArgsConstructor
 public class CustomerMappper {
     PasswordEncoder passwordEncoder;
     public Customer mapCustomer(UserCutomerDto userCutomerDto){
         Customer customer=new Customer();
         customer.setAadharno(userCutomerDto.aadharno());
+        customer.setLocation(userCutomerDto.location());
         customer.setDob(userCutomerDto.dob());
         customer.setGender(userCutomerDto.gender());
         customer.setEmail(userCutomerDto.email());
@@ -27,7 +32,7 @@ public class CustomerMappper {
     public User mapToUser(UserCutomerDto userCutomerDto){
         User user=new User();
         user.setUsername(userCutomerDto.username());
-        user.setRole(userCutomerDto.role());
+        user.setRole(Role.CUSTOMER);
         user.setPassword(passwordEncoder.encode(userCutomerDto.password()));
         return user;
     }

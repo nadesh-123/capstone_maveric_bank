@@ -5,8 +5,8 @@ import jakarta.validation.constraints.NotNull;
 public record TransactionDtoSource(
         @NotNull
         TransactionType transactionType,
-                                   int Source_accno,
-                                   int Target_accno,
+                                   String Source_accno,
+                                   String Target_accno,
                                    @NotNull
                                    double amount
                                    ) {

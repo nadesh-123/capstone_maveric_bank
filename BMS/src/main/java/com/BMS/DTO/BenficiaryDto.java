@@ -1,5 +1,9 @@
 package com.BMS.DTO;
 
-public record BenficiaryDto(
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+
+public record BenficiaryDto(@NotNull
+                           @NotBlank
                             String ifsccode) {
 }

@@ -15,7 +15,7 @@ import java.util.List;
 @AllArgsConstructor
 
 public class LoanApplicationController {
-    LoanApplicationService loanApplicationService;
+    private final  LoanApplicationService loanApplicationService;
     @PostMapping("/api/loan-application/apply")
     public void createLoanApplication(@RequestBody  LoanApplicationDto loanApplicationDto){
 

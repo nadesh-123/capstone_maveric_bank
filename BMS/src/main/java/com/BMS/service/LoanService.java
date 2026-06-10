@@ -1,7 +1,9 @@
 package com.BMS.service;
 
 import com.BMS.DTO.EmiDto;
+import com.BMS.DTO.LoanShowDto;
 import com.BMS.enums.LoanStatus;
+import com.BMS.mapper.LoanMapper;
 import com.BMS.model.Loan;
 import com.BMS.model.LoanApplication;
 import com.BMS.repository.LoanRepository;
@@ -10,12 +12,14 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.List;
 
 @Service
 @AllArgsConstructor
 public class LoanService {
-    LoanRepository loanRepository;
-    LoanApplicationService loanApplicationService;
+    private final  LoanRepository loanRepository;
+    LoanMapper loanMapper;
+    private final  LoanApplicationService loanApplicationService;
     public EmiDto calculateMonthlyEmi(int applicationId) {
         LoanApplication loanApplication = loanApplicationService.findApplicationById(applicationId);
 
@@ -38,5 +42,8 @@ public class LoanService {
     }
 
 
-
+    public List<LoanShowDto> getAllLoans(String username) {
+        List<Loan> list=loanRepository.findByAccountCustomerUserUsername(username);
+        return list.stream().map(loanMapper::mapLoanToDto).toList();
+    }
 }

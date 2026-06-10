@@ -1,6 +1,19 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-body{
-  
+
+
+
+body {
+  margin: 0;
+  background: var(--bg-gradient-start);
+  color: var(--text-main);
+}
+
+.form-control,
+.form-select {
+  border: 1px solid var(--border-color);
+}
+
+.form-control:focus,
+.form-select:focus {
+  border-color: var(--accent-color);
+  box-shadow: 0 0 0 0.15rem rgba(0, 163, 136, 0.25);
 }

@@ -1,9 +1,6 @@
 package com.BMS.mapper;
 
-import com.BMS.DTO.CustUserDto;
-import com.BMS.DTO.UserDto;
-import com.BMS.DTO.UserDtoNoPassword;
-import com.BMS.DTO.UserEmployeeDto;
+import com.BMS.DTO.*;
 import com.BMS.model.Customer;
 import com.BMS.model.User;
 import lombok.AllArgsConstructor;
@@ -24,10 +21,13 @@ public class UserMapper {
     public UserDtoNoPassword mapDto(User user){
         return  new UserDtoNoPassword(user.getId(),user.getUsername());
     }
-    public CustUserDto maptoCustUserDto(User user, Customer customer,String token){
-        return new CustUserDto(user.getId(),user.getRole(),user.getUsername(), customer.getId(), token);
+    public CustUserDto maptoCustUserDto(User user,String token){
+        return new CustUserDto(user.getUsername(), token);
     }
     public UserEmployeeDto mapToUserEmployeeDto(User user,String token){
         return new UserEmployeeDto(user.getId(),user.getRole(),user.getUsername(),token);
+    }
+    public UserDetailsDto mapToUserDetails(User user){
+        return new UserDetailsDto(user.getId(),user.getUsername(),user.getRole());
     }
 }
