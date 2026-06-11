@@ -1,10 +1,14 @@
 import Accounts from "../components/Accounts";
+import Header from "../components/CustomerDashboardComponents/Header";
 import Loans from "../components/Loans";
 import Transaction from "../components/Transaction";
 import TransactionHistory from "../components/TransactionHistory";
 
 export default function CustomerDashboard() {
   return (
+   <div>
+<Header />
+
     <div className="container-fluid py-4 min-vh-100 bg-dark">
       <div className="row g-4">
 
@@ -44,5 +48,6 @@ export default function CustomerDashboard() {
         </div>
       </div>
     </div>
+      </div>
   );
 }

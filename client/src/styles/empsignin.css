@@ -1,0 +1,43 @@
+ .bg-bank-gradient {
+          background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
+        }
+        .text-navy-primary {
+          color: #0A2540;
+        }
+        .btn-navy-primary {
+          background-color: #0A2540;
+          color: #ffffff;
+          border: none;
+          transition: all 0.2s ease-in-out;
+        }
+        .btn-navy-primary:hover {
+          background-color: #061729;
+          color: #ffffff;
+          transform: translateY(-1px);
+        }
+        .btn-navy-primary:active {
+          transform: translateY(0);
+        }
+        .text-emerald-accent {
+          color: #00a388;
+        }
+        .text-emerald-accent:hover {
+          color: #00826c;
+        }
+        .form-control:focus {
+          border-color: #0A2540;
+          box-shadow: 0 0 0 0.25rem rgba(10, 37, 64, 0.15);
+        }
+        .card-custom {
+          border: none;
+          border-radius: 1.25rem;
+          box-shadow: 0 1rem 3rem rgba(10, 37, 64, 0.08) !important;
+        }
+        .input-group-text-custom {
+          background-color: #f8f9fa;
+          border-right: none;
+          color: #64748b;
+        }
+        .input-custom {
+          border-left: none;
+        }

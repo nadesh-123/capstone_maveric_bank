@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { User, Lock, FileText, MapPin, Phone, Mail, Calendar } from 'lucide-react';
 import axios from 'axios';
+import Header from './Header';
 export default function SignupForm() {
   const navigate = useNavigate();
   const { token } = useSelector((state) => state.user);
@@ -73,7 +74,7 @@ export default function SignupForm() {
 
   return (
     <>
-      
+      <Header />
 
       <div className="bg-bank-gradient">
         <div className="card-custom">

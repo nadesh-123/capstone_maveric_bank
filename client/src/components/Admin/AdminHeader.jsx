@@ -2,8 +2,9 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { useEffect ,useState} from 'react';
 import { Building2, User } from 'lucide-react';
-import ProfilePopup from './ProfilePopup.jsx';
-export default function Header() {
+import "../../styles/style.css"
+import AdminProfile from './AdminProfile.jsx';
+export default function AdminHeader() {
   const currentUser  = useSelector((state) => state.user);
   const navigate = useNavigate();
 const [isProfileOpen, setIsProfileOpen] = useState(false);
@@ -12,7 +13,7 @@ const [isProfileOpen, setIsProfileOpen] = useState(false);
       
 
       {/* Changed py-3 px-4 to just py-3 p-0 to drop header side padding */}
-      <header className="navbar navbar-expand bg-navy-primary shadow sticky-top py-3 p-3">
+      <header className="navbar navbar-expand bg-primary text-white shadow sticky-top py-3 p-3">
         {/* Changed container-fluid classes to px-0 to push items to the exact viewport boundaries */}
         <div className="container-fluid d-flex justify-content-between align-items-center w-100 px-0 m-0">
           
@@ -52,7 +53,7 @@ const [isProfileOpen, setIsProfileOpen] = useState(false);
                     />
                   ) : (
                     <div className="d-flex align-items-center justify-content-center text-white shadow-sm text-capitalize"
-                     onClick={() => navigate("/signin")}>
+                     onClick={() => navigate("/empsignin")}>
                       sign in
                     </div>
                   )}
@@ -63,10 +64,11 @@ const [isProfileOpen, setIsProfileOpen] = useState(false);
 
         </div>
       </header>
-      <ProfilePopup 
+      { <AdminProfile 
         isOpen={isProfileOpen} 
         onClose={() => setIsProfileOpen(false)} 
-      />
+      />}
+     
     </>
   );
 }

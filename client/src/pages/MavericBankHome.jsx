@@ -13,6 +13,7 @@ import {
 } from "lucide-react";
 
 import BankFeatures from "../components/BankFeatures";
+import Header from "../components/CustomerDashboardComponents/Header";
 
 export default function MavericBankHome() {
   const navigate = useNavigate();
@@ -21,6 +22,7 @@ export default function MavericBankHome() {
 
   return (
     <>
+    <Header />
       <div className="min-vh-screen bg-light">
         {/* Main Content */}
         <div className="container py-5 px-4 text-center">
