@@ -1,6 +1,7 @@
 import AdminHeader from "../components/Admin/AdminHeader";
-import Header from "../components/CustomerDashboardComponents/Header";
-import EmployeeSignin from "../components/EmployeeSignin";
+import EmployeeSignin from "../components/Admin/EmployeeSignin.jsx";
+
+
 
 export default function AdminAuth(){
     return(

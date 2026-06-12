@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 @AllArgsConstructor
 public class BranchController {
@@ -17,8 +19,14 @@ public class BranchController {
     public BranchDto addBranchById(@PathVariable int branchId){
         return branchService.getBranchById(branchId);
     }
+
     @DeleteMapping("/api/branch/delete/{branchId}")
     public void removeBranch(@PathVariable int branchId){
         branchService.removeBranch(branchId);
+    }
+
+    @GetMapping("/api/branch/getAll")
+    public List<BranchDto> getAllBranches(){
+        return branchService.getAllBranches();
     }
 }

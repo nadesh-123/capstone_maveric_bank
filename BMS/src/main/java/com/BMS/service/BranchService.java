@@ -9,6 +9,8 @@ import com.BMS.repository.BranchRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @AllArgsConstructor
 public class BranchService {
@@ -28,5 +30,10 @@ BranchMapper branchMapper;
     public Branch getBranchByLocation(Location location) {
      Branch branch=   branchRepository.findByLocation(location);
         return branch;
+    }
+
+    public List<BranchDto> getAllBranches() {
+        List<Branch> list=branchRepository.findAll();
+        return list.stream().map(branchMapper::branchToDto).toList();
     }
 }

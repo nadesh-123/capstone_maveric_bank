@@ -11,9 +11,9 @@ import CustomerDetails from './components/CustomerDetails.jsx'
 import MavericBankHome from './pages/MavericBankHome.jsx'
 import CreateAccount from './components/CreateAccount.jsx'
 import AccountList from './components/AccountList.jsx'
-import EmployeeSignin from './components/EmployeeSignin.jsx'
+
 import EmployeeDashboard from './pages/EmployeeDashboard.jsx'
-import "./styles/style.css"
+
 import ProfilePopup from './components/ProfilePopup.jsx'
 import SignupForm from './components/CustomerDashboardComponents/SignupForm..jsx'
 import AccountSelectionPage from './components/AccountSelectionPage.jsx'
@@ -22,6 +22,12 @@ import CustomerDashBoard from './pages/CustomerDashboard.jsx'
 import LoanApplication from './components/ApplyLoan.jsx'
 import Auth from './pages/Auth.jsx'
 import AdminAuth from './pages/AdminAuth.jsx'
+import SimpleCard from './components/simpleCard.jsx'
+import Card2 from './components/Admin/Card2.jsx'
+import EmployeeSignin from './components/Admin/EmployeeSignin.jsx'
+import AdminDashboard from './pages/AdminDashboard.jsx'
+import AddEmployee from './components/Admin/AddEmployee.jsx'
+import AddBeneficiary from './components/CustomerDashboardComponents/AddBeneficiary.jsx'
 function App() {
  
 
@@ -40,6 +46,8 @@ function App() {
        <Route path="/accountList" element={<AccountList />} 
        />*/}
          <Route path="/signin" element={<Auth />} />
+             <Route path="/add-beneficiary" element={<AddBeneficiary />} />
+      
            <Route path="/empsignin" element={<AdminAuth />} />
           <Route path="/signup" element={<SignupForm />} />
           <Route path="/customer-dashboard" element={<CustomerDashBoard />} />
@@ -47,7 +55,8 @@ function App() {
          <Route path="/create-account" element={<AccountSelectionPage />} />
           <Route path='/createAccount/:accountType' element={<AccountCreationPage />}/>
             <Route path="/accountList" element={<LoanApplication />} />
-              <Route path="/emp" element={<AdminAuth />} />
+                <Route path="/admin-dashboard" element={<AdminDashboard />} />
+                 <Route path="/admin-dashboard/add-emp" element={<AddEmployee />} />
     </Routes>
   </div>
 

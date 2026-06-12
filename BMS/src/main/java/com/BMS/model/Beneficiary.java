@@ -1,11 +1,9 @@
-package com.BMS.DTO;
+package com.BMS.model;
 
-import com.BMS.model.Account;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.SequencedSet;
 @Entity
 @Getter
 @Setter
@@ -17,4 +15,6 @@ public class Beneficiary {
 
     private String ifsccode;
 
+    @ManyToOne
+    private Customer customer;
 }

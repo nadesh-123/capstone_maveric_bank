@@ -4,6 +4,9 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 public record BenficiaryDto(@NotNull
+        @NotBlank
+        String accountNumber,
+                          @NotNull
                            @NotBlank
                             String ifsccode) {
 }

@@ -15,12 +15,12 @@ import java.util.List;
 public class AdminController {
     private final  AdminService adminService;
 
-    @PostMapping("/admin/add-admin")
+    @PostMapping("/api/admin/add-admin")
     public void addAdmin(@RequestBody UserDto userDto) {
         adminService.addAdmin(userDto);
     }
 
-    @PostMapping("/admin/add-employee")
+    @PostMapping("/api/admin/add-employee")
     public void registerEmp(@RequestBody EmployeeDto employeeDto) {
         adminService.addEmployee(employeeDto);
     }

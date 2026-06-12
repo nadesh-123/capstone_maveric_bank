@@ -14,10 +14,6 @@ import java.time.Instant;
 @Setter
 public class Account {
     @Id
-    @Getter
-    @Setter
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
     @Column(name = "account_number", unique = true, nullable = false, length = 8)
     private String accountNumber;
     @ManyToOne

@@ -12,9 +12,7 @@ public record EmployeeDto(
         @NotNull
         @NotBlank
           String username,
-        @NotNull
-        @NotBlank
-          String password,
+
         @NotNull
         @NotBlank
                 @Email

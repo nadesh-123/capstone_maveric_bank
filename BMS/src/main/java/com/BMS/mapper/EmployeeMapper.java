@@ -24,7 +24,7 @@ public class EmployeeMapper {
         User user=new User();
         user.setRole(employeeDto.role());
         user.setUsername(employeeDto.username());
-        user.setPassword(passwordEncoder.encode(employeeDto.password()));
+        user.setPassword(passwordEncoder.encode("password123"));
         return user;
     }
     public DtoEmployee mapToDto(Employee employee){

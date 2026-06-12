@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from "react-redux";
-import { setUser } from "../redux/userSlice";
+import { setUser } from "../../redux/userSlice";
 import axios from 'axios';
-import "../styles/empsignin.css"
+import "../../styles/empsignin.css"
 export default function EmployeeSignin() {
   const [formData, setFormData] = useState({
     username: '',
@@ -18,7 +18,6 @@ export default function EmployeeSignin() {
   useEffect(() => {
     console.log(user.id);
     console.log(user.username);
-    
   }, [user]);
 
   const handleChange = (e) => {
@@ -34,42 +33,38 @@ export default function EmployeeSignin() {
     setError('');
     
     try {
-      const credentials = formData.username+":"+formData.password;
+      const credentials = formData.username + ":" + formData.password;
       const encodedCredentials = window.btoa(credentials);
 
-      const response =await axios.get('http://localhost:8080/api/user/loginv2', {
-        
+      const response = await axios.get('http://localhost:8080/api/user/loginv2', {
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': "Basic "+encodedCredentials
-                }
+          'Authorization': "Basic " + encodedCredentials
+        }
       });
 
-    
-        const data =response.data;
-        const res=await axios.get("http://localhost:8080/api/user/get-details",
-          {
-            headers:{
-              "Authorization":"Bearer "+data.token
-            }
-          }
-        )
-       const userDetails=res.data
-        dispatch(
-          setUser({
-            id: userDetails.userId,
-            username: data.username,
-           
-            token: data.token
-          })
-        );
-
-        if (userDetails.role === "CUSTOMER") {
-          navigate("/customer-dashboard");
-        } else if (userDetails.role === "EMPLOYEE") {
-          navigate("/employee-dashboard");
+      const data = response.data;
+      const res = await axios.get("http://localhost:8080/api/user/get-details", {
+        headers: {
+          "Authorization": "Bearer " + data.token
         }
-      }catch (error) {
+      });
+      
+      const userDetails = res.data;
+      dispatch(
+        setUser({
+          id: userDetails.userId,
+          username: data.username,
+          token: data.token
+        })
+      );
+
+      if (userDetails.role === "ADMIN") {
+        navigate("/admin-dashboard");
+      } else if (userDetails.role === "EMPLOYEE") {
+        navigate("/employee-dashboard");
+      }
+    } catch (error) {
       console.log("Network or client error:", error);
       setError('A network error occurred. Please try again.');
     }
@@ -78,11 +73,11 @@ export default function EmployeeSignin() {
   return (
     <>
       <style>{`
-       
+        
       `}</style>
 
-      <div className="container-fluid min-vh-screen d-flex align-items-center justify-content-center bg-bank-gradient p-4">
-        <div className="row w-full justify-content-center" style={{ maxWidth: '450px' }}>
+      <div className="container-fluid min-vh-100 d-flex align-items-center justify-content-center bg-bank-gradient p-4">
+        <div className="row w-100 justify-content-center" style={{ maxWidth: '450px' }}>
           <div className="col-12">
             <div className="card card-custom bg-white p-4 p-md-5">
               
@@ -131,7 +126,7 @@ export default function EmployeeSignin() {
                       required
                       value={formData.username}
                       onChange={handleChange}
-                      className="form-control form-control-lg input-custom bg-light fs-6"
+                      className="form-control form-control-lg input-custom fs-6"
                       placeholder="Enter username"
                     />
                   </div>
@@ -159,7 +154,7 @@ export default function EmployeeSignin() {
                       required
                       value={formData.password}
                       onChange={handleChange}
-                      className="form-control form-control-lg input-custom bg-light fs-6"
+                      className="form-control form-control-lg input-custom fs-6"
                       placeholder="••••••••"
                     />
                   </div>
@@ -174,18 +169,7 @@ export default function EmployeeSignin() {
                 </button>
               </form>
 
-              {/* Footer Link */}
-              <div className="text-center mt-2">
-                <p className="text-muted small mb-0">
-                  Don't have an account?{' '}
-                  <button 
-                    onClick={() => navigate('/signup')} 
-                    className="btn btn-link p-0 text-decoration-none small fw-semibold text-emerald-accent alignment-baseline"
-                  >
-                    Sign Up
-                  </button>
-                </p>
-              </div>
+            
 
             </div>
           </div>

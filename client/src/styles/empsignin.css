@@ -1,43 +1,137 @@
- .bg-bank-gradient {
-          background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
+/* Background */
+        .bg-bank-gradient {
+          min-height: 100vh;
+          background: linear-gradient(
+            135deg,
+            #f8fafc 0%,
+            #eef2f7 50%,
+            #e2e8f0 100%
+          );
         }
-        .text-navy-primary {
-          color: #0A2540;
-        }
-        .btn-navy-primary {
-          background-color: #0A2540;
-          color: #ffffff;
+
+        /* Card */
+        .card-custom {
           border: none;
-          transition: all 0.2s ease-in-out;
+          border-radius: 24px;
+          box-shadow: 0 20px 40px rgba(15, 23, 42, 0.08);
+          transition: all 0.3s ease;
         }
-        .btn-navy-primary:hover {
-          background-color: #061729;
-          color: #ffffff;
-          transform: translateY(-1px);
+
+        .card-custom:hover {
+          transform: translateY(-3px);
+          box-shadow: 0 24px 48px rgba(15, 23, 42, 0.12);
         }
-        .btn-navy-primary:active {
-          transform: translateY(0);
+
+        /* Brand Colors */
+        .text-navy-primary {
+          color: #07125E;
         }
+
         .text-emerald-accent {
           color: #00a388;
+          transition: 0.3s;
         }
+
         .text-emerald-accent:hover {
           color: #00826c;
         }
-        .form-control:focus {
-          border-color: #0A2540;
-          box-shadow: 0 0 0 0.25rem rgba(10, 37, 64, 0.15);
-        }
-        .card-custom {
+
+        /* Button */
+        .btn-navy-primary {
+          background: linear-gradient(
+            135deg,
+            #0a2540 0%,
+            #3C2CD9 100%
+          );
           border: none;
-          border-radius: 1.25rem;
-          box-shadow: 0 1rem 3rem rgba(10, 37, 64, 0.08) !important;
+          color: white;
+         
+          transition: all 0.3s ease;
         }
+
+        .btn-navy-primary:hover {
+          color: white;
+          transform: translateY(-2px);
+          box-shadow: 0 10px 20px rgba(6, 28, 225, 0.25);
+        }
+
+        .btn-navy-primary:active {
+          transform: scale(0.98);
+        }
+
+        /* Input Groups */
         .input-group-text-custom {
-          background-color: #f8f9fa;
+          background: #f8fafc;
           border-right: none;
+          border-color: #dbe4ee;
           color: #64748b;
         }
+
         .input-custom {
           border-left: none;
+          border-color: #dbe4ee;
+          background-color: #f8fafc !important;
+        }
+
+        .input-custom:focus {
+          background-color: white !important;
+          outline: none;
+          box-shadow: none;
+        }
+
+        /* Form Controls */
+        .form-control {
+          border-radius: 12px;
+          height: 52px;
+        }
+
+        .form-control:focus {
+          border-color: #0a2540;
+          box-shadow: 0 0 0 4px rgba(10, 37, 64, 0.1);
+        }
+
+        /* Input Group Fix */
+        .input-group .form-control {
+          border-top-left-radius: 0;
+          border-bottom-left-radius: 0;
+        }
+
+        .input-group .input-group-text {
+          border-top-right-radius: 0;
+          border-bottom-right-radius: 0;
+        }
+
+        /* Labels */
+        .form-label {
+          font-size: 0.9rem;
+          letter-spacing: 0.2px;
+        }
+
+        /* Forgot Password */
+        a.text-emerald-accent {
+          font-weight: 500;
+        }
+
+        /* Error Alert */
+        .alert-danger {
+          border: none;
+          background: #fef2f2;
+          color: #dc2626;
+        }
+
+        /* Sign Up Button */
+        .btn-link {
+          text-decoration: none !important;
+        }
+
+        /* Mobile */
+        @media (max-width: 576px) {
+          .card-custom {
+            border-radius: 18px;
+            padding: 1.5rem !important;
+          }
+
+          .form-control {
+            height: 48px;
+          }
         }

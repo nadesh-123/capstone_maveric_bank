@@ -1,7 +1,8 @@
 import Accounts from "../components/Accounts";
 import Header from "../components/CustomerDashboardComponents/Header";
+import Transaction from "../components/CustomerDashboardComponents/Transaction";
 import Loans from "../components/Loans";
-import Transaction from "../components/Transaction";
+
 import TransactionHistory from "../components/TransactionHistory";
 
 export default function CustomerDashboard() {

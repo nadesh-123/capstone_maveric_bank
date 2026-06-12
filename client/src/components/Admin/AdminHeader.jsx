@@ -2,7 +2,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { useEffect ,useState} from 'react';
 import { Building2, User } from 'lucide-react';
-import "../../styles/style.css"
+import "../../styles/empsignin.css"
 import AdminProfile from './AdminProfile.jsx';
 export default function AdminHeader() {
   const currentUser  = useSelector((state) => state.user);
@@ -13,7 +13,7 @@ const [isProfileOpen, setIsProfileOpen] = useState(false);
       
 
       {/* Changed py-3 px-4 to just py-3 p-0 to drop header side padding */}
-      <header className="navbar navbar-expand bg-primary text-white shadow sticky-top py-3 p-3">
+      <header className="navbar navbar-expand btn-navy-primary text-white shadow sticky-top py-3 p-3">
         {/* Changed container-fluid classes to px-0 to push items to the exact viewport boundaries */}
         <div className="container-fluid d-flex justify-content-between align-items-center w-100 px-0 m-0">
           
