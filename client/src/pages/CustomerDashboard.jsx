@@ -3,7 +3,7 @@ import Header from "../components/CustomerDashboardComponents/Header";
 import Transaction from "../components/CustomerDashboardComponents/Transaction";
 import Loans from "../components/Loans";
 import { useDispatch, useSelector } from "react-redux";
-import TransactionHistory from "../components/TransactionHistory";
+import TransactionHistory from "../components/CustomerDashboardComponents/TransactionHistory";
 import { useEffect } from "react";
 import { storeTransaction } from "../store/actions/transactionAction";
 

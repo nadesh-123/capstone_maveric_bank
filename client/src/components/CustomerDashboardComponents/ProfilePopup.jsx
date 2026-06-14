@@ -2,7 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { useDispatch } from "react-redux";
-import { clearUser } from "../redux/userSlice";
+import { clearUser } from "../../redux/userSlice";
 import { 
   X, 
   CreditCard, 
@@ -32,12 +32,8 @@ export default function ProfilePopup({ isOpen, onClose }) {
       label: 'Manage Loans',
       icon: <Coins size={20} />,
       path: '/manage-loans'
-    },
-    {
-      label: 'Transactions',
-      icon: <ArrowLeftRight size={20} />,
-      path: '/transactions'
     }
+   
   ];
 
   return (
@@ -185,6 +181,39 @@ export default function ProfilePopup({ isOpen, onClose }) {
               <span>{item.label}</span>
             </button>
           ))}
+        <div className="dropdown">
+  <button
+    className="profile-sidebar-btn dropdown-toggle"
+    type="button"
+    data-bs-toggle="dropdown"
+    aria-expanded="false"
+  >
+    <span className="icon-wrapper">
+      <ArrowLeftRight size={20} />
+    </span>
+    <span>Transactions</span>
+  </button>
+
+  <ul className="dropdown-menu " >
+    <li>
+      <button
+        className="dropdown-item profile-sidebar-btn"
+        onClick={() => navigate("/transactions/latest")}
+      >
+        Latest Transactions
+      </button>
+    </li>
+
+    <li>
+      <button
+        className="dropdown-item profile-sidebar-btn"
+        onClick={() => navigate("/transactions/all")}
+      >
+        All Transactions
+      </button>
+    </li>
+  </ul>
+</div>
         </div>
 
         {/* Footer Actions (Sign Out) */}

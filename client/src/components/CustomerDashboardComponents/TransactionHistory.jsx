@@ -1,10 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-const dummyHistory = [
-  { description: 'Paid to Appolo pharmacy', amount: 15, type: 'debit' },
-  { description: 'Received from Guru K', amount: 2000, type: 'credit' }
-];
+
 
 export default function TransactionHistory() {
   const transactionsStore=useSelector((state)=>state.transactions.transactions)
@@ -20,7 +17,7 @@ export default function TransactionHistory() {
       <div className="table-responsive">
         <table className="table table-striped table-hover mb-0">
           <tbody>
-            {transactionsStore.map((tx, index) =>{
+            {transactionsStore.slice(0, 19).map((tx, index) =>{
               let type=""
               let saccount=""
               let taccount=""
@@ -69,7 +66,7 @@ export default function TransactionHistory() {
                 <span className={`d-block  fw-bold ${(tx.transactionType==="DEPOSIT" ||(tx.transactionType==="TRANSFER" && tx.customerId===null)) ? 'text-success' : 'text-danger'}`}>
                   {(tx.transactionType==="DEPOSIT" ||(tx.transactionType==="TRANSFER" && tx.customerId===null)) ? '+' : '-'}₹{tx.amount}
                 </span>
-                <br />
+               
              
                 <small>{tx.madeAt.toString().split("T")[0]}</small>
                 </td>

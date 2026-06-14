@@ -2,7 +2,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { useEffect ,useState} from 'react';
 import { Building2, User } from 'lucide-react';
-import ProfilePopup from '../ProfilePopup.jsx';
+import ProfilePopup from './ProfilePopup.jsx';
 export default function Header() {
   const currentUser  = useSelector((state) => state.user);
   const navigate = useNavigate();

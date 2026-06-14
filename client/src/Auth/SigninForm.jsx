@@ -58,7 +58,7 @@ export default function SigninForm() {
           setUser({
             id: userDetails.userId,
             username: data.username,
-           
+           role:userDetails.role,
             token: data.token
           })
         );
