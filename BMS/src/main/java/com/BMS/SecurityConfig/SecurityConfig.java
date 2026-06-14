@@ -62,10 +62,11 @@ JwtFilter jwtFilter;
 
                         .requestMatchers(HttpMethod.POST, "/api/beneficiary/add").hasAuthority("CUSTOMER")
                         .requestMatchers(HttpMethod.GET, "/api/beneficiary/get").hasAuthority("CUSTOMER")
+
                         .requestMatchers(HttpMethod.POST, "/api/admin/add-employee").hasAuthority("ADMIN")
                         .requestMatchers(HttpMethod.GET, "/api/admin/get-alL-emp").hasAuthority("ADMIN")//Paginated
                         .requestMatchers(HttpMethod.POST, "/api/admin/add-admin").permitAll()
-
+                        .requestMatchers(HttpMethod.GET, "/api/transaction/get-transactions").hasAuthority("CUSTOMER")
                         .requestMatchers(HttpMethod.GET, "/api/branch/getAll").permitAll()
                         .anyRequest().authenticated()
                 );

@@ -9,7 +9,7 @@ export default function Accounts() {
   useEffect(()=>{
     const getAccounts=async()=>{
 try {
-  const res=await axios.get("http://localhost:8080/api/account/getAccounts",{
+  const res=await axios.get("http://localhost:8080/api/account/getActiveAccounts",{
     headers:{
       "Authorization":"Bearer "+user.token
     }
@@ -58,7 +58,7 @@ getAccounts()
 
                 <p className="card-text mb-1">
                   <small className="text-muted">Acc No: </small>
-                  <strong>{acc.accno}</strong>
+                  <strong>{acc.accountNumber}</strong>
                 </p>
                 <p className="card-text mb-0">
                   <small className="text-muted">Balance: </small>

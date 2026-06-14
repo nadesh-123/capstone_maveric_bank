@@ -14,7 +14,7 @@ export default function CustomerDashboard() {
       <div className="row g-4">
 
 
-        <div className="col-12 col-md-9">
+        <div className="col-12 col-md-8">
           <div className="row-12  row-md-9 g-4 mb-3">
             <div className="col-12">
               <div className="p-3 bg-primary  rounded border h-100">
@@ -38,7 +38,7 @@ export default function CustomerDashboard() {
         </div>
 
 
-        <div className="col-12 col-md-3">
+        <div className="col-12 col-md-4">
           <div className="row g-4">
             <div className="col-12">
               <div className="p-3 bg-success rounded border h-100">

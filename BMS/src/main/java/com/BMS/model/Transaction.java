@@ -5,6 +5,9 @@ import com.BMS.enums.TransactionType;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
+
+import java.time.Instant;
 
 @Entity
 @Getter
@@ -25,6 +28,7 @@ public class Transaction {
     @Enumerated(EnumType.STRING)
     private TransactionStatus transactionStatus;
     @ManyToOne
-User user;
-
+Customer customer;
+    @CreationTimestamp
+    Instant createdAt;
 }

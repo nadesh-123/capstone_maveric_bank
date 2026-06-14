@@ -6,6 +6,7 @@ import com.BMS.Exception.InsufficiantBalanceException;
 import com.BMS.Exception.ResourceNotFoundException;
 import com.BMS.enums.TransactionStatus;
 import com.BMS.mapper.TransactionMapper;
+import com.BMS.model.Customer;
 import com.BMS.model.Transaction;
 import com.BMS.model.User;
 import com.BMS.repository.TransactionRepository;
@@ -24,11 +25,11 @@ public class TransactionService {
     private final TransactionRepository transactionRepository;
     private final UserService userService;
 
-
+  private final CustomerService customerService;
     public void withdrawDepositCombine(TransactionDtoSource transactionDtoSource, String username) {
         Transaction transaction=transactionMapper.mapDtoToTransaction(transactionDtoSource);
 
-        transaction.setUser(userService.findByUsername(username).orElseThrow(()->new ResourceNotFoundException("invalid user")));
+        transaction.setCustomer(customerService.getByUsername(username));
         try{
         transaction.setTransactionStatus(TransactionStatus.SUCCESS);
      transactionRepository.save(transaction);}
@@ -41,8 +42,9 @@ public class TransactionService {
 
     public List<TransactionViewDto> getTransactions(String username, int page, int size) {
         Pageable pageable= PageRequest.of(page,size);
-      User user=  userService.findByUsername(username).orElseThrow(()->new ResourceNotFoundException("invalid user"));
-       List<Transaction> list= transactionRepository.findByUserId(user.getId(),pageable);
-      return list.stream().map(transaction ->transactionMapper.mapToDto(transaction) ).toList();
+        Customer customer=customerService.getByUsername(username);
+
+       List<Transaction> list= transactionRepository.getAllTransactions(customer.getId(),pageable);
+      return list.stream().map(transaction ->transactionMapper.mapToDto(transaction,username) ).toList();
     }
 }

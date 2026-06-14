@@ -20,7 +20,7 @@ public class TransactionController {
         transactionService.withdrawDepositCombine(transactionDtoSource,username);
     }
     @GetMapping("/api/transaction/get-transactions")
-    public List<TransactionViewDto> getTransactions(Principal principal, @RequestParam int page,@RequestParam int size){
+    public List<TransactionViewDto> getTransactions(Principal principal, @RequestParam(defaultValue = "0",required = false) int page,@RequestParam(defaultValue = "15",required = false) int size){
         String username=principal.getName();
        return transactionService.getTransactions(username,page,size);
     }
