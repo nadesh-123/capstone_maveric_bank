@@ -7,33 +7,20 @@ const dummyHistory = [
 ];
 
 export default function TransactionHistory() {
-  
+  const transactionsStore=useSelector((state)=>state.transactions.transactions)
+   
   const [transactions,setTransactions]=useState([])
-    const token = useSelector((state) => state.user?.token);
-useEffect(()=>{
-const getTransactionHistory=async ()=>{
-  try {
-    const response= await axios.get("http://localhost:8080/api/transaction/get-transactions?page=0",{
-      headers:{
-       'Authorization': `Bearer ${token}`
-      }
-    })
-    setTransactions(response.data)
-    console.log(response.data)
-  } catch (error) {
-    console.log(error)
-  }
-  
-}
-getTransactionHistory()
-},[])
+ // setTransactions(transactionsStore)
+
+
+   
   return (
     <div>
       <h5 className="text-secondary mb-3 border-bottom pb-2">Transaction History</h5>
       <div className="table-responsive">
         <table className="table table-striped table-hover mb-0">
           <tbody>
-            {transactions.map((tx, index) =>{
+            {transactionsStore.map((tx, index) =>{
               let type=""
               let saccount=""
               let taccount=""

@@ -7,6 +7,7 @@ import {
 } from "redux-persist";
 
 import storage from "redux-persist/lib/storage";
+import { transactionReducer } from "../store/reducer/transactionReducer";
 const persistConfig = {
   key: "root",
   storage,
@@ -18,7 +19,8 @@ const persistedReducer = persistReducer(
 );
 export const store = configureStore({
   reducer: {
-    user: persistedReducer
+    user: persistedReducer,
+    transactions:transactionReducer
   }
 });
 

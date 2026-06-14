@@ -2,10 +2,21 @@ import Accounts from "../components/Accounts";
 import Header from "../components/CustomerDashboardComponents/Header";
 import Transaction from "../components/CustomerDashboardComponents/Transaction";
 import Loans from "../components/Loans";
-
+import { useDispatch, useSelector } from "react-redux";
 import TransactionHistory from "../components/TransactionHistory";
+import { useEffect } from "react";
+import { storeTransaction } from "../store/actions/transactionAction";
 
 export default function CustomerDashboard() {
+
+ const user = useSelector((state) => state.user);
+  const dispatch=useDispatch()
+ useEffect(() => {
+  if (user.token) {
+    dispatch(storeTransaction());
+   // console.log(user.token)
+  }
+}, [user.token,dispatch]);
   return (
    <div>
 <Header />
