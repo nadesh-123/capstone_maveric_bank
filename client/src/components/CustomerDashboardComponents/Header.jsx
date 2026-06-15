@@ -12,7 +12,7 @@ const [isProfileOpen, setIsProfileOpen] = useState(false);
       
 
       {/* Changed py-3 px-4 to just py-3 p-0 to drop header side padding */}
-      <header className="navbar navbar-expand bg-navy-primary shadow sticky-top py-3 p-3">
+      <header className="navbar navbar-expand navbarbg shadow sticky-top py-3 p-3">
         {/* Changed container-fluid classes to px-0 to push items to the exact viewport boundaries */}
         <div className="container-fluid d-flex justify-content-between align-items-center w-100 px-0 m-0">
           
@@ -21,9 +21,9 @@ const [isProfileOpen, setIsProfileOpen] = useState(false);
             <div className="bg-white p-2 rounded-circle d-flex align-items-center justify-content-center" style={{ width: '38px', height: '38px' }}>
               <Building2 style={{ color: '#0A2540' }} size={20} />
             </div>
-            <h1 className="navbar-brand text-white fw-bold tracking-wide m-0 fs-4 d-flex align-items-center flex-wrap">
+            <h1 className="navbar-brand navtitle fw-bold tracking-wide m-0 fs-4 d-flex align-items-center flex-wrap">
               <span>Maveric</span>
-              <span className="text-emerald-accent ms-1">Bank</span>
+              <span className="navtitle ms-1">Bank</span>
             </h1>
           </Link>
 

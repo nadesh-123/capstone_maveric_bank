@@ -55,7 +55,7 @@ export default function SignupForm() {
       text: "Customer account successfully registered!",
     });
 
-      navigate("/home");
+      navigate("/signin");
   
 
   } catch (error) {
@@ -105,7 +105,7 @@ export default function SignupForm() {
                     required
                     value={formData.username}
                     onChange={handleChange}
-                    placeholder="e.g. johndoe"
+                    placeholder=""
                   />
                 </div>
               </div>
@@ -138,7 +138,7 @@ export default function SignupForm() {
                     required
                     value={formData.fullname}
                     onChange={handleChange}
-                    placeholder="John Doe"
+                    placeholder=""
                   />
                 </div>
               </div>
@@ -152,7 +152,7 @@ export default function SignupForm() {
                     required
                     value={formData.email}
                     onChange={handleChange}
-                    placeholder="johndoe@example.com"
+                    placeholder=""
                   />
                 </div>
               </div>

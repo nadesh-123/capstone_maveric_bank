@@ -2,7 +2,7 @@ import React from 'react';
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import axios from "axios";
-import LoanCards from './CustomerDashboardComponents/LoanCards';
+import LoanCards from './LoanCards';
 const dummyLoans = [
   { type: 'Home Loan', amount: 200000, dateIssued: '12/04/2024' },
   { type: 'Car Loan', amount: 30000, dateIssued: '22/08/2025' }

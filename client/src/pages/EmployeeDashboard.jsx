@@ -5,7 +5,7 @@ import {
   CheckCircle, XCircle, ChevronRight, Eye, 
   FileSpreadsheet, AlertTriangle, ShieldAlert
 } from 'lucide-react';
-import CustomerDetailsModal from '../components/CustomerDetetailsModel.jsx'; // Adjust path if needed
+ // Adjust path if needed
 export default function EmployeeDashboard() {
   const [activeTab, setActiveTab] = useState('accounts');
  const user = useSelector((state) => state.user);

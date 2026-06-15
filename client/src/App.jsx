@@ -2,26 +2,26 @@
 import './App.css'
 
 
-import UserCustomer from './components/UserCustomer.jsx'
+
 import SigninForm from './Auth/SigninForm.jsx'
 import { Navigate, Route,Routes } from "react-router-dom";
 import BankHomePage from './components/LandingPage.jsx'
-import CustomerDetails from './components/CustomerDetails.jsx'
+
 import MavericBankHome from './pages/MavericBankHome.jsx'
-import CreateAccount from './components/CreateAccount.jsx'
-import AccountList from './components/AccountList.jsx'
+
+
 
 import EmployeeDashboard from './pages/EmployeeDashboard.jsx'
 
 import ProfilePopup from './components/CustomerDashboardComponents/ProfilePopup.jsx'
 import SignupForm from './components/CustomerDashboardComponents/SignupForm..jsx'
-import AccountSelectionPage from './components/AccountSelectionPage.jsx'
-import AccountCreationPage from './components/AccountCreationPage.jsx'
 
-import LoanApplication from './components/ApplyLoan.jsx'
+
+
+import LoanApplication from './components/CustomerDashboardComponents/ApplyLoan.jsx'
 import Auth from './pages/Auth.jsx'
 import AdminAuth from './pages/AdminAuth.jsx'
-import SimpleCard from './components/simpleCard.jsx'
+
 import Card2 from './components/Admin/Card2.jsx'
 import EmployeeSignin from './components/Admin/EmployeeSignin.jsx'
 import AdminDashboard from './pages/AdminDashboard.jsx'
@@ -32,6 +32,9 @@ import Unauthorized from './components/Unauthorized.jsx'
 import ProtectedRoute from './Auth/ProtectedRoute.jsx'
 import CustomerDashboard from './pages/CustomerDashboard.jsx'
 import TransactionsView from './pages/TransactionsView.jsx'
+import AccountSelectionPage from './components/CustomerDashboardComponents/AccountSelectionPage.jsx';
+import AccountCreationPage from './components/CustomerDashboardComponents/AccountCreationPage.jsx';
+import TransactionHistoryFilter from './components/CustomerDashboardComponents/TransactionHistoryFilter.jsx';
 function App() {
  
 
@@ -63,11 +66,14 @@ function App() {
           <Route path="/customer-dashboard" element={<CustomerDashboard />} />
       
             <Route path="/add-beneficiary" element={<AddBeneficiary />} />
+           
              <Route path="/create-account" element={<AccountSelectionPage />} />
           <Route path='/createAccount/:accountType' element={<AccountCreationPage />}/>
+          <Route path="/applyLoan" element={<LoanApplication />} />
           <Route path="/transaction-latest" element={<TransactionHistory />} />
-            <Route path="/accountList" element={<LoanApplication />} />
+              <Route path="/transactions/all" element={<TransactionHistoryFilter />} />
             <Route path="/transactions" element={<TransactionsView />}>
+            
             <Route path="latest" element={<TransactionHistory />}/>
             </Route>
         </Route>

@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
+import Header from './Header';
 
 
 export default function TransactionHistory() {
@@ -12,8 +13,10 @@ export default function TransactionHistory() {
 
    
   return (
+    
+   
     <div>
-      <h5 className="text-secondary mb-3 border-bottom pb-2">Transaction History</h5>
+      <h5 className="text-secondary mb-3 border-bottom  pb-2">Transaction History</h5>
       <div className="table-responsive">
         <table className="table table-striped table-hover mb-0">
           <tbody>
@@ -63,6 +66,7 @@ export default function TransactionHistory() {
                     }</span>
                 </td>
                 <td className='text-end py-3'>
+                   <small className={`d-block  fw-bold ${tx.transactionStatus==="SUCCESS"  ? 'text-success' : 'text-danger'}`}>{tx.transactionStatus}</small>
                 <span className={`d-block  fw-bold ${(tx.transactionType==="DEPOSIT" ||(tx.transactionType==="TRANSFER" && tx.customerId===null)) ? 'text-success' : 'text-danger'}`}>
                   {(tx.transactionType==="DEPOSIT" ||(tx.transactionType==="TRANSFER" && tx.customerId===null)) ? '+' : '-'}₹{tx.amount}
                 </span>
@@ -77,5 +81,6 @@ export default function TransactionHistory() {
         </table>
       </div>
     </div>
+  
   );
 }

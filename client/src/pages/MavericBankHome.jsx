@@ -12,7 +12,7 @@ import {
   Building2
 } from "lucide-react";
 
-import BankFeatures from "../components/BankFeatures";
+import BankFeatures from "../components/CustomerDashboardComponents/BankFeatures";
 import Header from "../components/CustomerDashboardComponents/Header";
 
 export default function MavericBankHome() {

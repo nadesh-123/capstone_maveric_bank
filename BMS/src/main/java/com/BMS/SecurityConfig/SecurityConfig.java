@@ -39,6 +39,7 @@ JwtFilter jwtFilter;
                         //Transaction API
                         .requestMatchers(HttpMethod.POST, "/api/transaction-Withdraw-Deposit-Transfer").hasAuthority("CUSTOMER")
                         .requestMatchers(HttpMethod.GET, "/api/transaction/get-transactions").authenticated()
+                        .requestMatchers(HttpMethod.GET, "/api/transaction/filter").authenticated()
                          //customer
                         .requestMatchers(HttpMethod.GET, "/api/user/loginv2").authenticated()
                         .requestMatchers(HttpMethod.POST, "/api/customer/addCustomer").permitAll()

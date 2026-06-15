@@ -24,14 +24,19 @@ export default function ProfilePopup({ isOpen, onClose }) {
       path: '/create-account'
     },
     {
-      label: 'Manage Account',
+      label: 'Apply Loan',
       icon: <Wallet size={20} />,
-      path: '/accountList'
+      path: '/applyLoan'
     },
     {
       label: 'Manage Loans',
       icon: <Coins size={20} />,
       path: '/manage-loans'
+    },
+      {
+      label: 'Add Beneficiary',
+      icon: <Coins size={20} />,
+      path: '/add-beneficiary'
     }
    
   ];

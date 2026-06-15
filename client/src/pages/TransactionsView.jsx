@@ -6,9 +6,9 @@ import Header from '../components/CustomerDashboardComponents/Header'
 const TransactionsView = () => {
   return (
     <div>
-        <Header />
-   <div className="container d-flex justify-content-center align-items-center" style={{height: "100vh"}}>
-      <div className="col-6">
+      <Header />
+   <div className="container d-flex justify-content-center align-items-center mt-5" style={{height: "100vh"}}>
+      <div className="col-6 mt-5">
         <Outlet />
        
       </div>

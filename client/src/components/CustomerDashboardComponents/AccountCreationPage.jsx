@@ -48,16 +48,16 @@ export default function AccountCreationPage() {
 
     const dataPayload = new FormData();
 
-    // 1. Append the Multipart files array matching the backend @RequestParam("files") configuration
+    
     dataPayload.append('files', files.passportPhoto);
     dataPayload.append('files', files.identityCard);
 
-    // 2. Append DTOAccount model data elements matching backend @ModelAttribute DTOAccount properties
+   
     dataPayload.append('accountType', formattedAccountType);
    
 
     try {
-      // Execute the request via Axios utilizing an implicit authenticated session cookielayer/token authorization header if needed
+     
       const response = await axios.post('http://localhost:8080/api/account/add/Account', dataPayload, {
         headers: {
           'Content-Type': 'multipart/form-data',
@@ -91,7 +91,7 @@ export default function AccountCreationPage() {
             <ArrowLeft size={16} /> Back
           </button>
 
-          {/* Main Heading dynamically displaying account type parameter mapping */}
+         
           <h1 className="page-title text-navy">{formattedAccountType.replace(/_/g, ' ')}</h1>
           <p className="sub-title">Upload Documents & Complete Account Setup</p>
 
@@ -104,7 +104,7 @@ export default function AccountCreationPage() {
 
           <form onSubmit={handleSubmit}>
             
-            {/* Input fields to dynamically satisfy standard DTOAccount configurations */}
+            
             <div className="field-group">
               <label>Initial Deposit Amount (INR)</label>
               <input 
@@ -118,7 +118,7 @@ export default function AccountCreationPage() {
               />
             </div>
 
-            {/* Document Collection Container Elements */}
+           
             <div className="upload-container">
               
               {/* Box A: Passport Photo Asset */}
@@ -135,7 +135,7 @@ export default function AccountCreationPage() {
                 />
               </div>
 
-              {/* Box B: Verification Card Document */}
+             
               <div className={`upload-box ${files.identityCard ? 'file-selected' : ''}`}>
                 <Upload className="upload-icon" size={24} />
                 <div className="upload-label">Aadhaar Card Document</div>

@@ -1,5 +1,14 @@
  /*SignupForm.jsx*/
- 
+ .cus-dashboard-bg{
+  background: #EEEFF5;
+margin-top: 0%;
+ }
+ .navbarbg{
+  background: #07125E;
+ }
+ .navtitle{
+  color: white;
+ }
  .bg-bank-gradient {
           background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
           min-height: 100vh;

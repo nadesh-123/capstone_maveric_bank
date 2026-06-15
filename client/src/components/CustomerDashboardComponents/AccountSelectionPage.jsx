@@ -1,9 +1,9 @@
 import React from 'react';
 import AccountTypeCard from './AccountTypeCard';
 import { useNavigate } from 'react-router-dom';
-  import currentAccountImg from '../assets/CurrentAccount.png';
-  import savingsAccount from "../assets/SavingsAccount.png"
-  import fixedDeposit from "../assets/FixedDeposit.png"
+  import currentAccountImg from '../../assets/CurrentAccount.png';
+  import savingsAccount from "../../assets/SavingsAccount.png"
+  import fixedDeposit from "../../assets/FixedDeposit.png"
 export default function AccountSelectionPage() {
   // Centralized data matrix for your banking accounts
 
