@@ -35,6 +35,9 @@ import TransactionsView from './pages/TransactionsView.jsx'
 import AccountSelectionPage from './components/CustomerDashboardComponents/AccountSelectionPage.jsx';
 import AccountCreationPage from './components/CustomerDashboardComponents/AccountCreationPage.jsx';
 import TransactionHistoryFilter from './components/CustomerDashboardComponents/TransactionHistoryFilter.jsx';
+import AccountApprovalDash from './components/Employee/AccountApprovalDash.jsx';
+import PendingLoans from './components/Employee/PendingLoans.jsx';
+import ManagerDashBoard from './pages/ManagerDashBoard.jsx';
 function App() {
  
 
@@ -62,7 +65,7 @@ function App() {
       
 
 
-        <Route element={<ProtectedRoute allowedRoles={"CUSTOMER"} />}>
+        <Route element={<ProtectedRoute allowedRoles={["CUSTOMER"]} />}>
           <Route path="/customer-dashboard" element={<CustomerDashboard />} />
       
             <Route path="/add-beneficiary" element={<AddBeneficiary />} />
@@ -77,17 +80,22 @@ function App() {
             <Route path="latest" element={<TransactionHistory />}/>
             </Route>
         </Route>
-
+<Route element={<ProtectedRoute allowedRoles={['MANAGER','EMPLOYEE']} />}>
+          <Route path="/manager-dashboard" element={<ManagerDashBoard />} />
+           
+           <Route path="/emp/loan-requests" element={<PendingLoans />} />
+        </Route>
        
 
 
-        <Route element={<ProtectedRoute allowedRoles={"EMPLOYEE"} />}>
+        <Route element={<ProtectedRoute allowedRoles={["EMPLOYEE"]} />}>
           <Route path="/employee-dashboard" element={<EmployeeDashboard />} />
-      
+          <Route path="/emp/account-requests" element={<AccountApprovalDash />} />
+                <Route path="/emp/loan-requests" element={<PendingLoans />} />
         </Route>
 
    
-        <Route element={<ProtectedRoute allowedRoles={'ADMIN'} />}>
+        <Route element={<ProtectedRoute allowedRoles={['ADMIN']} />}>
           <Route path="/admin-dashboard" element={<AdminDashboard />} />
             <Route path="/admin-dashboard/add-emp" element={<AddEmployee />} />
           

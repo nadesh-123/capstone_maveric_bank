@@ -31,12 +31,12 @@ const [isProfileOpen, setIsProfileOpen] = useState(false);
           <div className="d-flex align-items-center gap-4">
             <ul className="navbar-nav d-flex align-items-center gap-3 gap-sm-4 m-0 p-0 list-unstyled">
               <li className="nav-item d-none d-sm-inline">
-                <Link to="/" className="nav-link nav-link-custom p-0 text-decoration-none">
+                <Link to="/" className="nav-link nav-link-custom text-white p-0 text-decoration-none">
                   Home
                 </Link>
               </li>
               <li className="nav-item d-none d-sm-inline">
-                <Link to="/about" className="nav-link nav-link-custom p-0 text-decoration-none">
+                <Link to="/about" className="nav-link nav-link-custom p-0 text-white text-decoration-none">
                   About
                 </Link>
               </li>
@@ -51,10 +51,10 @@ const [isProfileOpen, setIsProfileOpen] = useState(false);
                       onClick={() => setIsProfileOpen(true)}
                     />
                   ) : (
-                    <div className="d-flex align-items-center justify-content-center text-white shadow-sm text-capitalize"
+                    <Link className="d-flex align-items-center justify-content-center text-white shadow-sm text-capitalize"
                      onClick={() => navigate("/signin")}>
                       sign in
-                    </div>
+                    </Link>
                   )}
                 </div>
               </li>

@@ -1,6 +1,8 @@
 package com.BMS.controller;
 
+import com.BMS.DTO.EmployeeActionStat;
 import com.BMS.DTO.LoanApplicationDto;
+import com.BMS.DTO.LoanApplicationDtoPaginated;
 import com.BMS.enums.LoanStatus;
 import com.BMS.service.LoanApplicationService;
 import lombok.AllArgsConstructor;
@@ -30,7 +32,7 @@ public class LoanApplicationController {
         loanApplicationService.upload(username, files,appId);
     }
     @GetMapping("/api/loanApplication-pending")
-    public List<LoanApplicationDto> allPendingLoanApplications(@RequestParam(defaultValue = "0",required = false) int page,@RequestParam(defaultValue = "10",required = false)int size){
+    public LoanApplicationDtoPaginated allPendingLoanApplications(@RequestParam(defaultValue = "0",required = false) int page, @RequestParam(defaultValue = "10",required = false)int size){
 
         return loanApplicationService.allPendingLoanApplications(page,size);
     }
@@ -39,4 +41,10 @@ public class LoanApplicationController {
         String username=principal.getName();
         loanApplicationService.actionOnLoanApplication(loanStatus,username,applicationId);
     }
+    @GetMapping("/api/application/stat")
+        public EmployeeActionStat applicationActionStat(Principal principal){
+        String username=principal.getName();
+               return loanApplicationService.applicationActionStat(username);
+
+        }
 }

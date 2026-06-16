@@ -1,8 +1,6 @@
 package com.BMS.service;
 
-import com.BMS.DTO.AccountDTO;
-import com.BMS.DTO.BranchDto;
-import com.BMS.DTO.CustomerDto;
+import com.BMS.DTO.*;
 import com.BMS.Exception.ResourceNotFoundException;
 import com.BMS.enums.Status;
 import com.BMS.model.Account;
@@ -11,6 +9,7 @@ import com.BMS.model.Customer;
 import com.BMS.model.Employee;
 import com.BMS.repository.AccountRepository;
 import com.BMS.repository.EmployeeRepository;
+import com.BMS.repository.LoanApplicationRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -25,8 +24,10 @@ public class EmployeeService {
     private final EmployeeRepository employeeRepository;
     private final AccountRepository accountRepository;
     private final AccountService accountService;
+    private final LoanApplicationRepository loanApplicationRepository;
     private final CustomerService customerService;
     private final BranchService branchService;
+    private final AccountDeactivationRequestService accountDeactivationRequestService;
     public Employee getEmployeeId(int empid) {
         return  employeeRepository.findById(empid).orElseThrow(()->new ResourceNotFoundException("Invalid employee id"));
     }
@@ -40,8 +41,10 @@ public class EmployeeService {
        return  employee;
     }
 
-    public void closeAccount(Account account) {
-        accountRepository.delete(account);
+    public void closeAccount(Account account)
+    {
+        account.setStatus(Status.INACTIVE);
+        accountRepository.save(account);
     }
 
     public List<Employee> getAllEmployees(int page,int size) {
@@ -74,4 +77,23 @@ public class EmployeeService {
         return employeeRepository.findByEmpUserName(username);
     }
 
+    public EmployeeActionStat getActionStat(String username) {
+        Employee employee=getEmployeeByUsername(username);
+      int activeCount=  accountService.getActiveCount(employee.getId());
+      int inactiveCount=accountService.getInActiveCount(employee.getId());
+      List<Integer> data=List.of(activeCount,inactiveCount);
+      List<String>  labels=List.of("Activated","Inactivated");
+      return new EmployeeActionStat(labels,data);
+    }
+
+    private Employee getEmployeeByUsername(String username) {
+        return  employeeRepository.findByUserUsername(username);
+    }
+
+    public EmployeePendingActions getPendingActions() {
+       int accountCount= accountService.findAccountRequests();
+       int accountDeactivationRequests=accountDeactivationRequestService.getRequests();
+       int loanRequests=loanApplicationRepository.getRequests();
+       return new EmployeePendingActions(accountCount,accountDeactivationRequests,loanRequests);
+    }
 }

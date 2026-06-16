@@ -4,6 +4,9 @@ import { useEffect ,useState} from 'react';
 import { Building2, User } from 'lucide-react';
 import "../../styles/empsignin.css"
 import AdminProfile from './AdminProfile.jsx';
+import EmployeeDashboard from '../../pages/EmployeeDashboard.jsx';
+import EmployeeProfile from '../Employee/EmployeeProfile.jsx';
+import ManagerProfile from '../Manager/ManagerProfile.jsx';
 export default function AdminHeader() {
   const currentUser  = useSelector((state) => state.user);
   const navigate = useNavigate();
@@ -31,16 +34,7 @@ const [isProfileOpen, setIsProfileOpen] = useState(false);
           {/* Navigation Links & Profile */}
           <div className="d-flex align-items-center gap-4">
             <ul className="navbar-nav d-flex align-items-center gap-3 gap-sm-4 m-0 p-0 list-unstyled">
-              <li className="nav-item d-none d-sm-inline">
-                <Link to="/" className="nav-link nav-link-custom p-0 text-decoration-none">
-                  Home
-                </Link>
-              </li>
-              <li className="nav-item d-none d-sm-inline">
-                <Link to="/about" className="nav-link nav-link-custom p-0 text-decoration-none">
-                  About
-                </Link>
-              </li>
+             
               <li className="nav-item">
                 <div  className="text-decoration-none d-flex align-items-center">
                   {currentUser.id != null ? (
@@ -52,10 +46,10 @@ const [isProfileOpen, setIsProfileOpen] = useState(false);
                       onClick={() => setIsProfileOpen(true)}
                     />
                   ) : (
-                    <div className="d-flex align-items-center justify-content-center text-white shadow-sm text-capitalize"
+                    <Link className="d-flex align-items-center justify-content-center text-white shadow-sm text-capitalize"
                      onClick={() => navigate("/empsignin")}>
                       sign in
-                    </div>
+                    </Link>
                   )}
                 </div>
               </li>
@@ -64,10 +58,13 @@ const [isProfileOpen, setIsProfileOpen] = useState(false);
 
         </div>
       </header>
-      { <AdminProfile 
+      {currentUser.role==="ADMIN"? <AdminProfile 
         isOpen={isProfileOpen} 
         onClose={() => setIsProfileOpen(false)} 
-      />}
+      />:currentUser.role==="EMPLOYEE"?<EmployeeProfile isOpen={isProfileOpen} 
+        onClose={() => setIsProfileOpen(false)} />:<ManagerProfile isOpen={isProfileOpen} 
+        onClose={() => setIsProfileOpen(false)} />
+      }
      
     </>
   );

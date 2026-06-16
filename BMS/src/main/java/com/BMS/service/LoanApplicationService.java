@@ -1,6 +1,8 @@
 package com.BMS.service;
 
+import com.BMS.DTO.EmployeeActionStat;
 import com.BMS.DTO.LoanApplicationDto;
+import com.BMS.DTO.LoanApplicationDtoPaginated;
 import com.BMS.Exception.ResourceNotFoundException;
 import com.BMS.enums.LoanStatus;
 import com.BMS.mapper.LoanApplicationToDto;
@@ -13,6 +15,7 @@ import com.BMS.repository.LoanApplicationRepository;
 import com.BMS.repository.LoanRepository;
 import com.BMS.utility.FileUtility;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -33,6 +36,7 @@ public class LoanApplicationService {
     LoanApplicationToDto loanApplicationToDto;
     private final EmployeeService employeeService;
     private final LoanRepository loanRepository;
+  private final LoanService loanService;
     private static final String UPLOAD_LOC = "D:/UploadFileApi";
     public  LoanApplication findApplicationById(int applicationId) {
        return loanApplicationRepository.findById(applicationId).orElseThrow(()->new ResourceNotFoundException("invalid application id"));
@@ -67,41 +71,69 @@ public class LoanApplicationService {
         loanApplicationRepository.save(loanApplication);
     }
 
-    public List<LoanApplicationDto> allPendingLoanApplications(int page, int size) {
+    public LoanApplicationDtoPaginated allPendingLoanApplications(int page, int size) {
         Pageable pageable= PageRequest.of(page,size);
-       List<LoanApplication> list= loanApplicationRepository.findByLoanStatus(LoanStatus.PENDING,pageable).getContent();
-       return list.stream().map(k->loanApplicationToDto.mapLoanApplicationToDto(k)).toList();
+       Page<LoanApplication> pages= loanApplicationRepository.findByStatus(LoanStatus.ONGOING,LoanStatus.PENDING,pageable);
+      List<LoanApplicationDto> list=  pages.getContent().stream().map(k->loanApplicationToDto.mapLoanApplicationToDto(k)).toList();
+      return new LoanApplicationDtoPaginated(pages.getTotalElements(),pages.getTotalPages(),list);
     }
 
     public void actionOnLoanApplication(LoanStatus loanStatus, String username, int applicationId) {
         LoanApplication loanApplication=findApplicationById(applicationId);
         Employee employee=employeeService.getEmpByUserName(username);
-        loanApplication.setLoanStatus(LoanStatus.REJECTED);
-        switch (loanStatus.toString()){
-            case "REJECTED":
-
-                loanApplication.setEmployee(employee);
-                break;
-
-            case "APPROVED":
-                loanApplication.setLoanStatus(LoanStatus.APPROVED);
-                break;
-
-            case "DISBURSED":
-                loanApplication.setLoanStatus(LoanStatus.DISBURSED);
-              Account account= loanApplication.getDisbursementAccount();
+        loanApplication.setLoanStatus(loanStatus);
+        loanApplication.setEmployee(employee);
+        loanApplicationRepository.save(loanApplication);
+        if(loanStatus.equals(LoanStatus.APPROVED)){
+            Account account= loanApplication.getDisbursementAccount();
               account.setBalance(account.getBalance()+loanApplication.getRequestedAmount());
               accountService.saveLoanAccount(account);
-              loanApplicationRepository.save(loanApplication);
+
                 Loan loan=new Loan();
+                loan.setEmiAmount(loanService.calculateMonthlyEmi(loanApplication.getId()).monthlyEmi().doubleValue());
                 loan.setLoanType(loanApplication.getLoneType());
                 loan.setAccount(loanApplication.getDisbursementAccount());
-                loan.setStatus(LoanStatus.DISBURSED);
+                loan.setInterestRate(12);
+                loan.setStatus(LoanStatus.APPROVED);
                 loan.setTenureYears(loanApplication.getTenureYears());
             loanRepository.save(loan);
-              break;
         }
+//        switch (loanStatus.toString()){
+//            case "REJECTED":
+//                loanApplication.setLoanStatus(LoanStatus.REJECTED);
+//                loanApplication.setEmployee(employee);
+//                break;
+//
+//            case "ONGOING":
+//                loanApplication.setLoanStatus(LoanStatus.ONGOING);
+//                break;
+//
+//            case "DISBURSED":
+//                loanApplication.setLoanStatus(LoanStatus.DISBURSED);
+//              Account account= loanApplication.getDisbursementAccount();
+//              account.setBalance(account.getBalance()+loanApplication.getRequestedAmount());
+//              accountService.saveLoanAccount(account);
+//              loanApplicationRepository.save(loanApplication);
+//                Loan loan=new Loan();
+//                loan.setLoanType(loanApplication.getLoneType());
+//                loan.setAccount(loanApplication.getDisbursementAccount());
+//                loan.setStatus(LoanStatus.DISBURSED);
+//                loan.setTenureYears(loanApplication.getTenureYears());
+//            loanRepository.save(loan);
+//              break;
+//        }
 
 
+    }
+
+    public EmployeeActionStat applicationActionStat(String username) {
+     Employee em=   employeeService.getEmpByUserName(username);
+     int approvedCount=loanApplicationRepository.approvedCount(LoanStatus.ONGOING,em.getId());
+     int rejectedCount =loanApplicationRepository.rejectedCount(LoanStatus.REJECTED,em.getId());
+     return new EmployeeActionStat(List.of("Loan Processed","Loan Rejected"),List.of(approvedCount,rejectedCount));
+    }
+
+    public int getRequests() {
+        return loanApplicationRepository.getRequests();
     }
 }

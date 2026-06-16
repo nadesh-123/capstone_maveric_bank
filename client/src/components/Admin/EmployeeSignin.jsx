@@ -55,6 +55,7 @@ export default function EmployeeSignin() {
         setUser({
           id: userDetails.userId,
           username: data.username,
+          role:userDetails.role,
           token: data.token
         })
       );
@@ -63,6 +64,9 @@ export default function EmployeeSignin() {
         navigate("/admin-dashboard");
       } else if (userDetails.role === "EMPLOYEE") {
         navigate("/employee-dashboard");
+      }
+      else{
+        navigate("/manager-dashboard")
       }
     } catch (error) {
       console.log("Network or client error:", error);
@@ -89,7 +93,7 @@ export default function EmployeeSignin() {
                   </svg>
                 </div>
                 <h2 className="fw-bold tracking-tight text-navy-primary mb-1">
-                  Secure Sign In
+                  Employee Sign In
                 </h2>
                 <p className="text-muted small">
                   Access your secure corporate banking interface
@@ -163,7 +167,7 @@ export default function EmployeeSignin() {
                 {/* Submit Button */}
                 <button
                   type="submit"
-                  className="btn btn-navy-primary btn-lg w-100 py-2.5 fw-semibold fs-6 shadow-sm mb-3"
+                  className="btn text-white btn-navy-primary btn-lg w-100 py-2.5 fw-semibold fs-6 shadow-sm mb-3"
                 >
                   Sign In
                 </button>

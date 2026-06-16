@@ -1,8 +1,6 @@
 package com.BMS.controller;
 
-import com.BMS.DTO.AccountDTO;
-import com.BMS.DTO.CustomerDto;
-import com.BMS.DTO.LoanAppDto;
+import com.BMS.DTO.*;
 import com.BMS.enums.Status;
 import com.BMS.model.Account;
 import com.BMS.service.AccountService;
@@ -14,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 import java.util.List;
-
+@CrossOrigin(origins = "http://localhost:5173", allowedHeaders = "*", methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT})
 @RestController
 @AllArgsConstructor
 public class EmployeeController {
@@ -32,11 +30,20 @@ public class EmployeeController {
     public CustomerDto getCustomerId(@PathVariable int customerId){
         return employeeService.getCustomerById(customerId);
     }
-    @PutMapping("/api/emp/approve/{accountid}")
-    public void addEmployeeToAccount(@PathVariable String accountid, Principal principal){
+      @PutMapping("/api/emp/approve/{accountNumber}")
+    public void addEmployeeToAccount(@PathVariable String accountNumber, Principal principal){
     String username=principal.getName();
-        employeeService.addEmployeeToAccount(username,accountid);
+        employeeService.addEmployeeToAccount(username,accountNumber);
     }
+    @GetMapping("/api/emp/account-stat")
+    public EmployeeActionStat getActionStat(Principal principal){
+    String username=principal.getName();
+    return  employeeService.getActionStat(username);
+    }
+   @GetMapping("/api/emp/get-pending-actinons")
+    public EmployeePendingActions getPendingActions(){
+    return employeeService.getPendingActions();
+   }
 //@GetMapping("/api/emp/pending-loan-app")
 //    public List<LoanAppDto> getAllPendingLoanApp(){
 //    return loanApplicationService.getPendingApp();

@@ -11,6 +11,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import java.time.Instant;
 
 public record LoanApplicationDto(
+        int id,
         @NotNull
         String disbursementAccount,  // reference to Account entity
       @Enumerated(EnumType.STRING)

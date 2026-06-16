@@ -31,5 +31,5 @@ public class Account {
     private Instant updatedAt;
     @Enumerated(EnumType.STRING)
     private Status status;
-
+    private Instant actionDate;
 }

@@ -2,10 +2,12 @@ package com.BMS.service;
 
 import com.BMS.DTO.EmiDto;
 import com.BMS.DTO.LoanShowDto;
+import com.BMS.Exception.ResourceNotFoundException;
 import com.BMS.enums.LoanStatus;
 import com.BMS.mapper.LoanMapper;
 import com.BMS.model.Loan;
 import com.BMS.model.LoanApplication;
+import com.BMS.repository.LoanApplicationRepository;
 import com.BMS.repository.LoanRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -19,9 +21,9 @@ import java.util.List;
 public class LoanService {
     private final  LoanRepository loanRepository;
     LoanMapper loanMapper;
-    private final  LoanApplicationService loanApplicationService;
+    private final LoanApplicationRepository loanApplicationRepository;
     public EmiDto calculateMonthlyEmi(int applicationId) {
-        LoanApplication loanApplication = loanApplicationService.findApplicationById(applicationId);
+        LoanApplication loanApplication = loanApplicationRepository.findById(applicationId).orElseThrow(()->new ResourceNotFoundException("invalid applicationId"));
 
         double loanAmount = loanApplication.getRequestedAmount();
         int years = loanApplication.getTenureYears();

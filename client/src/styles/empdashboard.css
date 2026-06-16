@@ -1,0 +1,103 @@
+.dashboard-card {
+  background: #fff;
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 3px 15px rgba(0, 0, 0, 0.09);
+  border: none;
+}
+
+.stat-card {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  min-height: 140px;
+}
+
+.loan-card {
+  min-height: 220px;
+  display: flex;
+  align-items: center;
+}
+
+
+
+.chart-card {
+  min-height: 400px;
+}
+
+.card-icon {
+  width: 60px;
+  height: 60px;
+  border-radius: 14px;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 24px;
+}
+
+.chart-placeholder {
+  height: 250px;
+  
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  font-size: 18px;
+  color: #666;
+}
+
+h2 {
+  margin: 0;
+  font-weight: 700;
+}
+
+h6 {
+  color: #666;
+  margin-bottom: 5px;
+}
+
+.dashboard-card {
+  background: #fff;
+  border-radius: 16px;
+  padding: 20px;
+  
+  box-shadow: 0 3px 15px rgba(0, 0, 0,  0.4);
+}
+
+/* Makes all cards square */
+.square-card {
+  width: 320px;
+  height: 320px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  gap: 15px;
+}
+
+.card-icon {
+  width: 60px;
+  height: 60px;
+  border-radius: 12px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  color: white;
+  font-size: 24px;
+}
+
+.square-card h6 {
+  margin-bottom: 8px;
+  color: #6c757d;
+}
+
+.square-card h2 {
+  margin: 0;
+  font-weight: 700;
+}

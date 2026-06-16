@@ -13,17 +13,22 @@ import {
   LogOut 
 } from 'lucide-react';
 
-export default function AdminProfile({ isOpen, onClose }) {
+export default function EmployeeProfile({ isOpen, onClose }) {
   const navigate = useNavigate();
   const currentUser = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const menuItems = [
     {
-      label: 'Onboard Employee',
+      label: 'Accounts Requests',
       icon: <CreditCard size={20} />,
-      path: '/admin-dashboard/add-emp'
+      path: '/emp/account-requests'
     },
- 
+    {
+      label: 'Loan Requests',
+      icon: <CreditCard size={20} />,
+      path: '/emp/loan-requests'
+    }
+    
   ];
 
   return (
@@ -179,7 +184,7 @@ export default function AdminProfile({ isOpen, onClose }) {
             className="logout-btn"
             onClick={() => {
                 dispatch(clearUser())
-              navigate('/empsignin');
+              navigate('/');
               onClose();
             }}
           >

@@ -1,6 +1,7 @@
 package com.BMS.controller;
 
 import com.BMS.DTO.AccountDTO;
+import com.BMS.DTO.AccountDtoPaginated;
 import com.BMS.DTO.AccountDtoShow;
 import com.BMS.DTO.DTOAccount;
 import com.BMS.enums.AccountType;
@@ -45,7 +46,7 @@ public class AccountController {
     }
     //For Employee
     @GetMapping("/unapproved")
-    public List<AccountDTO> getInactiveAccounts(@RequestParam(defaultValue = "0",required = false) int page,@RequestParam(defaultValue = "10",required = false) int size ){
+    public AccountDtoPaginated getInactiveAccounts(@RequestParam(defaultValue = "0",required = false) int page, @RequestParam(defaultValue = "10",required = false) int size ){
 
         return accountService.getByStatus(Status.INACTIVE,page,size);
     }
@@ -54,6 +55,7 @@ public class AccountController {
     public List<AccountDtoShow> getAccountByType(@RequestParam AccountType accountType){
        return accountService.getAccountByType(accountType);
     }
+
 //    @DeleteMapping("/api/account/delete/{accno}")
 //    public void deleteAccount(@PathVariable int accno){
 //

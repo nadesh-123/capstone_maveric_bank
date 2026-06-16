@@ -13,4 +13,6 @@ public interface EmployeeRepository extends JpaRepository<Employee,Integer> {
         where e.user.username=?1
         """)
     Employee findByEmpUserName(String username);
+
+    Employee findByUserUsername(String username);
 }

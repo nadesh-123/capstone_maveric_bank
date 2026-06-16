@@ -1,6 +1,7 @@
 package com.BMS.service;
 
 import com.BMS.DTO.AccountDTO;
+import com.BMS.DTO.AccountDtoPaginated;
 import com.BMS.DTO.AccountDtoShow;
 import com.BMS.DTO.DTOAccount;
 import com.BMS.Exception.ResourceNotFoundException;
@@ -14,6 +15,7 @@ import com.BMS.utility.AccountNumberGenerator;
 import com.BMS.utility.FileUtility;
 import lombok.AllArgsConstructor;
 
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -57,10 +59,13 @@ public class AccountService  {
 
 
 
-    public List<AccountDTO> getByStatus(Status status,int page,int size) {
+    public AccountDtoPaginated getByStatus(Status status,int page,int size) {
         Pageable pageable= PageRequest.of(page,size);
-       List<Account> list=accountRepository.findByStatus(status,pageable).getContent();
-       return  list.stream().map(mapAccountDto::mapToDto).toList();
+       Page<Account> pages=accountRepository.findByStatusEmpNull(status,pageable);
+       List<AccountDTO> list= pages.getContent().stream().map(mapAccountDto::mapToDto).toList();
+       Long totalElements=pages.getTotalElements();
+       int totalPages=pages.getTotalPages();
+       return new AccountDtoPaginated(totalElements,totalPages,list);
     }
 
 
@@ -118,5 +123,17 @@ public void upload(String username, MultipartFile[] files) throws IOException {
 
     public Account getAccountByAccountNumber(String s) {
        return accountRepository.findByAccountNumber(s).orElseThrow(()->new ResourceNotFoundException("invalid accno"));
+    }
+
+    public int getActiveCount(int id) {
+      return accountRepository.countActiveAccountsByEmployee(Status.ACTIVE,id);
+    }
+
+    public int getInActiveCount(int id) {
+       return accountRepository.countInActiveAccountsByEmployee(Status.INACTIVE,id);
+    }
+
+    public int findAccountRequests() {
+      return accountRepository.getAccountRequestCount();
     }
 }

@@ -49,16 +49,18 @@ JwtFilter jwtFilter;
                         .requestMatchers(HttpMethod.POST, "/api/loan-application/apply").hasAuthority("CUSTOMER")
                         .requestMatchers(HttpMethod.POST, "/api/documents/upload/{appId}").hasAuthority("CUSTOMER")
                         .requestMatchers(HttpMethod.GET,"/api/loan/getAll").authenticated()
+                        .requestMatchers(HttpMethod.GET,"/api/application/stat").hasAuthority("EMPLOYEE")
                         //EMPLOYEE
                         .requestMatchers(HttpMethod.GET, "/api/user/emp/loginv2").authenticated()
-                        .requestMatchers(HttpMethod.GET, "/api/getCustomer/user-id/{userId}").hasAuthority("EMPLOYEE")
-                        .requestMatchers(HttpMethod.PUT, "/api/account/approve/{accNo}").hasAuthority("EMPLOYEE")
-                        .requestMatchers(HttpMethod.GET, "/api/loan/calculate-emi/{applicationId}").hasAuthority("EMPLOYEE")
+                        .requestMatchers(HttpMethod.GET, "/api/emp/account-stat").hasAuthority("EMPLOYEE")
+                        .requestMatchers(HttpMethod.GET, "/api/emp/getCustomer/{customerId}").hasAuthority("EMPLOYEE")
+                        .requestMatchers(HttpMethod.PUT, "/api/emp/approve/{accountNumber}").hasAuthority("EMPLOYEE")
+                        .requestMatchers(HttpMethod.GET, "/api/loan/calculate-emi/{applicationId}").hasAnyAuthority("EMPLOYEE","MANAGER")
                         .requestMatchers(HttpMethod.GET, "/api/account/unapproved").hasAuthority("EMPLOYEE")//paginated
-                        .requestMatchers(HttpMethod.GET, "/api/loanApplication-pending").hasAuthority("EMPLOYEE")//paginated
-                        .requestMatchers(HttpMethod.GET, "/api/loan/calculate-emi/{applicationId}").hasAuthority("EMPLOYEE")
-                        .requestMatchers(HttpMethod.PUT, "/api/loan-application/action/{applicationId}").hasAuthority("EMPLOYEE")
+                        .requestMatchers(HttpMethod.GET, "/api/loanApplication-pending").hasAnyAuthority("EMPLOYEE","MANAGER")//paginated
 
+                        .requestMatchers(HttpMethod.PUT, "/api/loan-application/action/{applicationId}").hasAnyAuthority("EMPLOYEE","MANAGER")
+                        .requestMatchers(HttpMethod.GET, "/api/emp/get-pending-actinons").hasAnyAuthority("EMPLOYEE","ADMIN")
 
 
                         .requestMatchers(HttpMethod.POST, "/api/beneficiary/add").hasAuthority("CUSTOMER")
