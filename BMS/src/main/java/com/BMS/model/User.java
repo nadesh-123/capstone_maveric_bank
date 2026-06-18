@@ -1,6 +1,7 @@
 package com.BMS.model;
 
 import com.BMS.enums.Role;
+import com.BMS.enums.Status;
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -27,7 +28,8 @@ private Role role;
     private Instant createdDate;
     @UpdateTimestamp
     private Instant updatedDate;
-
+    @Enumerated(EnumType.STRING)
+private Status status;
     public int getId() {
         return id;
     }

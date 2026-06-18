@@ -96,4 +96,8 @@ public class EmployeeService {
        int loanRequests=loanApplicationRepository.getRequests();
        return new EmployeePendingActions(accountCount,accountDeactivationRequests,loanRequests);
     }
+
+    public long getAllActive() {
+        return employeeRepository.getAllActive(Status.ACTIVE);
+    }
 }

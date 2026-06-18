@@ -16,7 +16,7 @@ export default function TransactionHistory() {
     
    
     <div>
-      <h5 className="text-secondary mb-3 border-bottom  pb-2">Transaction History</h5>
+      <h5 className=" mb-3 border-bottom fs-1 pb-2" style={{color: "#3C2CD9" }}>Transaction History</h5>
       <div className="table-responsive">
         <table className="table table-striped table-hover mb-0">
           <tbody>

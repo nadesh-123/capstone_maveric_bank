@@ -44,7 +44,7 @@ const deactivateAccount = async (accountNumber) => {
 };
   return (
     <div>
-      <h5 className="text-secondary mb-3 border-bottom pb-2">Accounts</h5>
+      <h5 className="hexaware mb-3 fs-1 border-bottom pb-2" style={{color: "#3C2CD9" }}>ACCOUNTS</h5>
       <div className="row g-3">
         {
 
@@ -71,21 +71,36 @@ const deactivateAccount = async (accountNumber) => {
         
         accounts.map((acc, index) => (
           <div key={index} className="col-12 col-sm-6">
-            <div className="card h-100 border-secondary">
-              <div className="card-body">
-          <h6 className="card-title fw-bold text-uppercase text-primary">
-  {acc.accountType}
-</h6>
+            <div className="card h-100 border-secondary account-card">
+              <div className="account-card-header">
+      <div>
+        <h5 className="account-type">
+          {acc.accountType.replace("_", " ")}
+        </h5>
+        <p className="branch-name">{acc.branchName}</p>
+      </div>
 
-                <p className="card-text mb-1">
-                  <small className="text-muted">Acc No: </small>
-                  <strong>{acc.accountNumber}</strong>
-                </p>
-                <p className="card-text mb-0">
-                  <small className="text-muted">Balance: </small>
-                  <span className="fw-bold text-success">₹{acc.balance}</span><span>{acc.balance===0?<button onClick={()=>deactivateAccount(acc.accountNumber)}className='btn btn-warning'>Deactivate</button>:""}</span>
-                </p>
-              </div>
+      {acc.balance === 0 && (
+        <button
+          className="deactivate-btn"
+          onClick={() => deactivateAccount(acc.accountNumber)}
+        >
+          Deactivate
+        </button>
+      )}
+    </div>
+
+    <div className="account-card-body">
+      <div className="account-info">
+        <span className="label">Account Number</span>
+        <span className="value">{acc.accountNumber}</span>
+      </div>
+
+      <div className="account-info text-end">
+        <span className="label">Available Balance</span>
+        <span className="balance">₹{acc.balance.toLocaleString()}</span>
+      </div>
+    </div>
             </div>
           </div>
         ))}

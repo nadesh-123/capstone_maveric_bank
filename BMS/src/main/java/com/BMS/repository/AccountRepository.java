@@ -1,5 +1,6 @@
 package com.BMS.repository;
 
+import com.BMS.DTO.AccountStatDto;
 import com.BMS.enums.AccountType;
 import com.BMS.enums.Status;
 import com.BMS.model.Account;
@@ -58,4 +59,18 @@ public interface AccountRepository extends JpaRepository<Account,Integer> {
 """)
     List<AccountType> findAllowedAccounts(@Param("status") Status status,
                                           @Param("username") String username);
+    @Query("""
+    select new com.BMS.DTO.AccountStatDto(
+        a.accounttype,
+        count(a)
+    )
+    from Account a where a.status=?1
+    group by a.accounttype
+""")
+    List<AccountStatDto> getStat(Status active);
+@Query("""
+        select count(a) from Account a
+        where a.status=?1
+        """)
+    long getTotalActiveCount(Status active);
 }

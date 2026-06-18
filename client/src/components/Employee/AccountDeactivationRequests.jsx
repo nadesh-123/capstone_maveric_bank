@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
+import AdminHeader from '../Admin/AdminHeader';
 
 const AccountDeactivationRequests = () => {
   const user = useSelector((state) => state.user);
@@ -52,6 +53,8 @@ const AccountDeactivationRequests = () => {
   };
 
   return (
+    <div>
+      <AdminHeader />
     <div className="container mt-4">
       <h2 className="mb-4">Account Deactivation Requests</h2>
       
@@ -115,6 +118,7 @@ const AccountDeactivationRequests = () => {
           Next
         </button>
       </div>
+    </div>
     </div>
   );
 };

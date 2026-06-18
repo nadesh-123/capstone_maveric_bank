@@ -152,4 +152,19 @@ public void upload(String username, MultipartFile[] files) throws IOException {
         result.removeAll(list);
         return new AccountAllowedDto(result);
     }
+
+    public AccountStatForAdminDto getStat() {
+       List<AccountStatDto> list=accountRepository.getStat(Status.ACTIVE);
+        List<AccountType> accountTypeList=new ArrayList<>();
+        List<Long> count=new ArrayList<>();
+        list.forEach(k -> {
+            accountTypeList.add(k.accountType());
+            count.add(k.count());
+        });
+        return new AccountStatForAdminDto(accountTypeList,count);
+    }
+
+    public long getTotalActiveCount() {
+       return accountRepository.getTotalActiveCount(Status.ACTIVE);
+    }
 }

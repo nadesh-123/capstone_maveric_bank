@@ -1,9 +1,11 @@
 package com.BMS.service;
 
+import com.BMS.DTO.AdminReports;
 import com.BMS.DTO.DtoEmployee;
 import com.BMS.DTO.EmployeeDto;
 import com.BMS.DTO.UserDto;
 import com.BMS.mapper.EmployeeMapper;
+import com.BMS.model.Customer;
 import com.BMS.model.Employee;
 import com.BMS.model.User;
 import lombok.AllArgsConstructor;
@@ -16,7 +18,9 @@ import java.util.List;
 public class AdminService {
     private final  EmployeeService employeeService;
     private final UserService userService;
-
+private final CustomerService customerService;
+private final AccountService accountService;
+private final TransactionService transactionService;
 EmployeeMapper employeeMapper;
     public void addEmployee(EmployeeDto employeeDto) {
       Employee employee= employeeMapper.employeeMap(employeeDto);
@@ -51,5 +55,13 @@ EmployeeMapper employeeMapper;
 
     public void removeEmp(int empId) {
         employeeService.removeEmp(empId);
+    }
+
+    public AdminReports getReports() {
+        long activeCustomers=customerService.getAllActive();
+        long activeEmployees=employeeService.getAllActive();
+        long activeAccounts=accountService.getTotalActiveCount();
+        long totalTransactions=transactionService.getTotalTransactions();
+        return  new AdminReports(activeCustomers,activeEmployees,activeAccounts,totalTransactions);
     }
 }

@@ -1,3 +1,277 @@
+
+.admin-dashboard{
+    background: #f4f6f9;
+    min-height: 100vh;
+    padding: 25px;
+}
+
+/* Header */
+
+.dashboard-header h2{
+    font-weight: 700;
+    color: #1e293b;
+}
+
+.dashboard-header p{
+    color: gray;
+}
+
+
+/* Stat cards */
+
+.dashboard-card{
+    background: white;
+    border-radius: 20px;
+    padding: 25px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    box-shadow: 0 4px 15px rgba(0,0,0,.08);
+    transition: .3s;
+}
+
+.dashboard-card:hover{
+    transform: translateY(-5px);
+}
+
+.card-icon{
+    width: 65px;
+    height: 65px;
+    border-radius: 50%;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size:28px;
+    color:white;
+}
+
+.customers{
+    background:#3b82f6;
+}
+
+.employees{
+    background:#10b981;
+}
+
+.accounts{
+    background:#f59e0b;
+}
+
+.transactions{
+    background:#ef4444;
+}
+
+.dashboard-card h6{
+    color:gray;
+    margin-bottom:5px;
+}
+
+.dashboard-card h2{
+    font-weight:700;
+}
+
+
+/* Chart Cards */
+
+.chart-card{
+    background:white;
+    border-radius:20px;
+    padding:20px;
+    box-shadow:0 4px 15px rgba(0,0,0,.08);
+    height:100%;
+}
+
+.chart-header{
+    margin-bottom:20px;
+}
+
+.chart-header h5{
+    font-weight:600;
+}
+
+
+/* Recent Activity */
+
+.recent-card{
+    background:white;
+    border-radius:20px;
+    padding:20px;
+    box-shadow:0 4px 15px rgba(0,0,0,.08);
+}
+
+.table{
+    margin-bottom:0;
+}
+.loan-container{
+    display:flex;
+    flex-direction:column;
+    gap:20px;          /* one card below another */
+}
+
+.loan-card{
+    width:100%;        /* occupy entire col-6 width */
+    border:1px solid #e5e7eb;
+    border-radius:18px;
+    padding:20px;
+    background:#fff;
+    box-shadow:0 4px 12px rgba(0,0,0,.08);
+
+    display:flex;
+    flex-direction:column;
+    gap:30px;
+}
+
+.loan-header{ 
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.loan-body{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-end;
+}
+
+.loan-type{
+    font-size:1.4rem;
+    font-weight:700;
+    color:#730def;
+}
+
+.loan-tenure{
+    color:rgb(247, 85, 85);
+    font-size: medium;  
+}
+
+.loan-status{
+    background:#dcfce7; 
+    color:#16a34a;
+    padding:8px 16px;
+    border-radius:20px;
+    font-weight:600;
+}
+
+.loan-label{
+    color:#030203;
+     font: size 20px;;
+    margin-bottom:8px;
+}
+
+.loan-amount{
+    color:#2563eb;
+    font-size:1.6rem;
+    font-weight:700;
+}
+
+.loan-emi{
+    color:#dc2626;
+    font-size:1.6rem;
+    font-weight:700;
+}
+.account-card {
+    background: linear-gradient(135deg, #08106b, #08106b);
+    border-radius: 25px;
+    padding: 25px 30px;
+    color: white;
+    box-shadow: 0 8px 20px rgba(0,0,0,.15);
+    transition: 0.3s; /* Smooth hover transition */
+
+    /* ADD THESE TWO LINES TO FIX THE WRAPPING */
+    height: fit-content;      /* Forces the card height to shrink to its text */
+    align-self: flex-start;   /* Prevents Bootstrap flex grid from stretching it vertically */
+}
+
+.account-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.3);
+}
+
+
+.account-card-header {
+    display: flex;
+    justify-content: space-between;
+    /* Changed from center to flex-start so the button sits cleanly at the top right */
+    align-items: flex-start; 
+    margin-bottom: 18px;
+}
+
+.deactivate-btn {
+    background: #f59e0b;
+    color: white;
+    border: none;
+    padding: 8px 14px; /* Slightly reduced padding to make it compact */
+    border-radius: 12px;
+    font-size: 0.85rem; /* Slightly smaller font to fit elegantly */
+    font-weight: 700;
+    cursor: pointer;
+    transition: 0.3s;
+    /* Prevents the button from being compressed or distorted by long text on the left */
+    flex-shrink: 0; 
+    margin-left: 15px; 
+}
+
+.account-type {
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: #ffffff;
+    margin: 0;
+    letter-spacing: 0.5px;
+}
+
+.branch-name {
+    margin-top: 4px;
+    margin-bottom: 0; /* Prevents hidden browser spacing from pushing elements down */
+    font-size: 1rem;
+    color: #cbd5e1;
+}
+
+.account-card-body {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.account-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.label {
+    font-size: 0.95rem;
+    color: #94a3b8;
+    margin-bottom: 6px;
+    font-weight: 500;
+}
+
+.value {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: white;
+}
+
+.balance {
+    font-size: 1.6rem;
+    font-weight: 800;
+    color: #4ade80;
+}
+
+.deactivate-btn {
+    background: #f59e0b;
+    color: white;
+    border: none;
+    padding: 10px 16px;
+    border-radius: 12px;
+    font-size: 0.95rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.deactivate-btn:hover {
+    background: #d97706;
+}
+ 
  /*SignupForm.jsx*/
  .cus-dashboard-bg{
   background: #EEEFF5;

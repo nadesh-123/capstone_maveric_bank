@@ -19,7 +19,9 @@
   align-items: center;
 }
 
-
+.hexaware{
+  color: #3C2CD9;
+}
 
 .chart-card {
   min-height: 400px;

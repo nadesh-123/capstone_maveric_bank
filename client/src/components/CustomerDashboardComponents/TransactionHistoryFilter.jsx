@@ -48,7 +48,8 @@ export default function TransactionHistoryFilter() {
 
   useEffect(() => {
     fetchTransactions();
-  }, [page, rows]);
+  }, [page, rows,filters, filters.minAmount,
+  filters.maxAmount]);
 
   const fetchTransactions = async () => {
     try {
@@ -188,7 +189,7 @@ const typeBodyTemplate = (rowData) => {
         <div>
             <Header />
         </div>
-    <div className="card mt-5">
+    <div className="card p-5">
 
       <div
         style={{
@@ -226,48 +227,53 @@ const typeBodyTemplate = (rowData) => {
         <InputText
           placeholder="Source Account"
           value={filters.sourceAccount}
-          onChange={(e) =>
+          onChange={(e) =>{
+            
             setFilters({
               ...filters,
               sourceAccount:
                 e.target.value,
-            })
+            });
+          }
           }
         />
 
         <InputText
           placeholder="Target Account"
           value={filters.targetAccount}
-          onChange={(e) =>
+          onChange={(e) =>{
             setFilters({
               ...filters,
               targetAccount:
                 e.target.value,
             })
           }
-        />
-
-        <InputNumber
-          placeholder="Min Amount"
-          value={filters.minAmount}
-          onValueChange={(e) =>
-            setFilters({
-              ...filters,
-              minAmount: e.value,
-            })
           }
         />
 
-        <InputNumber
-          placeholder="Max Amount"
-          value={filters.maxAmount}
-          onValueChange={(e) =>
-            setFilters({
-              ...filters,
-              maxAmount: e.value,
-            })
-          }
-        />
+ <InputNumber
+  placeholder="Min Amount"
+  value={filters.minAmount}
+  onValueChange={(e) => {
+    console.log("Min:", e.value);
+    setFilters(prev => ({
+      ...prev,
+      minAmount: e.value
+    }));
+  }}
+/>
+
+<InputNumber
+  placeholder="Max Amount"
+  value={filters.maxAmount}
+  onValueChange={(e) => {
+    console.log("Max:", e.value);
+    setFilters(prev => ({
+      ...prev,
+      maxAmount: e.value
+    }));
+  }}
+/>
 
         <Calendar
           value={filters.startDate}
@@ -301,6 +307,7 @@ const typeBodyTemplate = (rowData) => {
         <Button
           label="Clear"
           severity="secondary"
+          
           onClick={clearFilters}
         />
       </div>

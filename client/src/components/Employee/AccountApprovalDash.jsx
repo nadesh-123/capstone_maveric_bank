@@ -105,7 +105,7 @@ const AccountApprovalDash = () => {
                                         <td>{account.accno}</td>
                                         <td>{account.accountType}</td>
                                        
-                                        <td>${account.balance.toFixed(2)}</td>
+                                        <td>₹{account.balance.toFixed(2)}</td>
                                         <td>
                                             <span className={`badge ${activatedAccounts[account.accno] ? 'bg-success' : 'bg-warning text-dark'}`}>
                                                 {activatedAccounts[account.accno] ? 'ACTIVE' : account.status}

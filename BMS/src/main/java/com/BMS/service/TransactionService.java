@@ -140,4 +140,7 @@ public class TransactionService {
     }
 
 
+    public long getTotalTransactions() {
+      return   transactionRepository.getTotalCount();
+    }
 }

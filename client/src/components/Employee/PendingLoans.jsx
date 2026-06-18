@@ -155,11 +155,11 @@ const PendingLoans = () => {
                                         <tr key={appId}>
                                             <td>{appId}</td>
                                             <td>{loan.loanType}</td>
-                                            <td>${loan.requestedAmount.toFixed(2)}</td>
+                                            <td>₹{loan.requestedAmount.toFixed(2)}</td>
                                             <td>{loan.tenureYears}</td>
-                                            <td>${loan.monthlyIncome.toFixed(2)}</td>
+                                            <td>₹{loan.monthlyIncome.toFixed(2)}</td>
                                             <td>
-                                                {emi !== undefined ? `$${Number(emi).toFixed(2)}` : '...'}
+                                                {emi !== undefined ? `₹${Number(emi).toFixed(2)}` : '...'}
                                             </td>
                                             <td>
                                                 <span className={`badge ${criteriaResult === 'PASSED' ? 'bg-success' : criteriaResult === 'FAILED' ? 'bg-danger' : 'bg-secondary'}`}>

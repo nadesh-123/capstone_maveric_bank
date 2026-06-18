@@ -63,6 +63,10 @@ public class CustomerService {
         customerRepository.save(customer);
     }
 
+    public long getAllActive() {
+        return customerRepository.getAllActive(Status.ACTIVE);
+    }
+
 //    public void deleteLoanApplication(int loanAppId) {
 //        loanApplicationService.deleteLoanApplication(loanAppId);
 //    }

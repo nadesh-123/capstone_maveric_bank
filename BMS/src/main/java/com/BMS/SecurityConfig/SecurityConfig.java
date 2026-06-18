@@ -45,6 +45,7 @@ JwtFilter jwtFilter;
                         .requestMatchers(HttpMethod.POST, "/api/customer/addCustomer").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/loan/max-amount").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/account/allowed/accounts").hasAuthority("CUSTOMER")
+                        .requestMatchers(HttpMethod.GET, "/api/account/adminStat").hasAuthority("ADMIN")
                         .requestMatchers(HttpMethod.POST, "/api/account/deactivate/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/account/deactivation-request").hasAnyAuthority("MANAGER","EMPLOYEE")
                         .requestMatchers(HttpMethod.POST, "/api/account/add/Account").authenticated()
@@ -54,8 +55,9 @@ JwtFilter jwtFilter;
                         .requestMatchers(HttpMethod.POST, "/api/documents/upload/{appId}").hasAuthority("CUSTOMER")
                         .requestMatchers(HttpMethod.GET,"/api/loan/getAll").authenticated()
                         .requestMatchers(HttpMethod.GET,"/api/application/stat").hasAuthority("EMPLOYEE")
-                        //EMPLOYEE
+                        //EMPLOYEE/adminStat
                         .requestMatchers(HttpMethod.GET, "/api/user/emp/loginv2").authenticated()
+
                         .requestMatchers(HttpMethod.GET, "/api/emp/account-stat").hasAuthority("EMPLOYEE")
                         .requestMatchers(HttpMethod.GET, "/api/emp/getCustomer/{customerId}").hasAuthority("EMPLOYEE")
                         .requestMatchers(HttpMethod.PUT, "/api/emp/approve/{accountNumber}").hasAuthority("EMPLOYEE")
@@ -76,6 +78,7 @@ JwtFilter jwtFilter;
                         .requestMatchers(HttpMethod.GET, "/api/transaction/get-transactions").hasAuthority("CUSTOMER")
                         .requestMatchers(HttpMethod.GET, "/api/branch/getAll").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/branch/stat").hasAnyAuthority("ADMIN")
+                        .requestMatchers(HttpMethod.GET, " /api/admin/get-reports").hasAnyAuthority("ADMIN")
                         .anyRequest().authenticated()
                 );
 

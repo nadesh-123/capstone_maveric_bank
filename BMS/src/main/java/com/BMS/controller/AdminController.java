@@ -1,5 +1,6 @@
 package com.BMS.controller;
 
+import com.BMS.DTO.AdminReports;
 import com.BMS.DTO.DtoEmployee;
 import com.BMS.DTO.EmployeeDto;
 import com.BMS.DTO.UserDto;
@@ -39,8 +40,14 @@ public class AdminController {
     public List<DtoEmployee> getAllEmployees(@RequestParam(defaultValue = "0",required = false) int page,@RequestParam(defaultValue = "0",required = false) int size) {
         return adminService.getAllEmployees(page,size);
     }
+
     @DeleteMapping("/api/admin/remove-emp/{empId}")
     public void removeEmp(@PathVariable int empId){
         adminService.removeEmp(empId);
     }
+    @GetMapping("/api/admin/get-reports")
+    public AdminReports getAdminReports(){
+        return adminService.getReports();
+    }
+
 }

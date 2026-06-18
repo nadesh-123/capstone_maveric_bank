@@ -1,12 +1,7 @@
-import React from 'react';
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import axios from "axios";
-import LoanCards from './LoanCards';
-const dummyLoans = [
-  { type: 'Home Loan', amount: 200000, dateIssued: '12/04/2024' },
-  { type: 'Car Loan', amount: 30000, dateIssued: '22/08/2025' }
-];
+import LoanCards from "./LoanCards";
 
 export default function Loans() {
   const [loans, setLoans] = useState([]);
@@ -15,15 +10,18 @@ export default function Loans() {
   useEffect(() => {
     const fetchLoans = async () => {
       try {
-        const response = await axios.get("http://localhost:8080/api/loan/getAll", {
-          headers: {
-            Authorization: `Bearer ${user.token}`,
-          },
-        });
-        console.log(response.data)
+        const response = await axios.get(
+          "http://localhost:8080/api/loan/getAll",
+          {
+            headers: {
+              Authorization: `Bearer ${user.token}`,
+            },
+          }
+        );
+
         setLoans(response.data);
       } catch (error) {
-        console.error("Error fetching loans:", error);
+        console.error(error);
       }
     };
 
@@ -31,32 +29,54 @@ export default function Loans() {
       fetchLoans();
     }
   }, [user]);
+
   return (
-    <div>
-      <h5 className="text-secondary mb-3 border-bottom pb-2">Loans</h5>
-      <div className="table-responsive">
-        {loans.length<=0?<LoanCards />:
-        <table className="table table-bordered align-middle text-center mb-0">
-          <thead className="table-light">
-            <tr>
-              <th>Loan Type</th>
-              <th>Amount</th>
-              <th>Date Issued</th>
-            </tr>
-          </thead>
-          <tbody>
-            {
-            
-            loans.map((loan, index) => (
-              <tr key={index}>
-                <td className="fw-semibold">{loan.type}</td>
-                <td className="text-danger fw-bold">₹{loan.emiAmount}</td>
-                <td>{loan.dateIssued}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>}
-      </div>
+   <>
+  <h4 className="loan-heading fs-1" style={{margin:"20px",text:"center",color: "#3C2CD9"}}>LOANS</h4>
+
+  {loans.length === 0 ? (
+    <LoanCards />
+  ) : (
+    <div className="loan-container" >
+      {loans.map((loan, index) => (
+        <div className="loan-card" style={{background:"#f4f3fc"}} key={index}>
+          <div className="loan-header">
+            <div>
+              <div className="loan-type">
+                {loan.loanType}
+              </div>
+
+              <div className="loan-tenure fs-4 ">
+                {loan.tenureYears} Years
+              </div>
+            </div>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <div className="loan-status">
+              Active
+            </div>
+          </div>
+
+          <div className="loan-body">
+            <div>
+              <div className="loan-label">Loan Amount</div>
+              <div className="loan-amount">
+                ₹{Number(loan.loanAmount).toLocaleString()}
+              </div>
+            </div>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <div className="text-end">
+              <div className="loan-label">EMI</div>
+              <div className="loan-emi">
+                ₹{Number(loan.emiAmount).toLocaleString()}
+              </div>
+            </div>
+          </div>
+        </div>
+      ))}
     </div>
+  )}
+</>
+
+
   );
 }

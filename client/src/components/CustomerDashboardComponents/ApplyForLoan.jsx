@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
+import Header from './Header';
 
 export default function ApplyForLoan() {
   const token = useSelector((state) => state.user.token);
@@ -208,9 +209,11 @@ export default function ApplyForLoan() {
   };
 
   return (
+    <div>
+        <Header />
     <div className="container my-5" style={{ maxWidth: '600px' }}>
       <div className="card shadow-sm border border-secondary-subtle">
-        <div className="card-header bg-dark text-white py-3">
+        <div className="card-header btn-navy-primary text-white py-3">
           <h4 className="card-title mb-0 text-center">
             Apply for a Loan
           </h4>
@@ -394,7 +397,7 @@ export default function ApplyForLoan() {
             <div className="d-grid">
               <button
                 type="submit"
-                className="btn btn-dark btn-lg"
+                className="btn btn-navy-primary btn-dark btn-lg"
               >
                 Apply Loan
               </button>
@@ -402,6 +405,7 @@ export default function ApplyForLoan() {
           </form>
         </div>
       </div>
+    </div>
     </div>
   );
 }

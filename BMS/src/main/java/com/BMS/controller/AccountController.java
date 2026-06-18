@@ -58,16 +58,15 @@ public void deactivateAccount(@PathVariable String accountNumber){
        return accountService.getAccountByType(accountType);
     }
 
-//    @DeleteMapping("/api/account/delete/{accno}")
-//    public void deleteAccount(@PathVariable int accno){
-//
-//        accountService.closeAccount(accno);
-//    }
+
     @GetMapping("/allowed/accounts")
 public AccountAllowedDto getAllowedAccount(Principal principal){
 
        return accountService.getAllowedAccount(principal.getName());
 }
-
+@GetMapping("/adminStat")
+    public AccountStatForAdminDto getStat(){
+        return accountService.getStat();
+}
 
 }

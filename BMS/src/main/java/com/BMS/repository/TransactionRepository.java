@@ -24,4 +24,9 @@ public interface TransactionRepository extends JpaRepository<Transaction,Integer
     ORDER BY t.createdAt DESC
 """)
 Page<Transaction> getAllTransactions(@Param("customerId") int customerId, Pageable pageable);
+@Query("""
+        select  count(t) from Transaction t
+        
+        """)
+    long getTotalCount();
 }
