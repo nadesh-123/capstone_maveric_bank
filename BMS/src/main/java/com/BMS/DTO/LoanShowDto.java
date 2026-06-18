@@ -8,6 +8,7 @@ public record LoanShowDto(
         LoanType loanType,
         int tenureYears,
         double emiAmount,
-        Instant loanEndDate
+        double loanAmount
+
 ) {
 }

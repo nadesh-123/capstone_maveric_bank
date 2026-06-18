@@ -27,6 +27,11 @@ export default function EmployeeProfile({ isOpen, onClose }) {
       label: 'Loan Requests',
       icon: <CreditCard size={20} />,
       path: '/emp/loan-requests'
+    },
+     {
+      label: 'Account Deactivation Requests',
+      icon: <CreditCard size={20} />,
+      path: '/emp/account-detactvaion-requests'
     }
     
   ];
@@ -184,7 +189,7 @@ export default function EmployeeProfile({ isOpen, onClose }) {
             className="logout-btn"
             onClick={() => {
                 dispatch(clearUser())
-              navigate('/');
+              navigate('/signin');
               onClose();
             }}
           >

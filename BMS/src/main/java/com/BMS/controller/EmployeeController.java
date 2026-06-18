@@ -21,9 +21,10 @@ public class EmployeeController {
     private final CustomerService customerService;
     private final LoanApplicationService loanApplicationService;
 @DeleteMapping("/api/emp/close-account/{accno}")
-    public void closeAccount(@PathVariable String accno){
+    public void closeAccount(@PathVariable String accno,Principal principal){
+    String username=principal.getName();
     Account account=accountService.getAccountByAccountNumber(accno);
-    employeeService.closeAccount(account);
+    employeeService.closeAccount(account,username);
 }
 
     @GetMapping("/api/emp/getCustomer/{customerId}")

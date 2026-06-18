@@ -20,6 +20,7 @@ export default function Loans() {
             Authorization: `Bearer ${user.token}`,
           },
         });
+        console.log(response.data)
         setLoans(response.data);
       } catch (error) {
         console.error("Error fetching loans:", error);
@@ -49,7 +50,7 @@ export default function Loans() {
             loans.map((loan, index) => (
               <tr key={index}>
                 <td className="fw-semibold">{loan.type}</td>
-                <td className="text-danger fw-bold">₹{loan.amount}</td>
+                <td className="text-danger fw-bold">₹{loan.emiAmount}</td>
                 <td>{loan.dateIssued}</td>
               </tr>
             ))}

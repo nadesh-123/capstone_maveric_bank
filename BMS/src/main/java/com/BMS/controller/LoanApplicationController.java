@@ -19,9 +19,9 @@ import java.util.List;
 public class LoanApplicationController {
     private final  LoanApplicationService loanApplicationService;
     @PostMapping("/api/loan-application/apply")
-    public void createLoanApplication(@RequestBody  LoanApplicationDto loanApplicationDto){
+    public LoanApplicationDto createLoanApplication(@RequestBody  LoanApplicationDto loanApplicationDto){
 
-        loanApplicationService.createLoanApplication(loanApplicationDto);
+      return  loanApplicationService.createLoanApplication(loanApplicationDto);
 
     }
     @PostMapping("/api/documents/upload/{appId}")

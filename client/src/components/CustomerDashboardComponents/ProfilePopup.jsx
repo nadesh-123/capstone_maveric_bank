@@ -19,6 +19,11 @@ export default function ProfilePopup({ isOpen, onClose }) {
   const dispatch = useDispatch();
   const menuItems = [
     {
+      label: 'Dashboard',
+      icon: <CreditCard size={20} />,
+      path: '/customer-dashboard'
+    },
+    {
       label: 'Create Account',
       icon: <CreditCard size={20} />,
       path: '/create-account'
@@ -227,7 +232,7 @@ export default function ProfilePopup({ isOpen, onClose }) {
             className="logout-btn"
             onClick={() => {
                 dispatch(clearUser())
-              navigate('/');
+              navigate('/signin');
               onClose();
             }}
           >

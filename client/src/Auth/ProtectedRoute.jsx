@@ -5,7 +5,7 @@ const ProtectedRoute = ({ allowedRoles }) => {
  const user = useSelector((state) => state.user);
 
  
-  if (user.id===null &&(allowedRoles==="CUSTOMER")) {
+  if (user.id===null &&(allowedRoles.includes("CUSTOMER"))) {
   
     return <Navigate to="/signin" replace />
   }

@@ -180,7 +180,7 @@ import {
             className="logout-btn"
             onClick={() => {
                 dispatch(clearUser())
-              navigate('/');
+              navigate('/signin');
               onClose();
             }}
           >

@@ -5,7 +5,6 @@ import com.BMS.enums.Status;
 import com.BMS.model.Account;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Slice;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -51,4 +50,12 @@ public interface AccountRepository extends JpaRepository<Account,Integer> {
         where a.status=?1 and a.employee is null
         """)
     Page<Account> findByStatusEmpNull(Status status, Pageable pageable);
+    @Query("""
+    select a.accounttype  
+    from Account a
+    where a.customer.user.username = :username
+      and (a.status = :status or a.employee is null)
+""")
+    List<AccountType> findAllowedAccounts(@Param("status") Status status,
+                                          @Param("username") String username);
 }

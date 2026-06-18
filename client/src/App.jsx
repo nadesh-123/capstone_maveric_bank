@@ -38,6 +38,8 @@ import TransactionHistoryFilter from './components/CustomerDashboardComponents/T
 import AccountApprovalDash from './components/Employee/AccountApprovalDash.jsx';
 import PendingLoans from './components/Employee/PendingLoans.jsx';
 import ManagerDashBoard from './pages/ManagerDashBoard.jsx';
+import AccountDeactivationRequests from './components/Employee/AccountDeactivationRequests.jsx';
+import ApplyForLoan from './components/CustomerDashboardComponents/ApplyForLoan.jsx';
 function App() {
  
 
@@ -70,9 +72,9 @@ function App() {
       
             <Route path="/add-beneficiary" element={<AddBeneficiary />} />
            
-             <Route path="/create-account" element={<AccountSelectionPage />} />
+             <Route path="/create-account" element={<AccountCreationPage />} />
           <Route path='/createAccount/:accountType' element={<AccountCreationPage />}/>
-          <Route path="/applyLoan" element={<LoanApplication />} />
+          <Route path="/applyLoan" element={<ApplyForLoan />} />
           <Route path="/transaction-latest" element={<TransactionHistory />} />
               <Route path="/transactions/all" element={<TransactionHistoryFilter />} />
             <Route path="/transactions" element={<TransactionsView />}>
@@ -84,6 +86,7 @@ function App() {
           <Route path="/manager-dashboard" element={<ManagerDashBoard />} />
            
            <Route path="/emp/loan-requests" element={<PendingLoans />} />
+            <Route path="/emp/account-detactvaion-requests" element={<AccountDeactivationRequests />} />
         </Route>
        
 

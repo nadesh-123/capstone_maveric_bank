@@ -51,7 +51,7 @@ const [isProfileOpen, setIsProfileOpen] = useState(false);
                       onClick={() => setIsProfileOpen(true)}
                     />
                   ) : (
-                    <Link className="d-flex align-items-center justify-content-center text-white shadow-sm text-capitalize"
+                    <Link  to="/signin" className="d-flex align-items-center justify-content-center text-white shadow-sm text-capitalize"
                      onClick={() => navigate("/signin")}>
                       sign in
                     </Link>

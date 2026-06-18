@@ -104,7 +104,7 @@ const PendingLoans = () => {
     const evaluateCriteria = (monthlyIncome, emi) => {
         console.log(emi)
         if (emi === undefined || emi === null) return "Loading...";
-        const halfSalary = monthlyIncome * 0.5;
+        const halfSalary = monthlyIncome * 0.55;
         return emi < halfSalary ? "PASSED" : "FAILED";
     };
 

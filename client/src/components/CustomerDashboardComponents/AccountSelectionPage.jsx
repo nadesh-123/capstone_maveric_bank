@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
   import currentAccountImg from '../../assets/CurrentAccount.png';
   import savingsAccount from "../../assets/SavingsAccount.png"
   import fixedDeposit from "../../assets/FixedDeposit.png"
+import Header from './Header';
 export default function AccountSelectionPage() {
   // Centralized data matrix for your banking accounts
 
@@ -28,6 +29,7 @@ export default function AccountSelectionPage() {
 
   return (
     <>
+    <Header />
       <style>{`
        
       `}</style>

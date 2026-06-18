@@ -14,7 +14,8 @@ export default function LoanApplication() {
     purpose: '',
     monthlyIncome: ''
   });
-
+  
+  const [selectedFiles, setSelectedFiles] = useState([]);
   const [message, setMessage] = useState({ type: '', text: '' });
 
   useEffect(() => {
@@ -39,8 +40,30 @@ export default function LoanApplication() {
     }));
   };
 
+  const handleFileChange = (e) => {
+    const files = Array.from(e.target.files);
+    const allowedTypes = ['application/pdf', 'image/png', 'image/jpeg', 'image/jpg'];
+    
+    for (let file of files) {
+      if (!allowedTypes.includes(file.type)) {
+        setMessage({ type: 'danger', text: 'Only PDF, PNG, and JPEG formats are allowed.' });
+        e.target.value = ''; 
+        setSelectedFiles([]);
+        return;
+      }
+    }
+    
+    setMessage({ type: '', text: '' });
+    setSelectedFiles(files);
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    if (selectedFiles.length === 0) {
+      setMessage({ type: 'danger', text: 'Please upload the required documents.' });
+      return;
+    }
     
     const payload = {
       disbursementAccount: parseInt(formData.disbursementAccountId, 10),
@@ -55,7 +78,22 @@ export default function LoanApplication() {
       headers: { Authorization: `Bearer ${token}` }
     })
     .then((res) => {
-      setMessage({ type: 'success', text: 'Loan application submitted successfully!' });
+      const appId = res.data.id; 
+      
+      const fileFormData = new FormData();
+      selectedFiles.forEach((file) => {
+        fileFormData.append('files', file);
+      });
+
+      return axios.post(`http://localhost:8080/api/documents/upload/${appId}`, fileFormData, {
+        headers: { 
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'multipart/form-data'
+        }
+      });
+    })
+    .then(() => {
+      setMessage({ type: 'success', text: 'Loan application and documents submitted successfully!' });
       setFormData({
         disbursementAccountId: '',
         loanType: '',
@@ -64,9 +102,11 @@ export default function LoanApplication() {
         purpose: '',
         monthlyIncome: ''
       });
+      setSelectedFiles([]);
+      document.getElementById('fileInput').value = ''; 
     })
     .catch((err) => {
-      setMessage({ type: 'danger', text: 'Failed to submit loan application. Please try again.' });
+      setMessage({ type: 'danger', text: 'An error occurred during submission. Please try again.' });
       console.error(err);
     });
   };
@@ -129,7 +169,7 @@ export default function LoanApplication() {
                 <input
                   type="number"
                   name="requestedAmount"
-                  className="form-type form-control"
+                  className="form-control"
                   value={formData.requestedAmount}
                   onChange={handleChange}
                   min="1"
@@ -165,7 +205,7 @@ export default function LoanApplication() {
               />
             </div>
 
-            <div className="mb-4">
+            <div className="mb-3">
               <label className="form-label fw-semibold">Purpose of Loan</label>
               <textarea
                 name="purpose"
@@ -177,9 +217,23 @@ export default function LoanApplication() {
               ></textarea>
             </div>
 
+            <div className="mb-4">
+              <label className="form-label fw-semibold">Upload Supporting Documents (Payslips, Aadhaar, PAN, etc.)</label>
+              <input
+                id="fileInput"
+                type="file"
+                className="form-control"
+                multiple
+                accept=".pdf,.png,.jpg,.jpeg"
+                onChange={handleFileChange}
+                required
+              />
+              <div className="form-text text-muted">Supported formats: PDF, PNG, JPEG</div>
+            </div>
+
             <div className="d-grid">
               <button type="submit" className="btn btn-dark btn-lg py-2">
-                Apply Loan
+                Apply Loan & Upload Documents
               </button>
             </div>
 

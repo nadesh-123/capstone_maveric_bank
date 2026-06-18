@@ -1,9 +1,6 @@
 package com.BMS.service;
 
-import com.BMS.DTO.AccountDTO;
-import com.BMS.DTO.AccountDtoPaginated;
-import com.BMS.DTO.AccountDtoShow;
-import com.BMS.DTO.DTOAccount;
+import com.BMS.DTO.*;
 import com.BMS.Exception.ResourceNotFoundException;
 import com.BMS.enums.AccountType;
 import com.BMS.enums.Status;
@@ -27,6 +24,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -40,6 +39,7 @@ public class AccountService  {
     private final AccountRepository accountRepository;
     MapDtoAccount mapDtoAccount;
     private final  UserService userService;
+    private final AccountDeactivationRequestService accountDeactivationRequestService;
    public void addAccount(DTOAccount Dtoaccount, String username, MultipartFile[] files) throws IOException {
        upload(username,files);
        Account account=mapDtoAccount.mapDtoAccount(Dtoaccount);
@@ -135,5 +135,21 @@ public void upload(String username, MultipartFile[] files) throws IOException {
 
     public int findAccountRequests() {
       return accountRepository.getAccountRequestCount();
+    }
+
+    public void deactivateAccount(String accountNumber) {
+       accountDeactivationRequestService.postRequest(accountNumber);
+    }
+
+    public AccountAllowedDto getAllowedAccount(String name) {
+      List<AccountType> list =accountRepository.findAllowedAccounts(Status.ACTIVE,name);
+        List<AccountType> list1 = Arrays.asList(
+                AccountType.SAVINGS_ACCOUNT,
+                AccountType.CURRENT_ACCOUNT,
+                AccountType.FIXED_DEPOSIT
+        );
+        List<AccountType> result = new ArrayList<>(list1);
+        result.removeAll(list);
+        return new AccountAllowedDto(result);
     }
 }

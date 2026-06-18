@@ -3,15 +3,11 @@ package com.BMS.service;
 import com.BMS.DTO.*;
 import com.BMS.Exception.ResourceNotFoundException;
 import com.BMS.enums.Status;
-import com.BMS.model.Account;
-import com.BMS.model.Branch;
-import com.BMS.model.Customer;
-import com.BMS.model.Employee;
+import com.BMS.model.*;
 import com.BMS.repository.AccountRepository;
 import com.BMS.repository.EmployeeRepository;
 import com.BMS.repository.LoanApplicationRepository;
 import lombok.AllArgsConstructor;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -24,10 +20,11 @@ public class EmployeeService {
     private final EmployeeRepository employeeRepository;
     private final AccountRepository accountRepository;
     private final AccountService accountService;
+    private final AccountDeactivationRequestService accountDeactivationRequestService;
     private final LoanApplicationRepository loanApplicationRepository;
     private final CustomerService customerService;
     private final BranchService branchService;
-    private final AccountDeactivationRequestService accountDeactivationRequestService;
+
     public Employee getEmployeeId(int empid) {
         return  employeeRepository.findById(empid).orElseThrow(()->new ResourceNotFoundException("Invalid employee id"));
     }
@@ -41,8 +38,11 @@ public class EmployeeService {
        return  employee;
     }
 
-    public void closeAccount(Account account)
+    public void closeAccount(Account account, String username)
     {
+       AccountDeactivationRequest accountDeactivationRequest= accountDeactivationRequestService.getByAccount(account);
+       accountDeactivationRequest.setEmployee(getEmpByUserName(username));
+       accountDeactivationRequestService.addEmpToRequest(accountDeactivationRequest);
         account.setStatus(Status.INACTIVE);
         accountRepository.save(account);
     }

@@ -61,10 +61,12 @@ export default function AddEmployee() {
   return (
     <>
       <style>{`
+
+
         .admin-card {
           border: none;
           border-radius: 16px;
-          box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+          box-shadow: 0 10px 30px rgba(0,0,0,0.3);
         }
         .form-control, .form-select {
           border-radius: 8px;
@@ -82,11 +84,11 @@ export default function AddEmployee() {
         }
       `}
       </style>
- <AdminHeader />
-      <div className="container py-5">
+ 
+      <div className="container w-100 pt-3">
         <div className="row justify-content-center">
-          <div className="col-12 col-md-8 col-lg-6">
-            <div className="card admin-card p-4 p-sm-5 bg-white">
+          <div className="col-12 ">
+            <div className="card admin-card p-4 p-sm-5 bg-white w-100">
               
               {/* Module Header */}
               <div className="text-center mb-4">
@@ -114,7 +116,7 @@ export default function AddEmployee() {
                     value={formData.name}
                     onChange={handleChange}
                     className="form-control"
-                    placeholder="John Doe"
+                    placeholder=""
                   />
                 </div>
 
@@ -128,7 +130,7 @@ export default function AddEmployee() {
                     value={formData.username}
                     onChange={handleChange}
                     className="form-control"
-                    placeholder="johndoe_emp"
+                    placeholder=""
                   />
                 </div>
 
@@ -142,7 +144,7 @@ export default function AddEmployee() {
                     value={formData.email}
                     onChange={handleChange}
                     className="form-control"
-                    placeholder="johndoe@company.com"
+                    placeholder=""
                   />
                 </div>
 

@@ -221,7 +221,7 @@ export default function SigninForm() {
                   Don't have an account?{' '}
                   <button 
                     onClick={() => navigate('/signup')} 
-                    className="btn text-white btn-link p-0 text-decoration-none small fw-semibold text-emerald-accent alignment-baseline"
+                    className="btn  btn-link p-0 text-decoration-none small fw-semibold text-emerald-accent alignment-baseline"
                   >
                     Sign Up
                   </button>

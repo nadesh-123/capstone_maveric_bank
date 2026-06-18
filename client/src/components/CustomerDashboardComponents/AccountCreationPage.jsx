@@ -1,26 +1,28 @@
-import React, { useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { useParams, useNavigate, data } from 'react-router-dom';
 import axios from 'axios';
 import { Upload, ArrowLeft, CheckCircle2, AlertCircle } from 'lucide-react';
 import { useSelector } from "react-redux";
+import Header from './Header';
 export default function AccountCreationPage() {
-  const { accountType } = useParams();
+ 
    const user = useSelector((state) => state.user);
   const navigate = useNavigate();
 
-  // Normalize parameter layout to match your backend Enum structure (e.g., "BUSINESS ACCOUNT" -> "BUSINESS_ACCOUNT")
-  const formattedAccountType = accountType ? accountType.replace(/%20/g, ' ').replace(/ /g, '_') : '';
+  
+  
 
   const [formData, setFormData] = useState({
     accountNumber: '', // Add additional DTOAccount field properties if required
-    initialBalance: '',
+   
+
   });
 
   const [files, setFiles] = useState({
     passportPhoto: null,
     identityCard: null
   });
-
+const [accountType,setAccountType]=useState("");
   const [status, setStatus] = useState({ type: '', text: '' });
   const [loading, setLoading] = useState(false);
 
@@ -34,7 +36,32 @@ export default function AccountCreationPage() {
       setFiles((prev) => ({ ...prev, [fileKey]: e.target.files[0] }));
     }
   };
+  const [accountLimitReached, setAccountLimitReached] = useState(false);
+const [accountTypeList, setAccountTypeList] = useState([]);
+useEffect(() => {
+  const getAllowedAccounts = async () => {
+    try {
+      const response = await axios.get(
+        "http://localhost:8080/api/account/allowed/accounts",
+        {
+          headers: {
+            Authorization: `Bearer ${user.token}`
+          }
+        }
+      );
+      let x=response.data.accountTypeList
+if(x.length===0){
+  setStatus({ type: 'danger', text: "Only 3 accounts are permitted" });
+  setAccountLimitReached(true)
+}
+      setAccountTypeList(response.data.accountTypeList);
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
+  getAllowedAccounts();
+}, []);
   const handleSubmit = async (e) => {
     e.preventDefault();
     
@@ -53,11 +80,11 @@ export default function AccountCreationPage() {
     dataPayload.append('files', files.identityCard);
 
    
-    dataPayload.append('accountType', formattedAccountType);
+    dataPayload.append('accountType', accountType);
    
 
     try {
-     
+     console.log(data.accountType)
       const response = await axios.post('http://localhost:8080/api/account/add/Account', dataPayload, {
         headers: {
           'Content-Type': 'multipart/form-data',
@@ -68,7 +95,7 @@ export default function AccountCreationPage() {
 
       setStatus({ type: 'success', text: 'Account application and documents submitted successfully!' });
       setTimeout(() => {
-        navigate('/accountList');
+        navigate('/customer-dashboard');
       }, 2500);
 
     } catch (error) {
@@ -82,7 +109,7 @@ export default function AccountCreationPage() {
 
   return (
     <>
-     
+     <Header />
 
       <div className="bg-bank-gradient">
         <div className="form-card">
@@ -92,7 +119,7 @@ export default function AccountCreationPage() {
           </button>
 
          
-          <h1 className="page-title text-navy">{formattedAccountType.replace(/_/g, ' ')}</h1>
+          <h1 className="page-title text-navy">Create Account</h1>
           <p className="sub-title">Upload Documents & Complete Account Setup</p>
 
           {status.text && (
@@ -106,16 +133,20 @@ export default function AccountCreationPage() {
             
             
             <div className="field-group">
-              <label>Initial Deposit Amount (INR)</label>
-              <input 
-                type="number" 
-                name="initialBalance" 
-                required 
-                min="0"
-                value={formData.initialBalance}
-                onChange={handleInputChange}
-                placeholder="e.g. 10000"
-              />
+               <label className="form-label ">
+    Select Account Type
+  </label>
+          <select required className='form-select shadow-sm' onChange={(e) =>
+
+             {console.log("Selected:", e.target.value);
+              setAccountType(e.target.value)}}>
+                 <option>select the account type</option>
+  {accountTypeList.map((type, index) => (
+    <option key={index} value={type}>
+      {type.replace("_"," ")}
+    </option>
+  ))}
+</select>
             </div>
 
            
@@ -151,7 +182,7 @@ export default function AccountCreationPage() {
 
             </div>
 
-            <button type="submit" disabled={loading} className="btn-submit">
+            <button type="submit" disabled={loading || accountLimitReached} className="btn-submit">
               {loading ? 'Submitting Application Documents...' : 'Complete Secure Verification'}
             </button>
 

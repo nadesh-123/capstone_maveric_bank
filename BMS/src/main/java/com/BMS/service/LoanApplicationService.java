@@ -33,21 +33,24 @@ import java.util.List;
 public class LoanApplicationService {
     private final AccountService accountService;
     private final LoanApplicationRepository loanApplicationRepository;
-    LoanApplicationToDto loanApplicationToDto;
+    private final LoanApplicationToDto loanApplicationToDto;
     private final EmployeeService employeeService;
     private final LoanRepository loanRepository;
+
   private final LoanService loanService;
-    private static final String UPLOAD_LOC = "D:/UploadFileApi";
+    private static final String UPLOAD_LOC = "D:/LoanApplicationFileUplaods";
     public  LoanApplication findApplicationById(int applicationId) {
        return loanApplicationRepository.findById(applicationId).orElseThrow(()->new ResourceNotFoundException("invalid application id"));
     }
 
 
-    public void createLoanApplication(LoanApplicationDto loanApplicationDto) {
+    public LoanApplicationDto  createLoanApplication(LoanApplicationDto loanApplicationDto) {
         Account account=accountService.getAccountByAccountNumber(loanApplicationDto.disbursementAccount());
         System.out.println(account);
         LoanApplication loanApplication=loanApplicationToDto.mapDtoToLoanApplication(loanApplicationDto,account);
-        loanApplicationRepository.save(loanApplication);
+       LoanApplication loanApplication1= loanApplicationRepository.save(loanApplication);
+      return loanApplicationToDto.mapLoanApplicationToDto(loanApplication1);
+
     }
 
     public void upload(String username, MultipartFile[] files, int appId) throws IOException {
@@ -90,6 +93,7 @@ public class LoanApplicationService {
               accountService.saveLoanAccount(account);
 
                 Loan loan=new Loan();
+                loan.setLoanAmount(loanApplication.getRequestedAmount());
                 loan.setEmiAmount(loanService.calculateMonthlyEmi(loanApplication.getId()).monthlyEmi().doubleValue());
                 loan.setLoanType(loanApplication.getLoneType());
                 loan.setAccount(loanApplication.getDisbursementAccount());

@@ -1,9 +1,6 @@
 package com.BMS.controller;
 
-import com.BMS.DTO.AccountDTO;
-import com.BMS.DTO.AccountDtoPaginated;
-import com.BMS.DTO.AccountDtoShow;
-import com.BMS.DTO.DTOAccount;
+import com.BMS.DTO.*;
 import com.BMS.enums.AccountType;
 import com.BMS.enums.Status;
 import com.BMS.model.Account;
@@ -27,10 +24,15 @@ public class AccountController {
         String username=principal.getName();
         accountService.addAccount(dtoAccount,username,files);
     }
-//    @GetMapping("/get/{id}")
-//    public Account getAccountById(@PathVariable int id){
-//        return  accountService.getAccountById(id);
-//    }
+@PostMapping("/deactivate/{accountNumber}")
+public void deactivateAccount(@PathVariable String accountNumber){
+    try{
+        System.out.println("deacivated");
+        accountService.deactivateAccount(accountNumber);}catch(Exception e){
+        System.out.println(e.getMessage());
+    }
+
+}
 
 
 //for Customer
@@ -61,6 +63,11 @@ public class AccountController {
 //
 //        accountService.closeAccount(accno);
 //    }
+    @GetMapping("/allowed/accounts")
+public AccountAllowedDto getAllowedAccount(Principal principal){
+
+       return accountService.getAllowedAccount(principal.getName());
+}
 
 
 }

@@ -43,6 +43,10 @@ JwtFilter jwtFilter;
                          //customer
                         .requestMatchers(HttpMethod.GET, "/api/user/loginv2").authenticated()
                         .requestMatchers(HttpMethod.POST, "/api/customer/addCustomer").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/api/loan/max-amount").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/account/allowed/accounts").hasAuthority("CUSTOMER")
+                        .requestMatchers(HttpMethod.POST, "/api/account/deactivate/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/account/deactivation-request").hasAnyAuthority("MANAGER","EMPLOYEE")
                         .requestMatchers(HttpMethod.POST, "/api/account/add/Account").authenticated()
                         .requestMatchers(HttpMethod.GET,"/api/account/getAccounts").authenticated()
                         ////LOAN APPLICATION
@@ -71,6 +75,7 @@ JwtFilter jwtFilter;
                         .requestMatchers(HttpMethod.POST, "/api/admin/add-admin").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/transaction/get-transactions").hasAuthority("CUSTOMER")
                         .requestMatchers(HttpMethod.GET, "/api/branch/getAll").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/branch/stat").hasAnyAuthority("ADMIN")
                         .anyRequest().authenticated()
                 );
 

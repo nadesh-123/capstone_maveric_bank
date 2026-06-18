@@ -19,6 +19,7 @@ public class Loan {
     @Enumerated(EnumType.STRING)
     private LoanType loanType;
     private double interestRate;
+    private double loanAmount;
     private int tenureYears;
     private double emiAmount;
     @CreationTimestamp

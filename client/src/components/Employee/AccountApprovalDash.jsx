@@ -88,7 +88,7 @@ const AccountApprovalDash = () => {
                             <tr>
                                 <th>Account No</th>
                                 <th>Account Type</th>
-                                <th>Customer ID</th>
+                              
                                 <th>Balance</th>
                                 <th>Status</th>
                                 <th className="text-center">Actions</th>
@@ -104,7 +104,7 @@ const AccountApprovalDash = () => {
                                     <tr key={account.accno}>
                                         <td>{account.accno}</td>
                                         <td>{account.accountType}</td>
-                                        <td>{account.cusId}</td>
+                                       
                                         <td>${account.balance.toFixed(2)}</td>
                                         <td>
                                             <span className={`badge ${activatedAccounts[account.accno] ? 'bg-success' : 'bg-warning text-dark'}`}>
@@ -184,10 +184,7 @@ const AccountApprovalDash = () => {
                             
                             {!modalLoading && selectedCustomer && (
                                 <div className="container-fluid">
-                                    <div className="row mb-2">
-                                        <div className="col-5 fw-bold">User ID:</div>
-                                        <div className="col-7">{selectedCustomer.userid}</div>
-                                    </div>
+                                    
                                     <div className="row mb-2">
                                         <div className="col-5 fw-bold">Full Name:</div>
                                         <div className="col-7">{selectedCustomer.fullname}</div>
