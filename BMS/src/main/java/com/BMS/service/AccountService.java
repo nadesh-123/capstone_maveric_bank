@@ -8,6 +8,7 @@ import com.BMS.mapper.MapAccountDto;
 import com.BMS.mapper.MapDtoAccount;
 import com.BMS.model.*;
 import com.BMS.repository.AccountRepository;
+import com.BMS.repository.UserRepository;
 import com.BMS.utility.AccountNumberGenerator;
 import com.BMS.utility.FileUtility;
 import lombok.AllArgsConstructor;
@@ -35,6 +36,7 @@ public class AccountService  {
     MapAccountDto mapAccountDto;
     AccountNumberGenerator accountNumberGenerator;
     private final CustomerService customerService;
+    private final UserRepository userRepository;
  private final BranchService branchService;
     private final AccountRepository accountRepository;
     MapDtoAccount mapDtoAccount;
@@ -74,14 +76,14 @@ public class AccountService  {
      User user=  userService.findByUsername(username).orElseThrow(()->new ResourceNotFoundException("invalid user name"));
        List<Account> list=accountRepository.findByCustomerUserId(user.getId());
 
-          return list.stream().map(mapAccountDto::mapAccountToDto).toList();
+          return list.stream().map((k)-> MapAccountDto.mapAccountToDto(k)).toList();
 
     }
     public List<AccountDtoShow> getAllActiveAccountsByUsername(String username) {
-        User user=  userService.findByUsername(username).orElseThrow(()->new ResourceNotFoundException("invalid user name"));
+        User user=  userRepository.findByUsername(username).orElseThrow(()->new ResourceNotFoundException("invalid user name"));
         List<Account> list=accountRepository.findByCustomerUserId(user.getId());
 
-        return list.stream().map(mapAccountDto::mapAccountToDto).filter(mapAccountDto->mapAccountDto.status().equals(Status.ACTIVE)).toList();
+        return list.stream().map((k)-> MapAccountDto.mapAccountToDto(k)).filter(mapAccountDto->mapAccountDto.status().equals(Status.ACTIVE)).toList();
 
     }
 
@@ -90,7 +92,7 @@ public class AccountService  {
 
     public List<AccountDtoShow> getAccountByType(AccountType accountType) {
       List<Account> list= accountRepository.findByAccounttype(accountType);
-        return list.stream().map(mapAccountDto::mapAccountToDto).toList();
+        return list.stream().map((k)-> MapAccountDto.mapAccountToDto(k)).toList();
     }
 
     public void saveLoanAccount(Account account) {

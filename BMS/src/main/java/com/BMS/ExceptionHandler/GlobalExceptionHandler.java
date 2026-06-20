@@ -1,6 +1,7 @@
 package com.BMS.ExceptionHandler;
 
 import com.BMS.Exception.InsufficiantBalanceException;
+import com.BMS.Exception.UserInActiveException;
 import com.BMS.message.Message;
 import com.BMS.Exception.ResourceNotFoundException;
 import com.BMS.message.Message;
@@ -37,5 +38,10 @@ public class GlobalExceptionHandler {
     public ResponseEntity<Object> handleInsufficientBalance(InsufficiantBalanceException e){
         messageObject.setMessage(e.getMessage());
 return ResponseEntity.badRequest().body(messageObject);
+    }
+    @ExceptionHandler(UserInActiveException.class)
+    public ResponseEntity<Object> handleInactiveUsers(UserInActiveException e){
+        messageObject.setMessage(e.getMessage());
+        return ResponseEntity.badRequest().body(messageObject);
     }
 }

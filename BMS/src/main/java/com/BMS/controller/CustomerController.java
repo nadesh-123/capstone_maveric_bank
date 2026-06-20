@@ -13,11 +13,14 @@ import org.springframework.web.bind.annotation.*;
 public class CustomerController {
     private final CustomerService customerService;
     @PostMapping("/api/customer/addCustomer")
-    public void createCustomer(@Valid  @RequestBody UserCutomerDto userCutomerDto){
+    public CustomerDto createCustomer(@Valid  @RequestBody UserCutomerDto userCutomerDto){
 
-        customerService.createCustomer(userCutomerDto);
+        return customerService.createCustomer(userCutomerDto);
     }
-
+     @GetMapping("/api/customer/getAllActiveCustomer")
+    public PaginatedCustomers getAllActiveCustomer(@RequestParam(required = false,defaultValue = "0") int page,@RequestParam(required = false,defaultValue = "5") int size){
+        return customerService.getAllCustomers(page,size);
+     }
 
 //    @DeleteMapping("/api/customer/deleteBeneficiary")
 //    public void deleteBeneficiary(@PathVariable int benId){

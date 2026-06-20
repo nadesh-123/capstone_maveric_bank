@@ -28,6 +28,6 @@ public class EmployeeMapper {
         return user;
     }
     public DtoEmployee mapToDto(Employee employee){
-        return  new DtoEmployee(employee.getId(),employee.getName(),employee.getEmail());
+        return  new DtoEmployee(employee.getUser().getId(), employee.getName(),employee.getEmail(),employee.getUser().getUsername(),employee.getUser().getStatus());
     }
 }

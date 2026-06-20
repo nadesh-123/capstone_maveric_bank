@@ -2,6 +2,8 @@ package com.BMS.controller;
 
 import com.BMS.DTO.*;
 import com.BMS.Exception.ResourceNotFoundException;
+import com.BMS.Exception.UserInActiveException;
+import com.BMS.enums.Status;
 import com.BMS.mapper.UserMapper;
 import com.BMS.model.Customer;
 import com.BMS.model.User;
@@ -26,6 +28,9 @@ public class UserController {
      public CustUserDto login(Principal principal){
         String username=principal.getName();
         User user=  userService.findByUsername(username).orElseThrow(()->new ResourceNotFoundException("Invalid user name"));
+        if(user.getStatus().equals(Status.INACTIVE)){
+            throw new UserInActiveException("User is inactive");
+        }
         String token = jwtUtility.generateToken(username);
 
 
@@ -35,6 +40,9 @@ public class UserController {
     public UserEmployeeDto Employeelogin(Principal principal){
         String username=principal.getName();
         User user=  userService.findByUsername(username).orElseThrow(()->new ResourceNotFoundException("Invalid user name"));
+        if(user.getStatus().equals(Status.INACTIVE)){
+            throw new UserInActiveException("User is inactive");
+        }
         String token = jwtUtility.generateToken(username);
         return userMapper.mapToUserEmployeeDto(user,token);
     }

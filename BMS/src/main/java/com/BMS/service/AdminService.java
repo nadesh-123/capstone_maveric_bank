@@ -1,14 +1,12 @@
 package com.BMS.service;
 
-import com.BMS.DTO.AdminReports;
-import com.BMS.DTO.DtoEmployee;
-import com.BMS.DTO.EmployeeDto;
-import com.BMS.DTO.UserDto;
+import com.BMS.DTO.*;
 import com.BMS.mapper.EmployeeMapper;
 import com.BMS.model.Customer;
 import com.BMS.model.Employee;
 import com.BMS.model.User;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -48,9 +46,10 @@ EmployeeMapper employeeMapper;
 
     }
 
-    public List<DtoEmployee> getAllEmployees(int page,int size) {
-     List<Employee> list=   employeeService.getAllEmployees(page,size);
-     return list.stream().map(employeeMapper::mapToDto).toList();
+    public PaginatedActiveEmployees getAllEmployees(int page, int size) {
+     Page<Employee> pages=   employeeService.getAllEmployees(page,size);
+     List<DtoEmployee> list= pages.getContent().stream().map(employeeMapper::mapToDto).toList();
+     return  new PaginatedActiveEmployees(pages.getTotalElements(),pages.getTotalPages(),list);
     }
 
     public void removeEmp(int empId) {

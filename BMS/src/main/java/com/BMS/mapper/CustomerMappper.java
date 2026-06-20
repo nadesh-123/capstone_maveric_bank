@@ -1,6 +1,7 @@
 package com.BMS.mapper;
 
 import com.BMS.DTO.CustomerDto;
+import com.BMS.DTO.CustomerForAdminDto;
 import com.BMS.DTO.UserCutomerDto;
 import com.BMS.DTO.loanDto;
 import com.BMS.enums.Gender;
@@ -15,8 +16,8 @@ import org.springframework.stereotype.Component;
 @Component
 @AllArgsConstructor
 public class CustomerMappper {
-    PasswordEncoder passwordEncoder;
-    public Customer mapCustomer(UserCutomerDto userCutomerDto){
+   PasswordEncoder passwordEncoder;
+    public static Customer mapCustomer(UserCutomerDto userCutomerDto){
         Customer customer=new Customer();
         customer.setAadharno(userCutomerDto.aadharno());
         customer.setLocation(userCutomerDto.location());
@@ -44,6 +45,9 @@ public class CustomerMappper {
         LoanApplication loanApplication=new LoanApplication();
         loanApplication.setLoneType(loanDto.loanType());
         return loanApplication;
+    }
+    public static CustomerForAdminDto mapToDto(Customer customer){
+        return new CustomerForAdminDto(customer.getUser().getId(),customer.getName(),customer.getUser().getUsername(),customer.getEmail(),customer.getUser().getStatus());
     }
     }
 

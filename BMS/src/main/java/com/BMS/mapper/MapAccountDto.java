@@ -18,7 +18,7 @@ public class MapAccountDto {
                 account.getBranch().getId(),account.getBalance(),
                 account.getUpdatedAt(),account.getStatus());
     }
-    public AccountDtoShow mapAccountToDto(Account account){
+    public static AccountDtoShow mapAccountToDto(Account account){
         return  new AccountDtoShow(account.getCustomer().getId(),account.getAccountNumber(),account.getAccounttype(),account.getBranch().getBranchName(),account.getBalance(),account.getStatus())
 ;    }
 }

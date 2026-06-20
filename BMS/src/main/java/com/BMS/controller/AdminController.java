@@ -1,9 +1,6 @@
 package com.BMS.controller;
 
-import com.BMS.DTO.AdminReports;
-import com.BMS.DTO.DtoEmployee;
-import com.BMS.DTO.EmployeeDto;
-import com.BMS.DTO.UserDto;
+import com.BMS.DTO.*;
 import com.BMS.service.AdminService;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -37,7 +34,7 @@ public class AdminController {
     }
 
     @GetMapping("/api/admin/get-alL-emp")
-    public List<DtoEmployee> getAllEmployees(@RequestParam(defaultValue = "0",required = false) int page,@RequestParam(defaultValue = "0",required = false) int size) {
+    public PaginatedActiveEmployees getAllEmployees(@RequestParam(defaultValue = "0",required = false) int page, @RequestParam(defaultValue = "5",required = false) int size) {
         return adminService.getAllEmployees(page,size);
     }
 

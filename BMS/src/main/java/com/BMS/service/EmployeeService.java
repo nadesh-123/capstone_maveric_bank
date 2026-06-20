@@ -8,6 +8,7 @@ import com.BMS.repository.AccountRepository;
 import com.BMS.repository.EmployeeRepository;
 import com.BMS.repository.LoanApplicationRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -47,9 +48,10 @@ public class EmployeeService {
         accountRepository.save(account);
     }
 
-    public List<Employee> getAllEmployees(int page,int size) {
+    public Page<Employee> getAllEmployees(int page,int size) {
         Pageable pageable= PageRequest.of(page,size);
-        return employeeRepository.findAll(pageable).getContent();
+        Page<Employee> pages= employeeRepository.findByUserStatus(Status.ACTIVE,pageable);
+        return pages;
     }
 
     public void removeEmp(int empId) {

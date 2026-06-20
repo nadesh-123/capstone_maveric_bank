@@ -69,9 +69,25 @@ export default function EmployeeSignin() {
         navigate("/manager-dashboard")
       }
     } catch (error) {
-      console.log("Network or client error:", error);
-      setError('A network error occurred. Please try again.');
+  console.log("Network or client error:", error);
+
+  if (error.response) {
+    const status = error.response.status;
+
+    if (status === 401) {
+      setError('Invalid credentials');
+    } else if (status === 400) {
+      setError('Inactive User');
+    } else {
+      // fallback for other server errors
+      setError(error.response.data?.message || 'An unexpected error occurred.');
     }
+  } else {
+    // network or client-side error (no response from server)
+    setError('A network error occurred. Please try again.');
+  }
+}
+
   };
 
   return (
