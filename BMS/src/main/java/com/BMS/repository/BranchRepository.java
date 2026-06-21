@@ -13,7 +13,7 @@ import java.util.Optional;
 public interface BranchRepository extends JpaRepository<Branch,Integer> {
 
 
-    Branch findByLocation(Location location);
+    Branch findByLocation(String location);
     @Query("""
     select new com.BMS.DTO.BranchStatDto(
         a.branch.branchName,

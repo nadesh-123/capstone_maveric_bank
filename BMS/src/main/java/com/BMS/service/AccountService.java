@@ -48,6 +48,7 @@ public class AccountService  {
        User user=userService.findByUsername(username).orElseThrow(()->new ResourceNotFoundException("invalid user name"));
       Customer customer= customerService.getCustomerIdByUserId(user.getId());
        System.out.println(customer.getLocation());
+
       Branch branch=branchService.getBranchByLocation(customer.getLocation());
        System.out.println(branch);
        account.setCustomer(customerService.getCustomerByIdCustomer(customer.getId()));

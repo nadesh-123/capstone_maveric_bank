@@ -21,7 +21,7 @@ import java.security.Principal;
 public class UserController {
     private final  JwtUtility jwtUtility;
     private final UserService userService;
-    private final CustomerService customerService;
+
     private final UserMapper userMapper;
 
     @GetMapping("/api/user/loginv2")

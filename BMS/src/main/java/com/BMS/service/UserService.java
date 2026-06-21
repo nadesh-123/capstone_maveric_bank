@@ -22,7 +22,7 @@ public class UserService  {
     public void addUser(User user) {
 
 
-       user= userRepository.save(user);
+        userRepository.save(user);
 
     }
 public UserDtoNoPassword userByName(String username){

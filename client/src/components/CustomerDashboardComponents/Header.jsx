@@ -36,20 +36,24 @@ const [isProfileOpen, setIsProfileOpen] = useState(false);
                 </Link>
               </li>
               <li className="nav-item d-none d-sm-inline">
-                <Link to="/about" className="nav-link nav-link-custom p-0 text-white text-decoration-none">
-                  About
-                </Link>
+               
               </li>
               <li className="nav-item">
                 <div  className="text-decoration-none d-flex align-items-center">
                   {currentUser.id != null ? (
-                    <img
-                      className="rounded-circle object-fit-cover border border-2 border-white shadow-sm"
-                      src={currentUser.avatar}
-                      alt="profile"
-                      style={{ width: '36px', height: '36px' }}
-                      onClick={() => setIsProfileOpen(true)}
-                    />
+                    <div className="avatar-placeholder rounded-circle d-flex align-items-center justify-content-center mb-1" onClick={() => setIsProfileOpen(true)}
+                    style={{
+      width: "42px",
+      height: "42px",
+      cursor: "pointer",
+      backgroundColor: "#0d6efd",
+      color: "#fff",
+      fontSize: "18px",
+      fontWeight: "600",
+      overflow: "hidden"
+    }}>
+                                  {currentUser?.username ? currentUser.username.charAt(0).toUpperCase() : <User size={36} />}
+                                </div>
                   ) : (
                     <Link  to="/signin" className="d-flex align-items-center justify-content-center text-white shadow-sm text-capitalize"
                      onClick={() => navigate("/signin")}>

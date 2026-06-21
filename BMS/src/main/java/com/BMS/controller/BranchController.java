@@ -1,14 +1,12 @@
 package com.BMS.controller;
 
 import com.BMS.DTO.BranchDto;
+import com.BMS.DTO.BranchPostDto;
 import com.BMS.DTO.BranchStatForAdminDto;
 import com.BMS.model.Branch;
 import com.BMS.service.BranchService;
 import lombok.AllArgsConstructor;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -16,6 +14,10 @@ import java.util.List;
 @AllArgsConstructor
 public class BranchController {
     private final  BranchService branchService;
+    @PostMapping("/api/branch/create-branch")
+    public BranchDto createBranch(@RequestBody BranchPostDto branchPostDto){
+      return   branchService.createBranch(branchPostDto);
+    }
     @GetMapping("/api/branch/getById/{branchId}")
     public BranchDto addBranchById(@PathVariable int branchId){
         return branchService.getBranchById(branchId);

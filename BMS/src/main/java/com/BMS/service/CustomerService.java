@@ -24,13 +24,14 @@ public class CustomerService {
     private final UserService userService;
     private final UserRepository userRepository;
     public CustomerDto getCustomerById(int customerId) {
-       Customer customer= customerRepository.findById(customerId).orElseThrow(()->new RuntimeException("invalid customer id"));
+       Customer customer= customerRepository.findById(customerId).orElseThrow(()->new ResourceNotFoundException("invalid customer id"));
       return customerMappper.mapCustomerDto(customer);
     }
 
     public CustomerDto createCustomer(UserCutomerDto userCutomerDto) {
         Customer customer=CustomerMappper.mapCustomer(userCutomerDto);
        User user= customerMappper.mapToUser(userCutomerDto);
+       user.setStatus(Status.ACTIVE);
        userRepository.save(user);
         customer.setUser(user);
         customer.setStatus(Status.ACTIVE);
@@ -66,4 +67,9 @@ public class CustomerService {
     }
 
 
+    public void removeCustomer(int userId) {
+     User user=   userRepository.findById(userId).orElseThrow(()->new ResourceNotFoundException("invalid user id"));
+     user.setStatus(Status.INACTIVE);
+     userRepository.save(user);
+    }
 }

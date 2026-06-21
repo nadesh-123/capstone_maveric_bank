@@ -18,6 +18,7 @@ export default function AccountStat() {
                         "Authorization": "Bearer " + user.token
                     }
                 });
+                console.log(response)
                 setLabels(response.data?.labels || []);
                 setData(response.data?.accountCount || []);
             } catch (error) {

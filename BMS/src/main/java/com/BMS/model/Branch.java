@@ -16,8 +16,8 @@ public class Branch {
     private int id;
     @Column(nullable = false)
     private String branchName;
-    @Enumerated(EnumType.STRING)
-   private Location location;
+
+   private String location;
     @Column(nullable = false)
     private String ifscCode;
 

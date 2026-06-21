@@ -6,7 +6,7 @@ import AdminHeader from '../Admin/AdminHeader';
 const PendingLoans = () => {
     const user = useSelector((state) => state.user);
     const token = user?.token;
-
+ const [arry, setArry] = useState([]);
     const [loans, setLoans] = useState([]);
     const [loading, setLoading] = useState(false);
     const [emiData, setEmiData] = useState({});
@@ -37,7 +37,7 @@ const PendingLoans = () => {
             const loanList = response.data.data || [];
             setLoans(loanList);
             setTotalPages(response.data.totalPages || 1);
-
+setArry(Array.from({ length:response.data.totalPages}))
             // Fetch EMI details for each loan application
             loanList.forEach(loan => {
                 fetchEmiDetails(loan.id);
@@ -110,7 +110,7 @@ const PendingLoans = () => {
 
     return (
         <div>
-            <AdminHeader />
+       
         <div className="container mt-4">
             <h2 className="mb-4">Pending Loan Applications</h2>
 
@@ -211,7 +211,7 @@ const PendingLoans = () => {
                                 Previous
                             </button>
                         </li>
-                        {[...Array(totalPages).keys()].map((page) => (
+                        {arry.map((_, page) => (
                             <li key={page} className={`page-item ${currentPage === page ? 'active' : ''}`}>
                                 <button className="page-link" onClick={() => setCurrentPage(page)}>
                                     {page + 1}

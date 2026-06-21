@@ -113,7 +113,7 @@ export default function AdminDashboard(){
         <div className="col-lg-8">
           <div className="chart-card">
             <div className="chart-header">
-              <h5>Monthly Statistics</h5>
+              <h5>Branch Statistics</h5>
             </div >
  <BranchStat/>
            
@@ -133,42 +133,6 @@ export default function AdminDashboard(){
       </div>
 
 
-      {/* Recent Activities */}
-      <div className="row mt-4">
-        <div className="col-12">
-          <div className="recent-card">
-            <h5 className="mb-3">Recent Activities</h5>
-
-            <table className="table table-hover">
-              <thead>
-                <tr>
-                  <th>ID</th>
-                  <th>Customer</th>
-                  <th>Action</th>
-                  <th>Date</th>
-                </tr>
-              </thead>
-
-              <tbody>
-                <tr>
-                  <td>1001</td>
-                  <td>John</td>
-                  <td>Created Account</td>
-                  <td>10-06-2026</td>
-                </tr>
-
-                <tr>
-                  <td>1002</td>
-                  <td>David</td>
-                  <td>Deposited ₹5000</td>
-                  <td>10-06-2026</td>
-                </tr>
-              </tbody>
-
-            </table>
-          </div>
-        </div>
-      </div>
 
     </div>
     </div>

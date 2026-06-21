@@ -34,6 +34,7 @@ public class CustomerMappper {
         User user=new User();
         user.setUsername(userCutomerDto.username());
         user.setRole(Role.CUSTOMER);
+        System.out.println(userCutomerDto.password());
         user.setPassword(passwordEncoder.encode(userCutomerDto.password()));
         return user;
     }

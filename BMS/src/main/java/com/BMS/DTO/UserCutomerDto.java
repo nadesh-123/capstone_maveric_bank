@@ -39,5 +39,5 @@ public record UserCutomerDto(
          String panno,
         @NotNull
 
-         Location location) {
+         String  location) {
 }

@@ -10,7 +10,7 @@ import lombok.Setter;
 public class Beneficiary {
     @Id@GeneratedValue(strategy = GenerationType.IDENTITY)
    private int id;
-    @OneToOne
+    @ManyToOne
     private Account account;
 
     private String ifsccode;

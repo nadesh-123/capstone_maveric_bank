@@ -1,105 +1,94 @@
-.dashboard-card {
-  background: #fff;
-  border-radius: 16px;
-  padding: 20px;
-  box-shadow: 0 3px 15px rgba(0, 0, 0, 0.09);
-  border: none;
+.dashboard-wrapper {
+    background: #f5f7fb;
+    min-height: 100vh;
+    padding: 30px;
 }
+
+
+/* ===== Statistics Cards ===== */
 
 .stat-card {
-  display: flex;
-  align-items: center;
-  gap: 15px;
-  min-height: 140px;
+    background: white;
+    border-radius: 20px;
+    padding: 25px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+
+    box-shadow:
+        0 5px 15px rgba(0,0,0,.08);
+
+    transition: .3s;
 }
 
-.loan-card {
-  min-height: 220px;
-  display: flex;
-  align-items: center;
+.stat-card:hover {
+    transform: translateY(-5px);
 }
 
-.hexaware{
-  color: #3C2CD9;
+.icon {
+    width: 70px;
+    height: 70px;
+    border-radius: 18px;
+
+    color: white;
+    font-size: 28px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
+
+.stat-card h6 {
+    color: gray;
+    margin-bottom: 8px;
+}
+
+.stat-card h2 {
+    font-weight: 700;
+}
+
+
+
+/* ===== Charts ===== */
 
 .chart-card {
-  min-height: 400px;
+    background: white;
+    border-radius: 20px;
+    padding: 25px;
+    box-shadow:
+        0 5px 15px rgba(0,0,0,.08);
+
+    height: 450px;
 }
 
-.card-icon {
-  width: 60px;
-  height: 60px;
-  border-radius: 14px;
-  color: white;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 24px;
+.chart-header {
+    border-bottom: 1px solid #ececec;
+    padding-bottom: 15px;
+    margin-bottom: 20px;
 }
 
-.chart-placeholder {
-  height: 250px;
-  
+.chart-body {
+    height: 340px;
 
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  font-size: 18px;
-  color: #666;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-h2 {
-  margin: 0;
-  font-weight: 700;
+
+
+/* ===== Table ===== */
+
+.table-card {
+    background: white;
+    border-radius: 20px;
+    padding: 25px;
+    box-shadow:
+        0 5px 15px rgba(0,0,0,.08);
 }
 
-h6 {
-  color: #666;
-  margin-bottom: 5px;
-}
-
-.dashboard-card {
-  background: #fff;
-  border-radius: 16px;
-  padding: 20px;
-  
-  box-shadow: 0 3px 15px rgba(0, 0, 0,  0.4);
-}
-
-/* Makes all cards square */
-.square-card {
-  width: 320px;
-  height: 320px;
-
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-
-  gap: 15px;
-}
-
-.card-icon {
-  width: 60px;
-  height: 60px;
-  border-radius: 12px;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  color: white;
-  font-size: 24px;
-}
-
-.square-card h6 {
-  margin-bottom: 8px;
-  color: #6c757d;
-}
-
-.square-card h2 {
-  margin: 0;
-  font-weight: 700;
+.table-header {
+    border-bottom: 1px solid #ececec;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
 }

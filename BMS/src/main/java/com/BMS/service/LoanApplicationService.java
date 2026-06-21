@@ -132,7 +132,7 @@ public class LoanApplicationService {
 
     public EmployeeActionStat applicationActionStat(String username) {
      Employee em=   employeeService.getEmpByUserName(username);
-     int approvedCount=loanApplicationRepository.approvedCount(LoanStatus.ONGOING,em.getId());
+     int approvedCount=loanApplicationRepository.approvedCount(LoanStatus.ONGOING,LoanStatus.APPROVED,em.getId());
      int rejectedCount =loanApplicationRepository.rejectedCount(LoanStatus.REJECTED,em.getId());
      return new EmployeeActionStat(List.of("Loan Processed","Loan Rejected"),List.of(approvedCount,rejectedCount));
     }

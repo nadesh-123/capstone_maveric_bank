@@ -9,7 +9,7 @@ const AccountApprovalDash = () => {
     // Pagination State
     const [currentPage, setCurrentPage] = useState(0);
     const [totalPages, setTotalPages] = useState(1);
-    const pageSize = 5; 
+    const pageSize = 2; 
 
     // Modal State
     const [selectedCustomer, setSelectedCustomer] = useState(null);
@@ -17,7 +17,7 @@ const AccountApprovalDash = () => {
 
     // Track activated button states locally per account number
     const [activatedAccounts, setActivatedAccounts] = useState({});
-
+  const [arry, setArry] = useState([]);
     useEffect(() => {
         fetchUnapprovedAccounts(currentPage);
     }, [currentPage]);
@@ -33,6 +33,7 @@ const AccountApprovalDash = () => {
                 });
             setAccounts(response.data.accounts || []);
             setTotalPages(response.data.totalPages || 1);
+           setArry(Array.from({ length:response.data.totalPages}))
         } catch (error) {
             console.error("Error fetching unapproved accounts:", error);
         } finally {
@@ -147,11 +148,11 @@ const AccountApprovalDash = () => {
                 <nav className="d-flex justify-content-center mt-3">
                     <ul className="pagination">
                         <li className={`page-item ${currentPage === 0 ? 'disabled' : ''}`}>
-                            <button className="page-item page-link" onClick={() => setCurrentPage(prev => Math.max(prev - 1, 0))}>
+                            <button className="page-item page-link" onClick={() => setCurrentPage(currentPage-1)}>
                                 Previous
                             </button>
                         </li>
-                        {[...Array(totalPages).keys()].map((page) => (
+                        {arry.map((_, page) =>  (
                             <li key={page} className={`page-item ${currentPage === page ? 'active' : ''}`}>
                                 <button className="page-link" onClick={() => setCurrentPage(page)}>
                                     {page + 1}
@@ -159,7 +160,7 @@ const AccountApprovalDash = () => {
                             </li>
                         ))}
                         <li className={`page-item ${currentPage === totalPages - 1 ? 'disabled' : ''}`}>
-                            <button className="page-link" onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages - 1))}>
+                            <button className="page-link" onClick={() => setCurrentPage(currentPage+1)}>
                                 Next
                             </button>
                         </li>

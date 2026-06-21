@@ -13,7 +13,7 @@ public record CustomerDto(int userid,
                           String phonenumber,
                           String aadharno,
                           String panno,
-                          Location location) {
+                          String location) {
 }
 /*
 * private User user;

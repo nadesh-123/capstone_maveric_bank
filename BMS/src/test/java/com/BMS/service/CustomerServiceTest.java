@@ -3,11 +3,13 @@ package com.BMS.service;
 import com.BMS.DTO.CustomerDto;
 import com.BMS.DTO.PaginatedCustomers;
 import com.BMS.DTO.UserCutomerDto;
+import com.BMS.Exception.ResourceNotFoundException;
 import com.BMS.enums.Gender;
 import com.BMS.enums.Location;
 import com.BMS.enums.Status;
 import com.BMS.mapper.CustomerMappper;
 import com.BMS.model.Account;
+import com.BMS.model.Branch;
 import com.BMS.model.Customer;
 import com.BMS.model.User;
 import com.BMS.repository.CustomerRepository;
@@ -26,6 +28,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.List;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.Mockito.*;
@@ -101,7 +104,29 @@ List<Customer> customers=List.of(customer1);
         UserCutomerDto userCutomerDto=new UserCutomerDto("joe","pass","joe john","joe@gmal.com", Gender.FEMALE,null,"8978999","7987999","sjfkjsf", Location.CHENNAI) ;
               CustomerDto customerDto= customerService.createCustomer(userCutomerDto);
               assertThat(customerDto.fullname()).isEqualToIgnoringCase("joe john");
+        verify(customerRepository, times(1)).save(any(Customer.class));
     }
+@Test
+    public void TestGetById_success(){
+        when(customerRepository.findById(1)).thenReturn(Optional.of(customer1));
+        CustomerDto customerDto=customerService.getCustomerById(1);
+        assertThat(customerDto.fullname()).isEqualToIgnoringCase("james");
 
+}
+    @Test
+    void getById_categoryDoesNotExist(){
+        when(customerRepository.findById(100)).thenReturn(Optional.empty());
+
+        assertThatThrownBy(()-> customerService.getCustomerById(100))
+                .isInstanceOf(ResourceNotFoundException.class)
+                .hasMessage("invalid customer id");
+    }
+    @Test
+    void testCustomerDelete(){
+        when(userRepository.findById(1)).thenReturn(Optional.of(user1));
+        when(userRepository.save(any(User.class))).thenReturn(user1);
+        customerService.removeCustomer(1);
+
+    }
 
 }

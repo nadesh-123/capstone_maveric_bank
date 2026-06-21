@@ -40,6 +40,9 @@ import PendingLoans from './components/Employee/PendingLoans.jsx';
 import ManagerDashBoard from './pages/ManagerDashBoard.jsx';
 import AccountDeactivationRequests from './components/Employee/AccountDeactivationRequests.jsx';
 import ApplyForLoan from './components/CustomerDashboardComponents/ApplyForLoan.jsx';
+import EmployeeList from './components/Admin/EmployeeList.jsx';
+import CustomerList from './components/Admin/CustomerList.jsx';
+import LoanPendingPage from './pages/LoanPendingPage.jsx';
 function App() {
  
 
@@ -84,8 +87,8 @@ function App() {
         </Route>
 <Route element={<ProtectedRoute allowedRoles={['MANAGER','EMPLOYEE']} />}>
           <Route path="/manager-dashboard" element={<ManagerDashBoard />} />
-           
-           <Route path="/emp/loan-requests" element={<PendingLoans />} />
+            <Route path="/emp/account-requests" element={<AccountApprovalDash />} />
+           <Route path="/emp/loan-requests" element={<LoanPendingPage />} />
             <Route path="/emp/account-detactvaion-requests" element={<AccountDeactivationRequests />} />
         </Route>
        
@@ -94,14 +97,15 @@ function App() {
         <Route element={<ProtectedRoute allowedRoles={["EMPLOYEE"]} />}>
           <Route path="/employee-dashboard" element={<EmployeeDashboard />} />
           <Route path="/emp/account-requests" element={<AccountApprovalDash />} />
-                <Route path="/emp/loan-requests" element={<PendingLoans />} />
+                <Route path="/emp/loan-requests" element={<LoanPendingPage />} />
         </Route>
 
    
         <Route element={<ProtectedRoute allowedRoles={['ADMIN']} />}>
           <Route path="/admin-dashboard" element={<AdminDashboard />} />
             <Route path="/admin-dashboard/add-emp" element={<AddEmployee />} />
-          
+            <Route path="/admin-dashboard/employee-list" element={<EmployeeList />} />
+            <Route path="/admin-dashboard/customer-list" element={<CustomerList />} />
         </Route>
 
          

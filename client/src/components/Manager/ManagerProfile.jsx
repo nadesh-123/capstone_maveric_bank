@@ -23,8 +23,18 @@ import {
       label: 'Loan Requests',
       icon: <CreditCard size={20} />,
       path: '/emp/loan-requests'
-    }
-    
+    },
+     {
+          label: 'Accounts Requests',
+          icon: <CreditCard size={20} />,
+          path: '/emp/account-requests'
+        }
+    ,
+         {
+          label: 'Account Deactivation Requests',
+          icon: <CreditCard size={20} />,
+          path: '/emp/account-detactvaion-requests'
+        }
   ];
 
   return (

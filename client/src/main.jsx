@@ -9,7 +9,7 @@ import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import 'primereact/resources/themes/saga-blue/theme.css';   // Theme (choose one)
 import 'primereact/resources/primereact.min.css';           // Core styles
 import 'primeicons/primeicons.css';                         // Icons
-import './styles/empdashboard.css'
+
  import { store, persistor } from "./redux/store";
 import "./styles/style.css"
 import { PersistGate } from "redux-persist/integration/react";

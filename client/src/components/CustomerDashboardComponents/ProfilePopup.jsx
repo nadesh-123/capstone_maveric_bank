@@ -205,14 +205,7 @@ export default function ProfilePopup({ isOpen, onClose }) {
   </button>
 
   <ul className="dropdown-menu " >
-    <li>
-      <button
-        className="dropdown-item profile-sidebar-btn"
-        onClick={() => navigate("/transactions/latest")}
-      >
-        Latest Transactions
-      </button>
-    </li>
+    
 
     <li>
       <button

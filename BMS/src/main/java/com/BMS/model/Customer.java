@@ -34,8 +34,8 @@ public class Customer {
     private String phonenumber;
     private String aadharno;
     private String panno;
-    @Enumerated(EnumType.STRING)
-    private Location location;
+
+    private String location;
     @CreationTimestamp
     private Instant createdDate;
     @UpdateTimestamp

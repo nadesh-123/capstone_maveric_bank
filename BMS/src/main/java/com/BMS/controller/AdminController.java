@@ -38,9 +38,13 @@ public class AdminController {
         return adminService.getAllEmployees(page,size);
     }
 
-    @DeleteMapping("/api/admin/remove-emp/{empId}")
-    public void removeEmp(@PathVariable int empId){
-        adminService.removeEmp(empId);
+    @DeleteMapping("/api/admin/remove-emp/{userId}")
+    public void removeEmp(@PathVariable int userId){
+        adminService.removeEmp(userId);
+    }
+    @DeleteMapping("/api/admin/remove-customer/{userId}")
+    public void removeCustomer(@PathVariable int userId){
+        adminService.removeCustomer(userId);
     }
     @GetMapping("/api/admin/get-reports")
     public AdminReports getAdminReports(){

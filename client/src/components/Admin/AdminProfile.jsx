@@ -23,6 +23,17 @@ export default function AdminProfile({ isOpen, onClose }) {
       icon: <CreditCard size={20} />,
       path: '/admin-dashboard/add-emp'
     },
+      {
+      label: 'Employee Management',
+      icon: <CreditCard size={20} />,
+      path: '/admin-dashboard/employee-list'
+    },
+       {
+      label: 'Customer Management',
+      icon: <CreditCard size={20} />,
+      path: '/admin-dashboard/customer-list'
+    },
+
  
   ];
 

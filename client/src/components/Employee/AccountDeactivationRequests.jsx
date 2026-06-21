@@ -74,13 +74,13 @@ const AccountDeactivationRequests = () => {
               requests.map((req) => (
                 <tr key={req.id}>
                   <td>{req.id}</td>
-                  <td>{req.accNo || req.accountNumber}</td>
+                  <td>{req.accountNumber}</td>
                   <td>{req.username}</td>
                   <td>{new Date(req.createdAt).toLocaleString()}</td>
                   <td className="text-center">
                     <button
                       className="btn btn-danger btn-sm"
-                      onClick={() => handleDeactivate(req.accNo || req.accountNumber)}
+                      onClick={() => handleDeactivate( req.accountNumber)}
                     >
                       Deactivate
                     </button>
@@ -103,7 +103,7 @@ const AccountDeactivationRequests = () => {
         <button
           className="btn btn-secondary btn-sm"
           disabled={page === 0}
-          onClick={() => setPage((prev) => Math.max(prev - 1, 0))}
+          onClick={() => setPage(page-1)}
         >
           Previous
         </button>

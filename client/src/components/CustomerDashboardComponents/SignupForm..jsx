@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 import { User, Lock, FileText, MapPin, Phone, Mail, Calendar } from 'lucide-react';
 import axios from 'axios';
 import Header from './Header';
+
 export default function SignupForm() {
   const navigate = useNavigate();
   const { token } = useSelector((state) => state.user);
@@ -32,45 +33,82 @@ export default function SignupForm() {
     }));
   };
 
+  // Validation function logic
+  const validateForm = () => {
+    // 1. Username validation (at least 4 characters)
+    if (formData.username.trim().length < 4) {
+      setStatusMessage({
+        type: 'danger',
+        text: 'User Name must be at least 4 characters long.'
+      });
+      return false;
+    }
+
+    // 2. Full Name validation (at least 4 characters)
+    if (formData.fullname.trim().length < 4) {
+      setStatusMessage({
+        type: 'danger',
+        text: 'Full Name must be at least 4 characters long.'
+      });
+      return false;
+    }
+
+    // 3. Phone Number validation (must be exactly 10 digits)
+    const phoneRegex = /^[0-9]{10}$/;
+    if (!phoneRegex.test(formData.phonenumber)) {
+      setStatusMessage({
+        type: 'danger',
+        text: 'Phone Number must be exactly 10 digits and contain only numbers.'
+      });
+      return false;
+    }
+
+    return true;
+  };
+
   const handleSubmit = async (e) => {
-  e.preventDefault();
+    e.preventDefault();
+    setStatusMessage({ type: "", text: "" });
 
-  setLoading(true);
-  setStatusMessage({ type: "", text: "" });
+    // Run the validations
+    if (!validateForm()) {
+      return; // Stop the execution if validation fails
+    }
 
-  try {
-    const response = await axios.post(
-      "http://localhost:8080/api/customer/addCustomer",
-      formData,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
-        },
-      }
-    );
+    setLoading(true);
 
-    setStatusMessage({
-      type: "success",
-      text: "Customer account successfully registered!",
-    });
+    try {
+      const response = await axios.post(
+        "http://localhost:8080/api/customer/addCustomer",
+        formData,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      setStatusMessage({
+        type: "success",
+        text: "Customer account successfully registered!",
+      });
 
       navigate("/signin");
-  
 
-  } catch (error) {
-    console.error(error);
+    } catch (error) {
+      console.error(error);
 
-    setStatusMessage({
-      type: "danger",
-      text:
-        error.response?.data?.message ||
-        "Registration failed. Please check parameters.",
-    });
-  } finally {
-    setLoading(false);
-  }
-};
+      setStatusMessage({
+        type: "danger",
+        text:
+          error.response?.data?.message ||
+          "Registration failed. Please check parameters.",
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <>

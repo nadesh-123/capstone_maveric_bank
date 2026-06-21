@@ -1,6 +1,7 @@
 package com.BMS.service;
 
 import com.BMS.DTO.*;
+import com.BMS.enums.Status;
 import com.BMS.mapper.EmployeeMapper;
 import com.BMS.model.Customer;
 import com.BMS.model.Employee;
@@ -23,6 +24,7 @@ EmployeeMapper employeeMapper;
     public void addEmployee(EmployeeDto employeeDto) {
       Employee employee= employeeMapper.employeeMap(employeeDto);
         User user=employeeMapper.employeeUserMap(employeeDto);
+        user.setStatus(Status.ACTIVE);
        User user1= userService.addEmployeeUser(user);
        employee.setUser(user1);
        employeeService.addEmployee(employee);
@@ -62,5 +64,9 @@ EmployeeMapper employeeMapper;
         long activeAccounts=accountService.getTotalActiveCount();
         long totalTransactions=transactionService.getTotalTransactions();
         return  new AdminReports(activeCustomers,activeEmployees,activeAccounts,totalTransactions);
+    }
+
+    public void removeCustomer(int userId) {
+        customerService.removeCustomer(userId);
     }
 }

@@ -15,9 +15,9 @@ public interface LoanApplicationRepository  extends JpaRepository<LoanApplicatio
     Page<LoanApplication> findByStatus(LoanStatus status1, LoanStatus status2, Pageable pageable);
 @Query("""
         select count(la) from LoanApplication la
-        where la.loanStatus=?1 and la.employee.id=?2
+        where (la.loanStatus=?1 or la.loanStatus=?2) and la.employee.id=?3
         """)
-    int approvedCount(LoanStatus status, int id);
+    int approvedCount(LoanStatus status,LoanStatus status2, int id);
     @Query("""
         select count(la) from LoanApplication la
         where la.loanStatus=?1 and la.employee.id=?2

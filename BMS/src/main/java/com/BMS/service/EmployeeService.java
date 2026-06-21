@@ -7,6 +7,7 @@ import com.BMS.model.*;
 import com.BMS.repository.AccountRepository;
 import com.BMS.repository.EmployeeRepository;
 import com.BMS.repository.LoanApplicationRepository;
+import com.BMS.repository.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -25,7 +26,7 @@ public class EmployeeService {
     private final LoanApplicationRepository loanApplicationRepository;
     private final CustomerService customerService;
     private final BranchService branchService;
-
+private final UserRepository userRepository;
     public Employee getEmployeeId(int empid) {
         return  employeeRepository.findById(empid).orElseThrow(()->new ResourceNotFoundException("Invalid employee id"));
     }
@@ -41,6 +42,7 @@ public class EmployeeService {
 
     public void closeAccount(Account account, String username)
     {
+        account.setEmployee(getEmpByUserName(username));
        AccountDeactivationRequest accountDeactivationRequest= accountDeactivationRequestService.getByAccount(account);
        accountDeactivationRequest.setEmployee(getEmpByUserName(username));
        accountDeactivationRequestService.addEmpToRequest(accountDeactivationRequest);
@@ -55,8 +57,10 @@ public class EmployeeService {
     }
 
     public void removeEmp(int empId) {
-        Employee employee=getEmployeeId(empId);
-            employeeRepository.delete(employee);
+        User user=userRepository.findById(empId).orElseThrow(()->new ResourceNotFoundException("invalid user id"));
+                user.setStatus(Status.INACTIVE);
+                userRepository.save(user);
+
 
     }
 
@@ -101,5 +105,6 @@ public class EmployeeService {
 
     public long getAllActive() {
         return employeeRepository.getAllActive(Status.ACTIVE);
+
     }
 }

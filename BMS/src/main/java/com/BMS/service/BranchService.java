@@ -1,6 +1,7 @@
 package com.BMS.service;
 
 import com.BMS.DTO.BranchDto;
+import com.BMS.DTO.BranchPostDto;
 import com.BMS.DTO.BranchStatDto;
 import com.BMS.DTO.BranchStatForAdminDto;
 import com.BMS.Exception.ResourceNotFoundException;
@@ -30,7 +31,7 @@ BranchMapper branchMapper;
         branchRepository.delete(branchRepository.findById(branchId).orElseThrow(()->new ResourceNotFoundException("invalid branch id")));
     }
 
-    public Branch getBranchByLocation(Location location) {
+    public Branch getBranchByLocation(String location) {
      Branch branch=   branchRepository.findByLocation(location);
         return branch;
     }
@@ -49,5 +50,12 @@ BranchMapper branchMapper;
             count.add(k.count());
         });
         return new BranchStatForAdminDto(branchNames,count);
+    }
+
+    public BranchDto createBranch(BranchPostDto branchPostDto) {
+       Branch branch=branchMapper.dtoToBranch(branchPostDto);
+       branchRepository.save(branch);
+
+       return branchMapper.branchToDto(branch);
     }
 }
